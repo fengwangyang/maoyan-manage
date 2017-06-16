@@ -40,7 +40,13 @@
   </el-table>
   </div>
 </template>
-<script></script>
+<script>
+    import {ajax} from "@/" 
+</script>
 <style scoped>
-    .cinemas_h3
+    .cinemas_h3{
+        width:200px;
+        color:red;
+        margin:auto;
+    }
 </style>
