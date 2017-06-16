@@ -1,0 +1,76 @@
+
+<template>
+<div class="student">
+	<el-row type="flex" justify="space-between" class="row">
+  			<el-col>
+  				<h2 style="margin-top:6px">欢迎来到猫眼管理系统</h2>
+  			</el-col>
+  			<el-col :span="8">
+	  				<el-menu theme="dark" class="el-menu-demo" mode="horizontal" :router=true >
+				  	<el-menu-item index="/">登录</el-menu-item>
+				  	<el-menu-item index="/">注销</el-menu-item>
+				  	</el-menu>
+  			</el-col>
+        </el-row>
+<el-row class="tac">
+  <el-col :span="4"  class="left">
+       <el-menu  :router=true>
+       <el-menu-item index="users"><i class="el-icon-setting"></i>用户管理</el-menu-item>
+        <el-menu-item index="onHot"><i class="el-icon-setting"></i>热映管理</el-menu-item>
+      <el-menu-item index="onShow"><i class="el-icon-setting"></i>热播管理</el-menu-item>
+      <el-menu-item index="news"><i class="el-icon-setting"></i>资讯管理</el-menu-item>
+      <el-menu-item index="moviesAll"><i class="el-icon-setting"></i>电影管理</el-menu-item>
+      <el-menu-item index="moviesRel"><i class="el-icon-setting"></i>电影院线匹配管理</el-menu-item> 
+      <el-menu-item index="cinemas"><i class="el-icon-setting"></i>电影院线管理</el-menu-item>
+      <el-menu-item index="preShow"><i class="el-icon-setting"></i>即将上映</el-menu-item>
+    </el-menu>
+  </el-col>
+  
+  <el-col :span="20" class="right">
+  
+  <router-view></router-view>
+	</el-col>
+	
+</el-row>
+ <el-row  :span="24" class="footer">@版权所有</el-row>
+</div>
+  
+
+
+
+</template>
+<script></script>
+<style scoped>
+
+	.row{
+		background-color:#324057
+	}
+	h2{
+		color:white;
+		padding:10px;
+	}
+    .left{
+		background-color:#EFF2F7;
+		height:520px;
+	}
+	.right{
+		height:400px;
+	}
+	.pagechange{
+		margin-left:30px;
+		margin-top:20px;
+	}
+
+	.student{
+		width:100%;
+		height:520px;
+		
+	}
+	.footer{
+		height:50px;
+		background-color:#324057;
+		text-align:center;
+		line-height:50px;
+		color:white;
+	}
+</style>
