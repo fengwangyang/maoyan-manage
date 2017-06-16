@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 <div>
 <h3 class="cinemas_h3">院线管理</h3>
   <el-table
@@ -49,4 +50,26 @@
         color:red;
         margin:auto;
     }
+=======
+   <div>
+       <h2>电影管理</h2>
+       
+       
+       
+       
+   </div>
+    
+    
+
+
+
+
+</template>
+<script>
+
+    
+</script>
+<style scoped>
+
+>>>>>>> origin/moviesAll
 </style>
