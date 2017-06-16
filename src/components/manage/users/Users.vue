@@ -53,8 +53,31 @@
   </div>
 </template>
 <script>
+    import {ajax} from "@/components/common/ajax"
     export default {
-    
-  }
+        data(){
+            return{
+                name:"",
+                phNum:"",
+                email:"",
+                _id:""
+            }
+        },
+        created(){
+            this.show()
+        },
+        methods:{
+            show(){
+                ajax({
+                    type:"get",
+                    url:"/users/find",
+                    data:{},
+                    success:(data)=>{
+//                        console.log(data);
+                    }
+                });
+            }
+        }
+    }
 </script>
 <style></style>
