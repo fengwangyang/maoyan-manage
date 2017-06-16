@@ -10,8 +10,7 @@ const studentStore={
                 console.log(data);
             	state.totaldata=data;
             },
-              
-
+            
        }
 }
  export {studentStore as  default};
