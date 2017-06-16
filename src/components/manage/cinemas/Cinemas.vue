@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
 <div>
 <h3 class="cinemas_h3">院线管理</h3>
   <el-table
@@ -42,7 +41,6 @@
   </div>
 </template>
 <script>
-    import {ajax} from "@/" 
 </script>
 <style scoped>
     .cinemas_h3{
@@ -50,26 +48,4 @@
         color:red;
         margin:auto;
     }
-=======
-   <div>
-       <h2>电影管理</h2>
-       
-       
-       
-       
-   </div>
-    
-    
-
-
-
-
-</template>
-<script>
-
-    
-</script>
-<style scoped>
-
->>>>>>> origin/moviesAll
 </style>
