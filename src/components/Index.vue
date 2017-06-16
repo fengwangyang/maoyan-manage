@@ -5,7 +5,11 @@
     </router-view>
       </div>
 </template>
-<script></script>
+<script>
+    export default{
+//        data:
+    }
+</script>
 <style>
 	*{
 	padding:0;
