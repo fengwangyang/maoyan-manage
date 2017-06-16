@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '@/components/login/login'
-import manage from '@/components/manage/manage'
-import indexManage from '@/components/manage/indexManage/indexManage'
-import cinemas from '@/components/manage/cinemas/cinemas'
-import moviesAll from '@/components/manage/moviesAll/moviesAll'
-import moviesRel from '@/components/manage/moviesRel/moviesRel'
-import news from '@/components/manage/news/news'
-import onHot from '@/components/manage/onHot/onHot'
-import onShow from '@/components/manage/onShow/onShow'
-import preShow from '@/components/manage/preShow/preShow'
-import users from '@/components/manage/users/users'
+import Login from '@/components/login/Login'
+import Manage from '@/components/manage/Manage'
+import IndexManage from '@/components/manage/indexManage/IndexManage'
+import Cinemas from '@/components/manage/cinemas/Cinemas'
+import MoviesAll from '@/components/manage/moviesAll/MoviesAll'
+import MoviesRel from '@/components/manage/moviesRel/MoviesRel'
+import News from '@/components/manage/news/News'
+import OnHot from '@/components/manage/onHot/OnHot'
+import OnShow from '@/components/manage/onShow/OnShow'
+import PreShow from '@/components/manage/preShow/PreShow'
+import Users from '@/components/manage/users/Users'
 
 
 Vue.use(Router)
@@ -21,46 +21,46 @@ export default new Router({
     {
       path: '/',
       name: 'login',
-      component: login
+      component: Login
     }, {
       path: '/manage',
-      component: manage,
+      component: Manage,
         children:[
             {
             path:'/',
-            component:indexManage,
+            component:IndexManage,
             },
             {
-            path:'/moviesAll',
-            component:moviesAll,
+            path:'/movies_all',
+            component:MoviesAll,
             },
             {
             path:'/cinemas',
-            component:cinemas,
+            component:Cinemas,
             },
             {
-            path:'/moviesRel',
-            component:moviesRel,
+            path:'/movies_rel',
+            component:MoviesRel,
             },
             {
             path:'/news',
-            component:news,
+            component:News,
             },
             {
-            path:'/onHot',
-            component:onHot,
+            path:'/on_hot',
+            component:OnHot,
             },
               {
-            path:'/onShow',
-            component:onShow,
+            path:'/on_show',
+            component:OnShow,
             },
             {
-            path:'/preShow',
-            component:preShow,
+            path:'/pre_show',
+            component:PreShow,
             },
             {
             path:'/users',
-            component:users,
+            component:Users,
             }
                  ]
     },

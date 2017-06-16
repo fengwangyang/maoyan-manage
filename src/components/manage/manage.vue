@@ -16,13 +16,13 @@
   <el-col :span="4"  class="left">
        <el-menu  :router=true>
        <el-menu-item index="users"><i class="el-icon-setting"></i>用户管理</el-menu-item>
-        <el-menu-item index="onHot"><i class="el-icon-setting"></i>热映管理</el-menu-item>
-      <el-menu-item index="onShow"><i class="el-icon-setting"></i>热播管理</el-menu-item>
+        <el-menu-item index="on_hot"><i class="el-icon-setting"></i>热映管理</el-menu-item>
+      <el-menu-item index="on_show"><i class="el-icon-setting"></i>热播管理</el-menu-item>
       <el-menu-item index="news"><i class="el-icon-setting"></i>资讯管理</el-menu-item>
-      <el-menu-item index="moviesAll"><i class="el-icon-setting"></i>电影管理</el-menu-item>
-      <el-menu-item index="moviesRel"><i class="el-icon-setting"></i>电影院线匹配管理</el-menu-item> 
+      <el-menu-item index="movies_all"><i class="el-icon-setting"></i>电影管理</el-menu-item>
+      <el-menu-item index="movies_rel"><i class="el-icon-setting"></i>电影院线匹配管理</el-menu-item> 
       <el-menu-item index="cinemas"><i class="el-icon-setting"></i>电影院线管理</el-menu-item>
-      <el-menu-item index="preShow"><i class="el-icon-setting"></i>即将上映</el-menu-item>
+      <el-menu-item index="pre_show"><i class="el-icon-setting"></i>即将上映</el-menu-item>
     </el-menu>
   </el-col>
   
