@@ -59,25 +59,25 @@
             return{
                 name:"",
                 phNum:"",
-                email:"",
-                _id:""
-            }
+                email:""
+            }                
         },
         created(){
-            this.show()
+            this.show();
         },
         methods:{
             show(){
                 ajax({
                     type:"get",
-                    url:"/users/find",
+                    url:"/message/find",
                     data:{},
                     success:(data)=>{
-//                        console.log(data);
+                        this.tableData=data;
                     }
                 });
             }
         }
-    }
+  }
 </script>
 <style></style>
+
