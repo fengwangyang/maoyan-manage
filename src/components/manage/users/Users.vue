@@ -78,6 +78,6 @@
                 });
             }
         }
-  }
+    }
 </script>
 <style></style>
