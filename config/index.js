@@ -24,7 +24,7 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     port: 8080,
-    autoOpenBrowser: true,
+    autoOpenBrowser: false,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
@@ -32,7 +32,7 @@ module.exports = {
                 target: 'http://127.0.0.1:3000',
                 changeOrigin: true,
                 filter: function (pathname, req) {
-                    return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)');
+                    return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)|(/managers)|(/getSession)');
                 }
         }
     },
