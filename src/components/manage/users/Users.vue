@@ -1,24 +1,6 @@
 <template>
-  <div>
-      <el-row>
-          <el-col :span="12"><div class="grid-content bg-purple">
-              <div>
-      <el-input placeholder="请输入内容" v-model="input5">
-        <el-select v-model="select" slot="prepend" placeholder="请选择">
-          <el-option label="姓名" value="name"></el-option>
-          <el-option label="电话" value="phNum"></el-option>
-          <el-option label="邮箱" value="email"></el-option>
-        </el-select>
-        <el-button slot="append" icon="search"></el-button>
-      </el-input>
-    </div>
-          </div></el-col>
-          <el-col :span="8"><div class="grid-content bg-purple-light">
-              <el-button type="warning">查询</el-button>
-              <el-button type="success">增加</el-button>
-          </div></el-col>
-    </el-row>
-   
+
+<!--      <UsersManage></UsersManage>-->
     <el-table
         :data="tableData"
         border
@@ -36,30 +18,21 @@
         <el-table-column
           prop="email"
           label="邮箱"
-          :formatter="formatter">
+          width="180">
         </el-table-column>
-        <el-table-column label="操作">
-          <template scope="scope">
-            <el-button
-              size="small" style="background:#20A0FF"
-              @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-            <el-button
-              size="small"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-          </template>
-    </el-table-column>
   </el-table>
-  </div>
+ 
 </template>
 <script>
     import {ajax} from "@/components/common/ajax"
+//    import UsersManage from "./UsersManage"
     export default {
         data(){
-            return{
+            return {
                 name:"",
                 phNum:"",
-                email:""
+                email:"",
+                tabelData:[]
             }                
         },
         created(){
@@ -69,13 +42,21 @@
             show(){
                 ajax({
                     type:"get",
-                    url:"/message/find",
-                    data:{},
+                    url:"/users/find",
+                    data:{
+                        rows:5,
+                        page:1
+                    },
                     success:(data)=>{
-                        this.tableData=data;
+//                        console.log(data);
+                        this.tableData=data.rows;
+                        console.log(this.tableData);
                     }
-                });
+                })
             }
+        },
+        components:{
+//            UsersManage
         }
   }
 </script>
