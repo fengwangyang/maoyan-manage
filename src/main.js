@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import Index from '@/components/Index'
 import router from './router'
-import store from './store/store'
+import store from '@/store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css' 
 Vue.use(ElementUI)
