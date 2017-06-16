@@ -1,7 +1,7 @@
 <template>
     
-    <div>
-        <el-button :plain="true" type="success">添加</el-button>
+    <div style="float:left">
+        <el-button type="success" icon='plus'>添加</el-button>
         
     </div>
     

@@ -1,12 +1,13 @@
 <template>
-<div>
-    <h2>电影管理</h2>
+<div style='text-align:center'>
+    <h2 class='h2tyle'>电影管理</h2>
     <AddElement>
         
         
     </AddElement>
+    <SearchElement :show='show'></SearchElement>
     <MoviesTable :show='show'></MoviesTable>
-    
+    <PageNation class='pagestyle' :show='show'></PageNation>
 </div>
 
 
@@ -21,7 +22,9 @@
 
 import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
+import SearchElement from "./SearchElement";
 import MoviesTable from "./MoviesTable";
+import PageNation from "./PageNation";
 import store from "@/store";
 export default {
     created:function(){
@@ -46,7 +49,7 @@ export default {
         }
     },
     components:{
-        AddElement,MoviesTable
+        AddElement,MoviesTable,PageNation,SearchElement
     }
    
         
@@ -54,7 +57,18 @@ export default {
 
 
 </script>
-<style></style>
+<style>
+    .pagestyle{
+        margin-top:20px;
+        float:right;
+    }
+    .h2tyle{
+        margin:10px auto;
+        color:cornflowerblue;
+    }
+
+
+</style>
 <!--
 <DeleteElement :show='show'></DeleteElement>
        <SearchElement :show='show'></SearchElement>
