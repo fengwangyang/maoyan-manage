@@ -17,11 +17,14 @@
         props:['show'],
         methods:{
             handleCurpage:function(val){
-                 this.show(val);
+               let type=this.searchData.searchValue;
+               let typevalue = this.searchData.value; 
+                 this.show(val,type,typevalue);
             }
         },
         computed:{
-            ...mapState({    moviesData:state=>state.moviesAll.moviesData
+            ...mapState({    moviesData:state=>state.moviesAll.moviesData,
+            searchData:state=>state.moviesAll.searchData
                
         })
         }

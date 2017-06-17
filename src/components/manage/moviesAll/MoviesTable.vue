@@ -3,7 +3,7 @@
         <el-table
     :data="moviesData"
     border
-    style="width: 100%">
+    style="width: 100%" @selection-change="handleSelectionChange">
     <el-table-column
       type="selection"
       width="55">
@@ -25,6 +25,11 @@
     <el-table-column
       prop="staffs"
       label="演职人员" width="120" :show-overflow-tooltip=true>
+      <template scope='scope'>
+         <span v-for='actor in scope.row.staffs'>{{actor.staffName+","}}</span>
+       </template>
+      
+      
     </el-table-column>
     <el-table-column
       prop="score"
@@ -64,7 +69,7 @@
     
     <el-table-column label="操作">
       <template scope="scope" :show-overflow-tooltip=true>
-        <el-button type='info' icon='edit' @click="deleteData(scope.row)">修改</el-button>
+        <el-button type='info' icon='edit' @click="updateData(scope.row)">修改</el-button>
         
       </template>
     </el-table-column> 
@@ -90,7 +95,8 @@ export default {
         }
     },
     methods:{
-        deleteData:function(rows){
+        updateData:function(rows){
+            console.log(rows);
             console.log(this.moviesData[0].staffs);
             ajax({
                 url:'/movies/find',
@@ -101,9 +107,17 @@ export default {
                     store.commit("MOVIESALL_UPDATEDIV",true);
                 }
             })      
-            
-            
-        }
+        },
+        //选择要删除的数据保存在store中
+         handleSelectionChange(val) {
+             console.log(val);
+             let newarry = [];
+             for(let i =0;i<val.length;i++){
+                 newarry.push(val[i]._id);
+             }
+             let data = newarry;
+             store.commit("MOVIESALL_DELETEDATA",data)
+      }
     },
     computed:{
         ...mapState({

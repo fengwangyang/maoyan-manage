@@ -1,6 +1,6 @@
 <template>
     
-    <div style="float:right;width:800px">
+    <div class='deletestyle'>
   <el-input placeholder="请输入内容" v-model="value">
     <el-select v-model="searchValue" slot="prepend" placeholder="电影中文名" style='width:150px'>
       <el-option label="电影中文名" value="cName"></el-option>
@@ -31,30 +31,32 @@ export default {
                 value:this.value
             }
  store.commit("SHOW_SEARCH",data);
-           let obj={}; if(this.searchValue=='cName' || this.searchValue == 'type'){
-               console.log(0);
-                 obj={
-                   [this.searchValue]:this.value,
-                   rows:5
-               }
-            }else{
-                console.log(1);
-                 obj={
-                   [this.searchValue]:this.value,
-                   rows:5,
-                    findType:'exact'
-            }   
-        }
-//            this.show(obj);
+//           let obj={}; if(this.searchValue=='cName' || this.searchValue == 'type'){
+//                 obj={
+//                   [this.searchValue]:this.value,
+//                   rows:5
+//               }
+//            }else{
+//                 obj={
+//                   [this.searchValue]:this.value,
+//                   rows:5,
+//                    findType:'exact'
+//            }   
+//        }
+            this.show(1,this.searchValue,this.value);
     }
-}
+    }
 }
 </script>
 
 
 <style scoped>
 
-
+ .deletestyle{
+        float:right;
+        margin:10px;
+        width:800px;
+    }
 
 
 </style>

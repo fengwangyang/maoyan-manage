@@ -1,12 +1,11 @@
 <template>
 <div style='text-align:center'>
     <h2 class='h2tyle'>电影管理</h2>
-    <AddElement>
-        
-        
-    </AddElement>
+    <AddElement :show='show'></AddElement>
+    <DeleteElement :show='show'></DeleteElement>
     <SearchElement :show='show'></SearchElement>
     <MoviesTable :show='show'></MoviesTable>
+    <UpdateElement :show='show'></UpdateElement>
     <PageNation class='pagestyle' :show='show'></PageNation>
 </div>
 
@@ -22,9 +21,11 @@
 
 import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
+import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
 import MoviesTable from "./MoviesTable";
 import PageNation from "./PageNation";
+import UpdateElement from "./UpdateElement";
 import store from "@/store";
 export default {
     created:function(){
@@ -45,14 +46,12 @@ export default {
             success:(data)=>{
                store.commit("MOVIESALL_DATA",data)
             }
-        })  
+            })  
         }
     },
     components:{
-        AddElement,MoviesTable,PageNation,SearchElement
-    }
-   
-        
+        AddElement,MoviesTable,PageNation,SearchElement,DeleteElement,UpdateElement
+    }        
 }
 
 
