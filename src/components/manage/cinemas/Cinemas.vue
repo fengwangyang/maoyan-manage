@@ -11,7 +11,7 @@
           @click="remove">删除</el-button>
     <Search style="float:left">
     </Search>
-    
+    <Update></Update>
   <el-table
     :data="tableData"
     border
@@ -83,6 +83,7 @@
     import Search from "./Search"
     import Add from "./Add"
     import Page from "./Page"
+    import Update from "./Update"
     import store from "@/store"
     import {mapState} from "vuex"
     export default{
@@ -161,12 +162,14 @@
      },
      
      handleEdit(index,row){
+     console.log(row);
         store.commit("UPDATE_DATA",row);
-        store.commit("UPDATE_VISIBEL",true);
+        store.commit("UPDATE_VISIBLE",true);
+        store.commit("HOUSE_DATA",row.houses);
      }
     },
     components:{
-    Add,Search,Page,
+    Add,Search,Page,Update
     }
 
 }

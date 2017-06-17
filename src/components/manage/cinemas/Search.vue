@@ -7,7 +7,7 @@
       <el-option label="性别" value="2"></el-option>
       <el-option label="年龄" value="3"></el-option>
     </el-select>
-    <el-button slot="append" icon="search" @click="searchStudent"></el-button>
+    <el-button slot="append" icon="search" ></el-button>
   </el-input>
 </div>
 

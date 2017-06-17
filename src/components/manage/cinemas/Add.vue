@@ -9,20 +9,20 @@
           >添加</el-button>
           
 <el-dialog title="添加" :visible.sync="dialogFormVisible" style="width:800px">
-  <el-form :model="form" label-position="right" label-width="120px">
-    <el-form-item label="影院名称：" :label-width="formLabelWidth">
+  <el-form label-position="right" label-width="120px">
+    <el-form-item label="影院名称：" >
       <el-input v-model="cinemaName" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
     
-    <el-form-item label="影院地址：" :label-width="formLabelWidth">
+    <el-form-item label="影院地址：">
       <el-input v-model="address" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
     
-    <el-form-item label="影院电话：" :label-width="formLabelWidth">
+    <el-form-item label="影院电话：" >
       <el-input v-model="tel" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
    
-     <el-form-item label="官方网站：" :label-width="formLabelWidth">
+     <el-form-item label="官方网站：" >
       <el-input v-model="webAdress" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
   </el-form>
@@ -40,14 +40,14 @@
 
           
 <el-dialog title="添加影厅" :visible.sync="addaddHouseVisible" style="width:800px">
-  <el-form :model="form" label-position="right" label-width="120px">
-    <el-form-item label="影厅名称：" :label-width="formLabelWidth">
+  <el-form label-position="right" label-width="120px">
+    <el-form-item label="影厅名称：" >
       <el-input v-model="hName" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
-    <el-form-item label="座位：" :label-width="formLabelWidth">
+    <el-form-item label="座位：">
       <el-input v-model="sitSetting" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
-    <el-button type="primary" @click="preLookVisible=true">座位预览</el-button>
+    <el-button type="primary" @click="preSit">座位预览</el-button>
 </el-form>
 <div slot="footer" class="dialog-footer">
     <el-button @click="addaddHouseVisible = false">取 消</el-button>
@@ -58,7 +58,7 @@
     
     
  <el-dialog title="座位预览" :visible.sync="preLookVisible" style="width:800px">
- <div v-for="r in JSON.parse(this.sitSetting)" style="margin-left:50px;">
+ <div v-for="r in this.sitData" style="margin-left:50px;">
  <label v-for="t in r">
  <label  v-if="t==0" class="showSitImg"></label >
  <label  v-if="t==1" class="hiddenSitImg"></label >
@@ -79,6 +79,8 @@
     <script>
     
      import {ajax} from "@/components/common/ajax"
+     import {mapState} from "vuex"
+      import store from "@/store"
        export default{
        props:["show"],
        data(){
@@ -87,15 +89,25 @@
                address:"",
                tel:"",
                webAdress:"",
-      dialogFormVisible:false,
+               dialogFormVisible:false,
                hName:"",
-               sitSetting:"[[1,0]]",
-      addaddHouseVisible:false,
-      preLookVisible:false,
-      houses:[],
+               addaddHouseVisible:false,
+               sitSetting:"",
+               preLookVisible:false,
+               houses:[],
         }
      },
+     computed:{
+     ...mapState({
+         sitData:state=>state.cinemas.sitData,
+      })
+     },
      methods:{
+       preSit(){
+        store.commit("SIT_DATA",this.sitSetting);
+         this.preLookVisible=true;
+           
+        },
          addHouse(){
          let name=this.hName;
          this.$confirm('确认添加'+name+'厅', '是否继续?', '提示', {

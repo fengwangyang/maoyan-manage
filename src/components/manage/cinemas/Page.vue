@@ -21,6 +21,15 @@
              allData:state=>state.cinemas.allData
             })
         },
+        methods:{
+            handleSizeChange(){
+            
+            },
+        handleCurrentChange(){
+        
+        },
+        
+        }
     }
     </script>
     <style></style>
