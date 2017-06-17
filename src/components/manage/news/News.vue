@@ -2,8 +2,8 @@
  
      <el-row>
         <h1>资讯管理</h1>
-        <NewsSearch></NewsSearch>
-        <NewsTable :datas='datas'></NewsTable>
+        <NewsSearch :show='show'></NewsSearch>
+        <NewsTable :show='show'></NewsTable>
      </el-row>
    
 
@@ -14,10 +14,12 @@
 import {ajax} from '../../common/ajax'
 import NewsSearch from './NewsSearch'
 import NewsTable from './NewsTable'
- export default {
+import {mapState} from 'vuex'
+import store from '@/store'
+export default {
             data() {
               return {
-                  datas:[]  
+                 
               }
             },
               components:{
@@ -25,19 +27,24 @@ import NewsTable from './NewsTable'
               }, 
             created:function(){
                 this.show()
-                console.log("222",this.datas)
             },
             methods:{
-                show(){
+               show(){
+                 
+                    let obj = {}
+                    obj.page = this.$store.state.news.newdata.curpage;
+                    obj.rows = this.$store.state.news.newdata.rechpage;
                     ajax({
                         type:"post",
-                        url:"/maoyan/find",
-                        data:{},
+                        url:"/news/find",
+                        data:obj,
                         success:function(data){
-                            this.datas = data
-                            console.log(this.datas[0].move)
-                        }.bind(this)
+                            store.commit("NEWS_DATA",data)
+                    }.bind(this)
                     })
+                },
+                newAddFrom(){
+                    console.log(99)
                 }
             }
             }        

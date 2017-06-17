@@ -49,7 +49,7 @@
         },
         created:function(){
             this.getSession();
-            console.log(0)
+//            console.log(0)
         },
         methods:{
             getSession:function(){
@@ -77,7 +77,7 @@
         watch:{
             "$route":function(nextPath){
                 if(nextPath.path != "/"){
-                    console.log(nextPath)
+//                    console.log(nextPath)
                 }
             }
         }

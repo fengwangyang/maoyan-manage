@@ -1,3 +1,4 @@
+<!--
 <template>
     <div>
     <h3 class="cinemas_h3">院线管理</h3>
@@ -119,3 +120,4 @@ import
         margin:auto;
     }
 </style>
+-->
