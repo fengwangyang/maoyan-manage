@@ -4,6 +4,7 @@ import {UPDATE_DATA} from "./cinemas_const"
 import {UPDATE_VISIBLE} from "./cinemas_const"
 import {SIT_DATA} from "./cinemas_const"
 import {HOUSE_DATA} from "./cinemas_const"
+import {SEARCH_TYPE} from "./cinemas_const"
 const cinemas = {
     state:{
        removeData:{},
@@ -12,6 +13,7 @@ const cinemas = {
        updateVisible:false,
        sitData:{},
        houseData:{},
+       searchType:{},
     },
     mutations:{
        [REMOVE_DATA](state,data){
@@ -36,6 +38,10 @@ const cinemas = {
     },
     [HOUSE_DATA](state,data){
         state.houseData=data;
+           console.log(data);
+    },
+    [SEARCH_TYPE](state,data){
+        state.searchType=data;
            console.log(data);
     },
   }

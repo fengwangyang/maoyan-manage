@@ -9,21 +9,21 @@
           >添加</el-button>
           
 <el-dialog title="添加" :visible.sync="dialogFormVisible" style="width:800px">
-  <el-form label-position="right" label-width="120px">
-    <el-form-item label="影院名称：" >
-      <el-input v-model="cinemaName" auto-complete="off" class="ipt"></el-input>
+  <el-form label-position="right" label-width="120px" :rules="rules" :model="addForm" ref="addCinemasForm" >
+    <el-form-item label="影院名称：" prop="cinemaName" >
+      <el-input v-model="addForm.cinemaName" auto-complete="off" class="ipt" ></el-input>
+   </el-form-item>
+    
+    <el-form-item label="影院地址：" prop="address">
+      <el-input v-model="addForm.address" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
     
-    <el-form-item label="影院地址：">
-      <el-input v-model="address" auto-complete="off" class="ipt"></el-input>
-    </el-form-item>
-    
-    <el-form-item label="影院电话：" >
-      <el-input v-model="tel" auto-complete="off" class="ipt"></el-input>
+    <el-form-item label="影院电话："prop="tel" >
+      <el-input v-model="addForm.tel" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
    
-     <el-form-item label="官方网站：" >
-      <el-input v-model="webAdress" auto-complete="off" class="ipt"></el-input>
+     <el-form-item label="官方网站："prop="webAdress" >
+      <el-input v-model="addForm.webAdress" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
   </el-form>
 <div slot="footer" class="dialog-footer">
@@ -34,24 +34,25 @@
           @click="addaddHouseVisible = true"
           >添加影厅</el-button>
     <el-button @click="dialogFormVisible = false">取 消</el-button>
-    <el-button type="primary" @click="confirmAdd">确 定</el-button>
+    <el-button type="primary" @click="confirmAdd('addCinemasForm')">确 定</el-button>
   </div>
 </el-dialog>
 
           
 <el-dialog title="添加影厅" :visible.sync="addaddHouseVisible" style="width:800px">
-  <el-form label-position="right" label-width="120px">
-    <el-form-item label="影厅名称：" >
-      <el-input v-model="hName" auto-complete="off" class="ipt"></el-input>
+  <el-form label-position="right" label-width="120px" :rules="houseRules" :model="addHouse" ref="addHouseForm">
+    <el-form-item label="影厅名称：" prop="hName">
+      <el-input v-model="addHouse.hName" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
-    <el-form-item label="座位：">
-      <el-input v-model="sitSetting" auto-complete="off" class="ipt"></el-input>
+    <el-form-item label="座位：" prop="sitSetting">
+      <el-input v-model="addHouse.sitSetting" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
     <el-button type="primary" @click="preSit">座位预览</el-button>
+   
 </el-form>
 <div slot="footer" class="dialog-footer">
-    <el-button @click="addaddHouseVisible = false">取 消</el-button>
-    <el-button type="primary" @click="addHouse">确 定</el-button>
+     <el-button @click="addaddHouseVisible = false">取 消</el-button>
+    <el-button type="primary" @click="addHouseSubmit('addHouseForm')">确 定</el-button>
   </div>
 </el-dialog>
     
@@ -82,19 +83,54 @@
      import {mapState} from "vuex"
       import store from "@/store"
        export default{
+        
        props:["show"],
        data(){
          return{
-              cinemaName:'',
-               address:"",
-               tel:"",
-               webAdress:"",
+             addForm:{
+                cinemaName:'',
+                 address:"",
+                 tel:"",
+                 webAdress:"",
+                },
+              
                dialogFormVisible:false,
-               hName:"",
+               addHouse:{
+                hName:"",
+                sitSetting:"",
+               },
                addaddHouseVisible:false,
-               sitSetting:"",
                preLookVisible:false,
                houses:[],
+               rules: {
+                  cinemaName: [
+                        { required: true, message: '请输入影院名称', trigger: 'blur' },
+                         {pattern:/^[\u4E00-\u9FA5\0-9a-zA-Z]{1,}$/,message:'影院名必须为俩个字符以上', trigger: 'blur' },
+                            ],
+                  address: [
+                        { required: true, message: '请输入影院地址', trigger: 'blur' },
+                         {pattern:/^[\u4E00-\u9FA5\0-9a-zA-Z]{1,}$/,message:'影院地址必须为俩个字符以上', trigger: 'blur'},
+                           ], 
+                 tel: [
+                        { required: true, message: '请输入影院电话', trigger: 'blur' },
+                         {pattern:/^\d{3}-\d{8}$/,message:'影院电话必须为×××-××××××××' ,trigger: 'blur'},
+                           ],
+                 webAdress: [
+                        { required: true, message: '请输入官网方网站', trigger: 'blur' },
+                         {pattern:/^www\.\w{2,}\.com$/,message:'必须为www.xx.com',trigger: 'blur'},
+                           ],
+           
+        },
+        houseRules:{
+            hName: [
+                        { required: true, message: '请输入影厅名称', trigger: 'blur' },
+                         {pattern:/^[\u4E00-\u9FA5\0-9a-zA-Z]{1,}$/,message:'影院名必须为俩个字符以上', trigger: 'blur' },
+                            ],
+            sitSetting: [
+                        { required: true, message: '输入内容为0或1的二维数组!', trigger: 'blur' },
+                         {validator:this.sitValid, trigger: 'blur'},
+                           ], 
+        }
         }
      },
      computed:{
@@ -103,18 +139,50 @@
       })
      },
      methods:{
-       preSit(){
-        store.commit("SIT_DATA",this.sitSetting);
+      preSit(){
+        store.commit("SIT_DATA",this.addHouse.sitSetting);
          this.preLookVisible=true;
-           
         },
-         addHouse(){
-         let name=this.hName;
-         this.$confirm('确认添加'+name+'厅', '是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+        sitValid(rule, value, callback){
+             var valueArr= JSON.parse(value);
+                 var flag=[];
+                 var count=0;
+                    if(typeof valueArr=="object"){
+                          for(let a of valueArr){
+                              for(var i=0;i<a.length;i++){
+                                 if(a[i]!=0&&a[i]!=1){
+                                   flag.push(0);
+                                   }
+                                  else{
+                                    flag.push(1);
+                                  }
+                             }
+                        }
+                for(let a of flag){
+                    if(a==0){
+                       callback(new Error('输入内容为0或1的二维数组!'));
+                }
+                    else{
+                       count++ ;
+                    }
+               }
+                 if(count==flag.length){
+                     callback();
+                 }
+              }
+                     else{
+                  callback(new Error('输入内容为0或1的二维数组!'));
+                     }
+        },
+     addHouseSubmit(formName){
+      this.$refs[formName].validate((valid) => {
+          if (valid) {
+             let name=this.addHouse.hName;
+            this.$confirm('确认添加'+name+'厅', '是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        }) .then(() => {
                     let obj={};
                     obj.hName=this.hName;
                     obj.sitSetting=this.sitSetting;
@@ -131,20 +199,31 @@
           }); 
         });
                
+          } else {
+              this.$message({
+                        type: 'info',
+                        message: '内容填写有误!'
+                    });
+            return false;
+          }
+        });
+        
         },
        
-        confirmAdd(){
-             let name=this.cinemaName;
+        confirmAdd(formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+             let name=this.addForm.cinemaName;
          this.$confirm('确认添加'+name+'影院', '是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
                     let obj={};
-                    obj.cinemaName=this.cinemaName;
-                    obj.address=this.address;
-                    obj.tel=this.tel;
-                    obj.webAdress=this.webAdress;
+                    obj.cinemaName=name;
+                    obj.address=this.addForm.address;
+                    obj.tel=this.addForm.tel;
+                    obj.webAdress=this.addForm.webAdress;
                     obj.houses=JSON.stringify(this.houses);
                     console.log(this.houses);
                     ajax({
@@ -157,7 +236,7 @@
                         message: '添加成功!'
                    });
                    this.houses=[];
-                  this.show(1);
+                  this.show(1,5);
                   this.dialogFormVisible=false;
               }
           })
@@ -168,10 +247,18 @@
             message: '已取消添加'
           });          
         });
-                     
-        }
+         
+     }else {
+              this.$message({
+                        type: 'info',
+                        message: '内容填写有误!'
+                    });
+            return false;
+          }
+        });
+        
      },
-     
+     }
      
     }
     </script>

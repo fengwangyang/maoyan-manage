@@ -9,9 +9,9 @@
           icon="delete"
           type="warning"
           @click="remove">删除</el-button>
-    <Search style="float:left">
+    <Search style="float:left" :show="show">
     </Search>
-    <Update></Update>
+    <Update :show="show"></Update>
   <el-table
     :data="tableData"
     border
@@ -73,7 +73,7 @@
     </el-table-column>
   </el-table>
   
-  <Page ></Page>
+  <Page :show="show"></Page>
   
   </div>
 </template>
@@ -94,7 +94,7 @@
         }
     },
        created(){
-        this.show(1)
+        this.show(1,5)
     },
      computed:{
         ...mapState({
@@ -102,17 +102,20 @@
             })
         },
     methods:{
-        show(page){
+        show(page,row,type,value){
         let obj={};
+        if(type){
+            obj[type]=value
+        }
          obj.page=page;
-         obj.rows=10;
+         obj.rows=row;
                 ajax({
             type:"get",
             url:"/cinemas/find",
             data:obj,
             success:(data)=>{
             console.log(data);
-            store.commit("ALL_DATA",data);
+             store.commit("ALL_DATA",data);
               this.tableData=data.rows;
                 }
             })
