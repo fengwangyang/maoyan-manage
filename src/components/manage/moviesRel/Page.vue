@@ -15,18 +15,14 @@
     export default {
         props:["show","handleSizeChange","goTo","data"],
         methods:{
-//            handleSizeChange(rows){
-//                let newData = this.data;
-//                newData.eachpage = rows;
-//                store.commit(SHOW_MOVIES_LINKED,newData);
-//                this.show()
-//            },
-//            goTo(nowpage){
-//                let newData = this.data;
-//                newData.curpage = nowpage;
-//                store.commit(SHOW_MOVIES_LINKED,newData);
-//                this.show()
-//            }
+            
         },
     }
 </script>
+<style scope>
+    .block{
+        display: flex;
+        margin-top: 6px;
+        justify-content: center;
+    }
+</style>

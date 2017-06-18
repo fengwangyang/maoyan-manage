@@ -6,8 +6,8 @@
    </div>
     <MainTable tableRef="linkedMovie" :show='show' :data="data.rows" :getUpdateData="getUpdateData" :isShow="true" :addToSelect="addToSelect" :openCinemas="openCinemas"></MainTable>
     <Page :show="show" :handleSizeChange="handleSizeChange" :goTo="goTo" :data="data"></Page>
-    <BrowseCinemas :title="$store.state.moviesRel.editMovie.cName"></BrowseCinemas>
-    <AddCinemas></AddCinemas>
+    <BrowseCinemas :title="$store.state.moviesRel.editMovie.cName" :show="show"></BrowseCinemas>
+    <AddCinemas :showMain="show" :showCinemas="showCinemas"></AddCinemas>
 </div>
 
 </template>
@@ -61,7 +61,10 @@
                 this.show()
             },
             getUpdateData(data){
+                store.commit(SHOW_ALL_CINEMAS,{curpage:1,eachpag:6});
+                this.showCinemas();
                 store.commit(SWITCH_VISIBLE_ADD,true);
+                store.commit(SHOW_MOVIE_CINEMAS,data);
             },
             openCinemas(data){
                 if(data.cinemas){
@@ -98,7 +101,6 @@
                                 this.show();
                             }   
                         })
-
                     }).catch(() => {
                       this.$message({
                         type: 'info',
@@ -119,12 +121,22 @@
                 store.commit(FIND_MOVIES,{});
                 store.commit(SHOW_MOVIES_LINKED,mainData);
                 this.show();
-            }
+            },
+            showCinemas(){
+                ajax({
+                    url:"/cinemas/find",
+                    data:{page:this.allCinemas.curpage,rows:this.allCinemas.rows},
+                    success:(data)=>{
+                        store.commit(SHOW_ALL_CINEMAS,data);
+                    }
+                })
+            },
         },
         computed:{
             ...mapState({
                 data:state=>state.moviesRel.data,
-                findMovie:state=>state.moviesRel.findMovie
+                findMovie:state=>state.moviesRel.findMovie,
+                allCinemas:state=>state.moviesRel.allCinemas,
             })
         },
         watch:{

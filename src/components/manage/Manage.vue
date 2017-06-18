@@ -26,7 +26,7 @@
     </el-menu>
   </el-col>
 <!--  <el-col :span="1"></el-col>-->
-  <el-col :span="19" class="right" :offset="1">
+  <el-col :span="18" class="right" :offset="1">
   
   <router-view></router-view>
 	</el-col>
@@ -49,7 +49,6 @@
         },
         created:function(){
             this.getSession();
-            console.log(0)
         },
         methods:{
             getSession:function(){
