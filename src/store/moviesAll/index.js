@@ -4,6 +4,11 @@ const MOVIESALL_UPDATEDIV = 'MOVIESALL_UPDATEDIV';
 const SHOW_SEARCH = 'SHOW_SEARCH';
 const MOVIESALL_DELETEDATA = 'MOVIESALL_DELETEDATA';
 const ONHOT_DATA = 'ONHOT_DATA';
+const ONHOT_MOVIESDATA = 'ONHOT_MOVIESDATA';
+const ONHOT_DELETEDATA = 'ONHOT_DELETEDATA';
+const ONHOT_SEARCHDATA = 'ONHOT_SEARCHDATA';
+const ONSHOW_DATA ='ONSHOW_DATA';
+const PRESHOW_DATA = 'PRESHOW_DATA';
 const moviesAll = {
     
     state:{
@@ -12,7 +17,12 @@ const moviesAll = {
         dialogVisible :false,
         searchData:'',
         deleteData:'',
-        onhotData:''
+        onhotData:'',
+        onhotMoviesData:'',
+        onhotDeleteData:'',
+        onhotSearchData:'',
+        onshowData:'',
+        preshowData:''
     },
     mutations:{
       [MOVIESALL_DATA](state,data){
@@ -33,8 +43,23 @@ const moviesAll = {
             
         },
         [ONHOT_DATA](state,data){
-            console.log(data);
             state.onhotData = data;
+        },
+        [ONHOT_MOVIESDATA](state,data){
+            state.onhotMoviesData = data;
+        },
+        [ONHOT_DELETEDATA](state,data){
+        state.onhotDeleteData = data;
+        },
+        [ONHOT_SEARCHDATA](state,data){
+            state.onhotSearchData = data;
+        },
+        [ONSHOW_DATA](state,data){
+            state.onshowData =data;
+        },
+        [PRESHOW_DATA](state,data){
+            console.log(data);
+            state.preshowData = data;
         }
         
     }

@@ -1,7 +1,7 @@
 <template>
     
     <div class='deletestyle'>
-  <el-input placeholder="请输入内容" v-model="value">
+  <el-input placeholder="请输入内容" v-model="value" style='float:left;width:730px'>
     <el-select v-model="searchValue" slot="prepend" placeholder="电影中文名" style='width:150px'>
       <el-option label="电影中文名" value="cName"></el-option>
       <el-option label="类型" value="type"></el-option>
@@ -9,6 +9,8 @@
     </el-select>
     <el-button slot="append" icon="search" style='width:100px' @click='searchMoives'></el-button>
   </el-input>
+  
+  <el-button slot="append" icon="minus" type='info' @click='emptySearch' style='float:right'>清空</el-button>
 </div>
     
 </template>
@@ -30,21 +32,16 @@ export default {
                 searchValue:this.searchValue,
                 value:this.value
             }
- store.commit("SHOW_SEARCH",data);
-//           let obj={}; if(this.searchValue=='cName' || this.searchValue == 'type'){
-//                 obj={
-//                   [this.searchValue]:this.value,
-//                   rows:5
-//               }
-//            }else{
-//                 obj={
-//                   [this.searchValue]:this.value,
-//                   rows:5,
-//                    findType:'exact'
-//            }   
-//        }
-            this.show(1,this.searchValue,this.value);
-    }
+        store.commit("SHOW_SEARCH",data);
+
+       this.show(1,this.searchValue,this.value);
+    },
+         emptySearch:function(){
+             this.value='';
+            this.searchValue = '';
+            this.showOnhot(1);
+        store.commit("SHOW_SEARCH",'');
+        }
     }
 }
 </script>
@@ -53,9 +50,9 @@ export default {
 <style scoped>
 
  .deletestyle{
-        float:right;
+        float:left;
         margin:10px;
-        width:800px;
+        width:830px;
     }
 
 

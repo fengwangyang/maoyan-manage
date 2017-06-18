@@ -32,7 +32,7 @@
       
     </el-table-column>
     <el-table-column
-      prop="score"
+      prop="scor"
       label="评分" width="120" :show-overflow-tooltip=true>
     </el-table-column>
     <el-table-column
@@ -96,8 +96,7 @@ export default {
     },
     methods:{
         updateData:function(rows){
-            console.log(rows);
-            console.log(this.moviesData[0].staffs);
+            
             ajax({
                 url:'/movies/find',
                 type:'get',
@@ -110,12 +109,11 @@ export default {
         },
         //选择要删除的数据保存在store中
          handleSelectionChange(val) {
-             console.log(val);
              let newarry = [];
              for(let i =0;i<val.length;i++){
                  newarry.push(val[i]._id);
              }
-             let data = newarry;
+             let data = val;
              store.commit("MOVIESALL_DELETEDATA",data)
       }
     },

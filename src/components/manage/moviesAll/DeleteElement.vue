@@ -10,15 +10,21 @@
 
 <script>
 import {ajax} from "@/components/common/ajax";
-import $ from "jquery";
 import {mapState} from "vuex";
 export default{
     props:['show'],
     methods:{
         deleteMovies:function(){
-            let deleteAry = JSON.stringify(this.deleteData);
-            console.log(deleteAry);
-            this.$confirm('确定删除 '+" "+' 该条数据?', '提示', {
+            let str = '';
+            let array =[];
+            let num=0;
+            for(let i of this.deleteData){
+                array.push(i._id);
+                str += i.cName+',';
+               num++;
+            }
+        let deleteAry = JSON.stringify(array);
+          this.$confirm('确定删除 '+str+'这'+num+'条数据?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -26,14 +32,13 @@ export default{
                 ajax({
                 url:'/movies/del',
                 type:'post',
-                data:{IDS:deleteAry},
+                data:{ids:deleteAry},
                 success:data=>{
                     console.log(data);
                      this.$message({  
                     type: 'success',
                     message: '删除成功!'
-                   
-                })
+                   })
                    this.show({page:this.curpage,rows:5}); 
                 }
             })
@@ -47,8 +52,7 @@ export default{
     }
     },
             
-       
-    computed:{
+   computed:{
         ...mapState({
         deleteData:state=>state.moviesAll.deleteData,
         curpage:state=>state.moviesAll.moviesData.curpage
@@ -57,15 +61,11 @@ export default{
 }
 
 </script>
-
-
 <style scoped>
 
     .deletestyle{
-        float:left;
+        float:right;
         margin:10px;
-    
-        
     }
 
 </style>

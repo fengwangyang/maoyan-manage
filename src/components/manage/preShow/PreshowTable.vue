@@ -1,7 +1,7 @@
 <template>
     <div>
          <el-table
-            :data="onhotData"
+            :data="preshowData"
             border
             style="width: 100%" @selection-change="handleSelectionChange">
             <el-table-column
@@ -79,12 +79,12 @@ export default{
         handleSelectionChange(val) {
              let data = val;
              store.commit("ONHOT_DELETEDATA",data)
-        },
+            }
        },
     computed:{
-    ...mapState({
-        onhotData:state=>state.moviesAll.onhotData.rows
-    })
+        ...mapState({
+            preshowData:state=>state.moviesAll.preshowData.rows
+        })
     }
 }
 

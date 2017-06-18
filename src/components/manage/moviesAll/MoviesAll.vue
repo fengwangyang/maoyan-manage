@@ -1,12 +1,15 @@
 <template>
 <div style='text-align:center'>
     <h2 class='h2tyle'>电影管理</h2>
-    <AddElement :show='show'></AddElement>
+    
     <DeleteElement :show='show'></DeleteElement>
+    <AddElement :show='show'></AddElement>
     <SearchElement :show='show'></SearchElement>
     <MoviesTable :show='show'></MoviesTable>
     <UpdateElement :show='show'></UpdateElement>
     <PageNation class='pagestyle' :show='show'></PageNation>
+    
+<!--    <AddActors>1111</AddActors>-->
 </div>
 
 
@@ -26,6 +29,7 @@ import SearchElement from "./SearchElement";
 import MoviesTable from "./MoviesTable";
 import PageNation from "./PageNation";
 import UpdateElement from "./UpdateElement";
+//import AddActors from "./AddActors";
 import store from "@/store";
 export default {
     created:function(){
@@ -56,7 +60,7 @@ export default {
 
 
 </script>
-<style>
+<style scpoe>
     .pagestyle{
         margin-top:20px;
         float:right;
