@@ -13,7 +13,6 @@
 <script>
     import {mapState} from "vuex";
     import store from "@/store";
-    import {SHOW_DATA} from "@/store/users/mutations";
     export default {
         props:["show","goTo","nextPage","backPage"],
         methods:{
@@ -23,7 +22,7 @@
         },
         computed:{
             ...mapState({
-            data:state => state.data
+            data:state => state.users.data
         })
         }
     }

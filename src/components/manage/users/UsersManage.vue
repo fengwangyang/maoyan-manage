@@ -1,13 +1,13 @@
 <template>
     <el-row>
       <el-col :span="12"><div class="grid-content bg-purple">
-          <SeachUsers></SeachUsers>
+          <SeachUsers :show="show"></SeachUsers>
       </div></el-col>
       <el-col :span="3"><div class="grid-content bg-purple-light">
-          <AddUsers></AddUsers>
+          <AddUsers :show="show"></AddUsers>
       </div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-          <BatchDelUsers></BatchDelUsers>
+          <BatchDelUsers :show="show"></BatchDelUsers>
       </div></el-col>
     </el-row>
 </template>
@@ -17,6 +17,7 @@
     import AddUsers from "./AddUsers"
     import BatchDelUsers from "./BatchDelUsers"
     export default {
+        props:["show"],
         components:{
             SeachUsers,AddUsers,BatchDelUsers
         }

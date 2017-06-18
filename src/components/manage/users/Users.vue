@@ -2,11 +2,12 @@
 <div>
         
     <h1>用户管理</h1>
-      <UsersManage></UsersManage>
+      <UsersManage :show="show"></UsersManage>
     <el-table
         :data="tableData"
         border
-        style="width: 100%">
+        style="width: 100%"
+        @selection-change="handleSelectionChange">
         <el-table-column
           type="selection"
           width="55">
@@ -39,20 +40,26 @@
               icon='edit'
               type='info'
               @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-            <el-button
-              size="small"
-              type="warning"
-              icon='delete'
-              @click="del(scope.row._id)">删除</el-button>
           </template>
         </el-table-column>
   </el-table>
+  <div class="block">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage4"
+          :page-sizes="[5, 8, 10]"
+          :page-size="5"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="100">
+        </el-pagination>
+  </div>
 <!--  <Page :show="show"></Page>-->
  </div>
 </template>
 <script>
     import {ajax} from "@/components/common/ajax"
-//    import store from "@/store"
+    import store from "@/store"
 //    import {mapState} from "vuex";
     import UsersManage from "./UsersManage"
 //    import Page from "./Page"
@@ -66,6 +73,7 @@
                 email:"",
                 _id:"",
                tableData:"",
+                
             }                
         },
         created(){
@@ -76,26 +84,20 @@
                 ajax({
                     type:"get",
                     url:"/users/find",
-                    data:{
-                        
-                    },
+                    data:this.$store.state.users.findUsers,
                     success:(data)=>{
                         console.log(data);
                         this.tableData = data;
                     }
                 })
             },
-            del(id){
-                ajax({
-                    type:"post",
-                    url:"/users/del",
-                    data:{
-                        _id:id
-                    },
-                    success:function(){
-                        this.show();
-                    }.bind(this)
-                });
+            handleSelectionChange(val){
+                let removeData_id =[];
+                for(let i=0;i<val.length;i++){
+                    removeData_id.push(val[i]._id);
+                    store.commit("DELETE_USERS",removeData_id);
+                };
+                
             }
         },
         components:{
