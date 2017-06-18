@@ -1,8 +1,8 @@
     <template>
     <el-row>
                      <el-col :span='8'>
-                      <el-input v-model='searintVal' placeholder="请输入内容" >
-                        <el-select v-model='searchVal' slot="prepend" placeholder="请选择">
+                      <el-input  v-model='searintVal' placeholder="请输入内容" >
+                          <el-select :label='searchVal' v-model='searchVal' slot="prepend" placeholder="请选择">
                           <el-option value='newsTitle' label="资讯标题"></el-option>
                           <el-option value='movies' label="关联影片"></el-option>
                           <el-option value='mainText' label="资讯正文"></el-option>
@@ -10,6 +10,7 @@
                         </el-select>
                         <el-button @click='searchFrom' slot="append" icon="search"></el-button>
                       </el-input>
+                      
                      </el-col>
                      
                   
@@ -26,6 +27,7 @@
                 </template>
               </el-col>
               
+              
                
     
                  
@@ -38,26 +40,27 @@
                       </el-form-item>
                       
                       <el-form-item label='关联影片' class="flx">
-                        <el-input :style='inputType' v-model='newValue.newsmovies'></el-input>
+                       <el-select @change='addmovie' :style='inputType' v-model='moviesValue'>
+                           <el-option v-for='addmovies in data.rows' :label='addmovies.movies' :value='addmovies.movies'>
+                           </el-option>
+                       </el-select>
                       </el-form-item>
                         
                      <el-form-item label='资讯正文' class="flx">
                         <el-input :style='inputType' v-model='newValue.newsmainText'></el-input>
                      </el-form-item>
-                    
-                     <el-form-item label='上映时间' class="flx">
-                        <el-input :style='inputType' v-model='newValue.newsRelease'></el-input>
-                     </el-form-item>
                                 
+                     <el-upload :multiple='true' :on-success='sucimage' :on-preview="handlePreview" list-type="picture" :on-remove="handleRemove" class="flx" action='/upload'>
+                         <el-button size='small' type='primary'>上传图片</el-button>
+                     </el-upload>
                     
-
                         <div>
                             <el-button @click='dislogVisble = false' class="btnA">取消</el-button>
                             <el-button @click='newsAddFrom' class="btnB">确定</el-button>
                         </div>
-                  </el-form>
+                      </el-form>
         
-                    </el-dialog>
+                  </el-dialog>
                   
        
     </el-row>
@@ -76,43 +79,65 @@ import store from "@/store"
             data(){
                 return {
                     inputType:"width:400px",
+                    moviesValue:"",
                     dislogVisble:this.isclose,
                     newValue:{
                         newsTitleValue:"",
                         newsmovies:"",
                         newsmainText:"",
-                        newsRelease:"",
+                        newsRelease:[],
                     },
                     searchVal:"",
                     searintVal:""
                 }
             },
-            created:function(){
-                console.log(this.newValue.newsTitleValue)
-            },
             methods:{
+                sucimage(response,file,fileList){
+                    this.newValue.newsRelease.push(response)
+                    console.log(this.newValue.newsRelease)
+                },
+                handleRemove(file, fileList) {
+                    console.log(98)
+                     console.log(file, fileList);
+                    },
+                handlePreview(file){
+                    console.log(file);
+                },
+                addmovie(val){
+                   this.newValue.newsmovies = val;
+                    console.log(this.newValue.newsmovies )
+                },
                 delFrom(){
-                    
+                    let deldata = JSON.stringify(this.deldata)
+                    var str="";
+              
+                    ajax({
+                        type:'post',
+                        url:'/news/del',
+                        data:{
+                            ids:deldata
+                        },
+                        success:()=>{
+                            this.show()
+                            this.deldata=[]
+                        }
+                    })
                     
                 },
                 searchFrom(){
-                   this.search.type = this.searchVal;
-                    this.search.value = this.searintVal;
+                 this.search.type = this.searchVal;
+                 this.search.value = this.searintVal;
                  let obj = {}
                  obj[this.searchVal]=this.searintVal
-                 ajax({
-                     type:'post',
-                     url:'/news/find',
-                     data:obj,
-                     success:function(){
-                         this.show()
-                     }.bind(this)
-                 })
-                },
-                add(){
-                    
+                 this.show(1,5,this.searchVal,this.searintVal)
+                 store.commit('SEARCH_DATA',obj)
                 },
                 newsAddFrom(){
+                    this.$confirm('是否确定增加数据' ,'提示',{
+                        confirmButtonText:'确定',
+                        cancelButtonText:'取消',
+                        type:'warning'
+                    }).then(()=>{
                    ajax({
                        type:'post',
                        url:'/news/add',
@@ -123,6 +148,10 @@ import store from "@/store"
                            Release:this.newValue.newsRelease,
                        },
                        success:function(data){
+                           this.$confirm({
+                            type:'success',
+                            message:'添加成功'
+                        })
                            this.dislogVisble=false
                            this.show()
                            this.newValue.newsTitleValue="",
@@ -131,11 +160,22 @@ import store from "@/store"
                                this.newValue.newsRelease=""
                        }.bind(this)
                    })
+                      
+                    }).catch(()=>{
+                        this.$confirm({
+                            type:'info',
+                            message:'已取消'
+                        })
+                    })
+                    
+                 
                 }
             },
             computed:{
                 ...mapState({
-                    search:state => state.news.search
+                    data:state => state.news.newdata,
+                    search:state => state.news.search,
+                    deldata:state => state.news.delData
                 })
             }
         }
@@ -144,7 +184,7 @@ import store from "@/store"
     </script>
 <style lang="css">
     .item{
-        width: 80%;
+        width: 90%;
         margin: auto;
         margin-top: 10px;
     }

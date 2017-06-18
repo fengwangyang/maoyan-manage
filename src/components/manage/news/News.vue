@@ -29,11 +29,13 @@ export default {
                 this.show()
             },
             methods:{
-               show(){
-                 
-                    let obj = {}
-                    obj.page = this.$store.state.news.newdata.curpage;
-                    obj.rows = this.$store.state.news.newdata.rechpage;
+               show(page=1,rows,type,value){
+                   let obj = {}
+                   if(type){
+                       obj[type]=value
+                   }
+                   obj.page = page;
+                   obj.rows = 5;
                     ajax({
                         type:"post",
                         url:"/news/find",
@@ -42,10 +44,12 @@ export default {
                             store.commit("NEWS_DATA",data)
                     }.bind(this)
                     })
-                },
-                newAddFrom(){
-                    console.log(99)
                 }
+            },
+            computed:{
+                ...mapState({
+                    serach:state => state.news.search
+                })
             }
             }        
 </script>
