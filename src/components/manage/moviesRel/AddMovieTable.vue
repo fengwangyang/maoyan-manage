@@ -1,8 +1,12 @@
 <template>
     <div>
-        <el-button icon="plus" type="info" @click="initTable">添加电影</el-button>
+        <el-button icon="plus" type="success" @click="initTable">添加电影</el-button>
         <el-dialog top="20px" title="添加关联电影" :visible.sync="dialogTableVisible" class="moviesTable" size="small">
              <div>
+                
+                <div class="seach_add">
+                    <SearchForm :show='show' :optionData="options" :commitMutations="commitMutations" :newData="movies" holderText="搜索电影名/类型/地区" ></SearchForm>
+                </div>
                  <MainTable tableRef="addMovies" :show='show' :data="movies.rows" :isShow="false" :addToSelect="addToSelect"></MainTable>
                 <Page :show="show" :handleSizeChange="handleSizeChange" :goTo="goTo" :data="movies"></Page>
              </div>
@@ -18,18 +22,21 @@
     import {ajax} from "@/components/common/ajax";
     import MainTable from "./MainTable";
     import Page from "./Page";
+    import SearchForm from "./SearchForm";
     import {mapState} from "vuex";
     import store from "@/store";
-    import {SHOW_ALL_MOVIES,SHOW_MOVIES_LINKED,FIND_MOVIES} from "@/store/moviesRel/mutations";
+    import {SHOW_ALL_MOVIES,SHOW_MOVIES_LINKED,FIND_MOVIES,FIND_ALL_MOVIE} from "@/store/moviesRel/mutations";
 
     export default {
         data:function(){
             return {
                 dialogTableVisible:false,
-                selectedData:[]
+                selectedData:[],
+                options:[{text:"电影名",value:"cName"},{text:"地区",value:"area"},{text:"类型",value:"type"}],
+                commitMutations:[SHOW_ALL_MOVIES,FIND_ALL_MOVIE],
             }
         },
-        components:{MainTable,Page},
+        components:{MainTable,Page,SearchForm},
         created:function(){
             this.show()
         },
@@ -39,7 +46,7 @@
                 this.dialogTableVisible = false
             },
             show(){
-                let obj = {page:this.movies.curpage,rows:this.movies.eachpage}
+                let obj = {page:this.movies.curpage,rows:this.movies.eachpage,...this.$store.state.moviesRel.findMovies}
                 ajax({
                     url:"/movies/find",
                     type:"post",
@@ -120,7 +127,7 @@
     }
 </script>
 <style>
-    .moviesTable{
-/*        width: 600px;*/
+    .seach_add{
+        margin-bottom: 8px;
     }
 </style>
