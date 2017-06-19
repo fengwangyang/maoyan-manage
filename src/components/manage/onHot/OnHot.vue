@@ -1,5 +1,74 @@
 <template>
-<div>我是热映</div>
+    <div style='text-align:center'>
+        <h2 class='h2tyle'>热映电影</h2>
+        
+        <DeleteElement :showOnhot = 'showOnhot'></DeleteElement>
+        <AddElement :showOnhot='showOnhot' class='style' :showMoviesData='showMoviesData'></AddElement>
+        <SearchElement :showOnhot = 'showOnhot'></SearchElement>
+        <OnhotTable :showOnhot = 'showOnhot'></OnhotTable>
+        <Pagenation :showOnhot='showOnhot'></Pagenation>
+     </div>
 </template>
-<script></script>
-<style></style>
+<script>
+import {ajax} from "@/components/common/ajax";
+import store from "@/store";
+import AddElement from "./AddElement";
+import OnhotTable from "./OnhotTable";
+import Pagenation  from "./Pagenation";
+import DeleteElement from "./DeleteElement";
+import SearchElement from "./SearchElement";
+export default{
+    created:function(){
+    this.showOnhot();  
+    this.showMoviesData();
+    },
+    methods:{
+        showOnhot:function(page=1,type,value){
+            let obj={};
+            if(type){
+                obj[type]=value;
+            }
+            obj.page = page,
+            obj.rows = 5
+            ajax({
+                type:'get',
+                url:'/hotshowing/find',
+                data:obj,
+                success:(data)=>{
+                    store.commit("ONHOT_DATA",data);
+                }
+                
+            })
+        },
+        showMoviesData:function(page=1,rows=5){
+                let obj={};
+                obj.page=page;
+                obj.rows=rows;
+                 ajax({
+                    type:"get",
+                    url:"/movies/find",
+                    data:obj,
+                    success:(data)=>{   
+                        store.commit('ONHOT_MOVIESDATA',data);
+                    }
+                })
+            },
+    },
+    components:{
+        OnhotTable,AddElement,Pagenation,DeleteElement,SearchElement
+    },
+    
+}
+
+</script>
+<style>
+
+.h2tyle{
+        margin:10px auto;
+        color:cornflowerblue;
+    }
+    .style{
+        float:left;
+        margin:10px;
+    }
+</style>

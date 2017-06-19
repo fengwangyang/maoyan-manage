@@ -94,7 +94,11 @@
         watch:{
             "$route":function(nextPath){
                 if(nextPath.path != "/"){
+
                     this.getSession();
+
+//                    console.log(nextPath)
+
                 }
             }
         }
