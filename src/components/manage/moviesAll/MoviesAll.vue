@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 <div>
     <h2>电影管理</h2>
     <AddElement>
@@ -6,7 +7,19 @@
         
     </AddElement>
  
+=======
+<div style='text-align:center'>
+    <h2 class='h2tyle'>电影管理</h2>
     
+    <DeleteElement :show='show'></DeleteElement>
+    <AddElement :show='show'></AddElement>
+    <SearchElement :show='show'></SearchElement>
+    <MoviesTable :show='show'></MoviesTable>
+    <UpdateElement :show='show'></UpdateElement>
+    <PageNation class='pagestyle' :show='show'></PageNation>
+>>>>>>> moviesAll
+    
+<!--    <AddActors>1111</AddActors>-->
 </div>
 
 
@@ -21,7 +34,16 @@
 
 import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
+<<<<<<< HEAD
 
+=======
+import DeleteElement from "./DeleteElement";
+import SearchElement from "./SearchElement";
+import MoviesTable from "./MoviesTable";
+import PageNation from "./PageNation";
+import UpdateElement from "./UpdateElement";
+//import AddActors from "./AddActors";
+>>>>>>> moviesAll
 import store from "@/store";
 export default {
     created:function(){
@@ -42,19 +64,35 @@ export default {
             success:(data)=>{
                store.commit("MOVIESALL_DATA",data)
             }
-        })  
+            })  
         }
     },
     components:{
+<<<<<<< HEAD
         AddElement
     }
    
         
+=======
+        AddElement,MoviesTable,PageNation,SearchElement,DeleteElement,UpdateElement
+    }        
+>>>>>>> moviesAll
 }
 
 
 </script>
-<style></style>
+<style scpoe>
+    .pagestyle{
+        margin-top:20px;
+        float:right;
+    }
+    .h2tyle{
+        margin:10px auto;
+        color:cornflowerblue;
+    }
+
+
+</style>
 <!--
 <DeleteElement :show='show'></DeleteElement>
        <SearchElement :show='show'></SearchElement>
