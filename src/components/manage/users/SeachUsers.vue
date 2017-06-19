@@ -34,6 +34,9 @@
 </script>
 <style scoped="scoped">
  .el-select{
-    width: 80px;
+    width: 150px;
   }
+    .el-option{
+        width: 400px;
+    }
 </style>
