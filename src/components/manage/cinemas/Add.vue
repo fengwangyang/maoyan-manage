@@ -8,22 +8,22 @@
           @click="dialogFormVisible = true"
           >添加</el-button>
           
-<el-dialog title="添加" :visible.sync="dialogFormVisible" style="width:800px">
+<el-dialog title="添加" :visible.sync="dialogFormVisible" size="middle">
   <el-form label-position="right" label-width="120px" :rules="rules" :model="addForm" ref="addCinemasForm" >
     <el-form-item label="影院名称：" prop="cinemaName" >
       <el-input v-model="addForm.cinemaName" auto-complete="off" class="ipt" ></el-input>
    </el-form-item>
     
     <el-form-item label="影院地址：" prop="address">
-      <el-input v-model="addForm.address" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="addForm.address" auto-complete="off" style="width:250px"></el-input>
     </el-form-item>
     
     <el-form-item label="影院电话："prop="tel" >
-      <el-input v-model="addForm.tel" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="addForm.tel" auto-complete="off" style="width:250px"></el-input>
     </el-form-item>
    
      <el-form-item label="官方网站："prop="webAdress" >
-      <el-input v-model="addForm.webAdress" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="addForm.webAdress" auto-complete="off" style="width:250px"></el-input>
     </el-form-item>
   </el-form>
 <div slot="footer" class="dialog-footer">
@@ -39,19 +39,19 @@
 </el-dialog>
 
           
-<el-dialog title="添加影厅" :visible.sync="addaddHouseVisible" style="width:800px">
+<el-dialog title="添加影厅" :visible.sync="addaddHouseVisible" size="middle">
   <el-form label-position="right" label-width="120px" :rules="houseRules" :model="addHouse" ref="addHouseForm">
     <el-form-item label="影厅名称：" prop="hName">
-      <el-input v-model="addHouse.hName" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="addHouse.hName" auto-complete="off" style="width:250px"></el-input>
     </el-form-item>
     <el-form-item label="座位：" prop="sitSetting">
-      <el-input v-model="addHouse.sitSetting" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="addHouse.sitSetting" auto-complete="off" style="width:250px"></el-input>
     </el-form-item>
     <el-form-item>
     <el-button type="primary" @click="preSit" class="preSitBtn">座位预览</el-button>
     </el-form-item>
    <el-form-item label="间隔时间：" prop="gapTime">
-      <el-input v-model="addHouse.gapTime" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="addHouse.gapTime" auto-complete="off" style="width:250px"></el-input>
     </el-form-item>
 </el-form>
 <div slot="footer" class="dialog-footer">

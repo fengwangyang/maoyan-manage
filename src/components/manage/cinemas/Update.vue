@@ -1,15 +1,15 @@
     <template>
     <div>
-    <el-dialog title="修改" :visible.sync="updateVisible" style="width:800px" :before-close="hiddenUpdateDialog">
+    <el-dialog title="修改" :visible.sync="updateVisible" size="middle" :before-close="hiddenUpdateDialog">
   <el-form :model="form" label-position="right" label-width="120px" :rules="rulesUpdate"  ref="updateCinemasForm">
     <el-form-item label="影院名称：" prop="cinemaName">
-      <el-input v-model="form.cinemaName" auto-complete="off" ></el-input>
+      <el-input v-model="form.cinemaName" auto-complete="off"  style="width:250px"></el-input>
     </el-form-item>
        <el-form-item label="影院地址：" prop="address" >
-      <el-input v-model="form.address" auto-complete="off" ></el-input>
+      <el-input v-model="form.address" auto-complete="off" style="width:250px" ></el-input>
     </el-form-item>
        <el-form-item label="影院电话：" prop="tel">
-      <el-input v-model="form.tel" auto-complete="off" ></el-input>
+      <el-input v-model="form.tel" auto-complete="off" style="width:250px" ></el-input>
     </el-form-item>
      </el-form-item>
        <el-form-item label="官方网站：" prop="webAdress">
@@ -24,20 +24,20 @@
   </div>
 </el-dialog>
 
-<el-dialog title="修改影厅" :visible.sync="updateHouseVisibel" style="width:800px">
+<el-dialog title="修改影厅" :visible.sync="updateHouseVisibel" size="middle">
  <div v-for="House in houseData " class="formHouse" >
   <el-form :model="House" label-position="right" label-width="120px" :rules="rulesUpdateHouse"  ref="updateHouseForm" >
     <el-form-item label="影厅名称：" prop="hName">
-      <el-input v-model="House.hName" auto-complete="off" disabled="true"></el-input>
+      <el-input v-model="House.hName" auto-complete="off" disabled="true" style="width:250px"></el-input>
     </el-form-item>
     <el-form-item label="座位：" prop="sitSetting">
-      <el-input v-model="House.sitSetting" auto-complete="off" ></el-input>
+      <el-input v-model="House.sitSetting" auto-complete="off"  style="width:250px"></el-input>
     </el-form-item>
     <el-form-item>
     <el-button @click="preSit(House.sitSetting)" type="primary" >预览座位</el-button>
     </el-form-item>
     <el-form-item label="间隔时间：" prop="gapTime">
-      <el-input v-model="House.gapTime" auto-complete="off" ></el-input>
+      <el-input v-model="House.gapTime" auto-complete="off" style="width:250px" ></el-input>
     </el-form-item>
     <el-form-item>
     <el-button @click="removeHouse(House.hName)"  class="removeHouse"icon="delete"type="warning">删除影厅</el-button>
@@ -54,13 +54,13 @@
  </div>
 </el-dialog>
 
-<el-dialog title="添加影厅" :visible.sync="addHouseVisible" style="width:800px">
+<el-dialog title="添加影厅" :visible.sync="addHouseVisible"  size="middle">
   <el-form label-position="right" label-width="120px" :model="updateAddHouseFrom" ref="updateAddHouse"  :rules="rulesUpdateAddHouse" >
     <el-form-item label="影厅名称：" prop="hName">
-      <el-input v-model="updateAddHouseFrom.hName" auto-complete="off" ></el-input>
+      <el-input v-model="updateAddHouseFrom.hName" auto-complete="off" style="width:250px" ></el-input>
     </el-form-item>
     <el-form-item label="座位：" prop="updateSit">
-      <el-input v-model="updateAddHouseFrom.updateSit" auto-complete="off" ></el-input>
+      <el-input v-model="updateAddHouseFrom.updateSit" auto-complete="off"  style="width:250px"></el-input>
     </el-form-item>
     <el-form-item>
     <el-button type="primary" @click="()=>preSit(this.updateAddHouseFrom.updateSit)">座位预览</el-button>
