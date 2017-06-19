@@ -109,7 +109,7 @@
                  updateHouseVisibel:false,
                  addHouseVisible:false,
                  updateAddHouseFrom:{
-                 updateSit:"",
+                   updateSit:"",
                  },
                 
                 rulesUpdate: {
