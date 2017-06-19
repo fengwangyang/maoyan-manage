@@ -3,12 +3,12 @@
 <div class="student">
 	<el-row type="flex" justify="space-between" class="row">
   			<el-col>
-  				<h2 style="margin-top:6px">欢迎来到猫眼管理系统</h2>
+  				<h2 style="margin-top:6px">猫眼电影后台管理系统</h2>
   			</el-col>
   			<el-col :span="8">
-	  				<el-menu theme="dark" class="el-menu-demo" mode="horizontal" :router=true >
-				  	<el-menu-item index="/">登录</el-menu-item>
-				  	<el-menu-item index="/">注销</el-menu-item>
+	  				<el-menu theme="dark" class="el-menu-demo" mode="horizontal" :router=true>
+				  	<el-menu-item index="">欢迎{{userName}}</el-menu-item>
+				  	<el-menu-item index="/" @click='logout'>注销</el-menu-item>
 				  	</el-menu>
   			</el-col>
         </el-row>
@@ -39,7 +39,51 @@
 
 
 </template>
-<script></script>
+<script>
+    import {ajax} from "@/components/common/ajax"
+    export default{
+        data:function(){
+            return {
+                userName:"",
+            }
+        },
+        created:function(){
+          
+            console.log(0)
+        },
+        methods:{
+            getSession:function(){
+                ajax({
+                    url:"getSession",
+                    type:"post",
+                    success:(data)=>{
+                        if(data.userName){
+                            this.userName = data.userName;
+                        }else{
+                            this.$router.push("/");
+                        }
+                    }
+                })
+            },
+            logout:function(){
+                ajax({
+                    url:"/logout",
+                    success:()=>{
+                        this.$router.push("/");
+                    }
+                })
+            }
+        },
+        watch:{
+            "$route":function(nextPath){
+                if(nextPath.path != "/"){
+                    console.log(nextPath)
+                }
+            }
+        }
+    }
+
+</script>
 <style scoped>
 
 	.row{
