@@ -50,7 +50,7 @@
                 rules:{
                     name:[
                         {required: true, message: '请输入姓名', trigger: 'blur' },
-                        {pattern:/^[a-zA-Z]{6,}$/,message: '请输入正确格式（26英文字母）', trigger: 'blur'}
+                        {pattern:/^[a-zA-Z]{6,}$/,message: '请输入正确格式（26位英文字母，最少输入6个字符）', trigger: 'blur'}
                     ],
                     phNum:[
                         {required: true, message: '请输入手机号', trigger: 'blur' },

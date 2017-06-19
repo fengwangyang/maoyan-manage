@@ -1,12 +1,13 @@
 <template>
 <div>
         
-    <h1>用户管理</h1>
-      <UsersManage :show="show"></UsersManage>
+    <h1 class="usersH1">用户管理</h1>
+      <UsersManage :show="show" class="usersInput"></UsersManage>
     <el-table
         :data="tableData"
         border
-        height="400"
+        margin="20"
+        height="300"
         style="width: 100%"
         @selection-change="handleSelectionChange">
         <el-table-column
@@ -111,5 +112,19 @@
         }
   }
 </script>
-<style></style>
+<style scoped="scoped">
+    .usersH1{
+        color: blue;
+        margin-top: 20px;
+        text-align: center
+    }
+    .usersInput{
+        margin-top: 30px;
+        margin-left: 10px
+    }
+    .el-table{
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+</style>
 
