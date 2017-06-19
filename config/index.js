@@ -33,13 +33,21 @@ module.exports = {
                 changeOrigin: true,
                 filter: function (pathname, req) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)|(/managers)|(/getSession)');
 =======
                     return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)|(/upload)');
 >>>>>>> moviesAll
                 }
            }
+=======
+                    return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)|(/managers)|(/getSession)|(/upload)');
+                }
+       }
+>>>>>>> news
     },
+        
+    
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

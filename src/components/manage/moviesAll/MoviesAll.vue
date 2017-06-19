@@ -1,7 +1,11 @@
 <template>
 
+
 <div style='text-align:center'>
     <h2 class='h2tyle'>电影管理</h2>
+
+  <MoviesTable :show='show'></MoviesTable>
+
     
     <DeleteElement :show='show'></DeleteElement>
     <AddElement :show='show'></AddElement>
@@ -24,6 +28,7 @@
 
 import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
+<<<<<<< HEAD
 
 import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
@@ -31,7 +36,9 @@ import MoviesTable from "./MoviesTable";
 import PageNation from "./PageNation";
 import UpdateElement from "./UpdateElement";
 //import AddActors from "./AddActors";
->>>>>>> moviesAll
+
+//import MoviesTable from "./MoviesTable";
+
 import store from "@/store";
 export default {
     created:function(){

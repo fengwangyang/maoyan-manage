@@ -49,11 +49,16 @@
         },
         created:function(){
 <<<<<<< HEAD
+<<<<<<< HEAD
           
             console.log(0)
 =======
             this.getSession();
 >>>>>>> moviesRel
+=======
+            this.getSession();
+//            console.log(0)
+>>>>>>> news
         },
         methods:{
             getSession:function(){
@@ -81,7 +86,11 @@
         watch:{
             "$route":function(nextPath){
                 if(nextPath.path != "/"){
+<<<<<<< HEAD
                     this.getSession();
+=======
+//                    console.log(nextPath)
+>>>>>>> news
                 }
             }
         }
