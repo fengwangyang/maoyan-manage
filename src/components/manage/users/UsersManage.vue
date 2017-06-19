@@ -1,15 +1,15 @@
 <template>
-    <el-row>
-      <el-col :span="12"><div class="grid-content bg-purple">
-          <SeachUsers :show="show"></SeachUsers>
-      </div></el-col>
-      <el-col :span="3"><div class="grid-content bg-purple-light">
-          <AddUsers :show="show"></AddUsers>
-      </div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light">
-          <BatchDelUsers :show="show"></BatchDelUsers>
-      </div></el-col>
-    </el-row>
+   
+      <div>
+          <SeachUsers :show="show" style="float:left;marginLeft:10px"></SeachUsers>
+    
+      
+          <AddUsers :show="show" style="float:left;marginLeft:10px"></AddUsers>
+      
+   
+          <BatchDelUsers :show="show" style="float:left;marginLeft:10px"></BatchDelUsers>
+      </div>
+   
 </template>
 <script>
     import {ajax} from "@/components/common/ajax"

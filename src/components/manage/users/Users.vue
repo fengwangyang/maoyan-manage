@@ -2,14 +2,13 @@
 <div>
         
     <h2 class="usersH1">用户管理</h2>
-      <UsersManage :show="show" class="usersInput"></UsersManage>
+      <UsersManage :show="show" class="usersInput" style="overflow:hidden"></UsersManage>
     <el-table
+        style="marginTop:10px;"
         :data="tableData"
         border
         margin="20"
-        height="300"
-        style="width: 100%"
-        @selection-change="handleSelectionChange">
+         @selection-change="handleSelectionChange">
         <el-table-column
           type="selection"
           width="55">
@@ -45,7 +44,7 @@
           </template>
         </el-table-column>
   </el-table>
-  <Page :show="show"></Page>
+  <Page :show="show" ></Page>
  </div>
 </template>
 <script>
@@ -123,8 +122,7 @@
         margin-left: 10px
     }
     .el-table{
-        margin-left: 10px;
-        margin-top: 10px;
+         margin-top: 10px;
     }
 </style>
 

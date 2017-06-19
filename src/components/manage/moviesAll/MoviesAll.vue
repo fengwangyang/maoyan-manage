@@ -65,8 +65,7 @@ export default {
     }
     .h2tyle{
         margin:10px auto;
-/*        color:cornflowerblue;*/
-        color:#324057;
+        color:blue;
         
     }
 

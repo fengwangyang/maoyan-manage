@@ -43,7 +43,7 @@
        refresh(){
         this.value="";
         store.commit("SEARCH_TYPE",{});
-        this.show(1,this.size);
+        this.show(1,this.pageSize);
       },
      },
  computed:{
