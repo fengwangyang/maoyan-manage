@@ -1,19 +1,18 @@
 <template>
    <div class='style'>
-      
 <!--
-       <el-pagination
+    <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurpage"
-      :current-page="onhotData.curpage"
+      :current-page="onshowData.curpage"
       :page-sizes="[5, 6, 7, 8]"
       :page-size="size"
-       layout="total, sizes, prev, pager, next, jumper"
-      :total="onhotData.total">
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="onshowData.total">
     </el-pagination>
 -->
-  
-   <el-pagination
+    
+    <el-pagination
       @size-change=""
       @current-change="handleCurpage"
       :current-page.sync="onhotData.curpage"
@@ -22,7 +21,11 @@
       :total="onhotData.total">
     </el-pagination>
    </div>
- </template>
+   
+    
+</template>
+
+
 <script>
     import {mapState} from "vuex";
     import store from "@/store";
@@ -34,8 +37,8 @@
         },
         props:['showOnhot'],
         methods:{
-          
             handleCurpage:function(val){
+                
                let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
                  this.showOnhot(val,type,typevalue);
@@ -48,16 +51,17 @@
             this.showOnhot(1,val,type,typevalue);
             
         },
+        },
         computed:{
-            ...mapState({   
-            onhotData:state=>state.moviesAll.onhotData,
+            ...mapState({    
+                onhotData:state=>state.moviesAll.onhotData,
+            
+//           onshowData:state=>state.moviesAll.onshowData,
             onhotSearchData:state=>state.moviesAll.onhotSearchData   
         })
         }
     }
-        }
-    
-</script>
+ </script>
 
 
 <style scoped>
