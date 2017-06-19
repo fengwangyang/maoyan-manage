@@ -1,62 +1,113 @@
 <template>
-
-<!--      <UsersManage></UsersManage>-->
+<div>
+        
+    <h1>用户管理</h1>
+      <UsersManage :show="show"></UsersManage>
     <el-table
         :data="tableData"
         border
-        style="width: 100%">
+        height="400"
+        style="width: 100%"
+        @selection-change="handleSelectionChange">
         <el-table-column
-          prop="name"
-          label="姓名"
-          width="180">
+          type="selection"
+          width="55">
+          
         </el-table-column>
         <el-table-column
+          prop="name"
+          label="姓名">
+        </el-table-column>
+        <el-table-column
+          prop="pwd"
+          label="密码">
+        </el-table-column>
+         <el-table-column
           prop="phNum"
-          label="电话"
-          width="180">
+          label="电话">
+        </el-table-column>
+        <el-table-column
+          prop="time"
+          label="生日">
         </el-table-column>
         <el-table-column
           prop="email"
-          label="邮箱"
-          width="180">
+          label="邮箱">
+        </el-table-column>
+        <el-table-column label="操作">
+          <template scope="scope">
+           <el-button size="small"
+              icon='edit'
+              type='info' 
+              @click="update(scope.$index, scope.row)">修改</el-button>
+            <UpdatUsers></UpdatUsers>
+          </template>
         </el-table-column>
   </el-table>
- 
+  <Page :show="show"></Page>
+ </div>
 </template>
 <script>
     import {ajax} from "@/components/common/ajax"
-//    import UsersManage from "./UsersManage"
+    import store from "@/store"
+    import {mapState} from "vuex"
+    import UsersManage from "./UsersManage"
+    import UpdatUsers from "./UpdatUsers"
+    import {SHOW_DATA} from "@/store/users/mutations";
+    import Page from "./Page"
     export default {
         data(){
             return {
                 name:"",
+                pwd:"",
                 phNum:"",
+                time:"",
                 email:"",
-                tabelData:[]
+                _id:"",
+               tableData:"",
+                
             }                
         },
         created(){
-            this.show();
+            this.show(1,5);
         },
         methods:{
-            show(){
+            show(page,row,type,val){
+                let obj={};
+                if(type){
+                    obj[type]=val
+                }
+                obj.rows = row;
+                obj.page = page;
                 ajax({
                     type:"get",
                     url:"/users/find",
-                    data:{
-                        rows:5,
-                        page:1
-                    },
-                    success:(data)=>{
-//                        console.log(data);
+                    data:obj,
+                    success:function(data){
+                        console.log(data.rows);
                         this.tableData=data.rows;
-                        console.log(this.tableData);
-                    }
+                        store.commit('SHOW_DATA',data);
+                    }.bind(this)
                 })
-            }
+            },
+            handleSelectionChange(val){
+                let removeData_id =[];
+                for(let i=0;i<val.length;i++){
+                    removeData_id.push(val[i]._id);
+                    store.commit("DELETE_USERS",removeData_id);
+                };
+            },
+            update(index,rows){
+//                console.log(index);
+//                console.log(rows);
+//                this.dialogFormVisible=true;
+                store.commit('RENDERER_USERS',rows);
+                store.commit("SET_UPDATEVISIBLE",true);
+                console.log(this.$store.state.users.updateVisible);
+            },
         },
         components:{
-//            UsersManage
+            UsersManage,Page,UpdatUsers
         }
   }
 </script>
