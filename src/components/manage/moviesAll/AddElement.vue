@@ -3,8 +3,8 @@
     <div class='deletestyle'>
         <el-button type="success" @click="dialogFormVisible = true" icon='plus'>添加</el-button>
         
-        <el-dialog title="添加" :visible.sync=dialogFormVisible >
-          <el-form :inline='true' :model="form" :rules="rules" ref="form" >
+        <el-dialog title="添加" :visible.sync=dialogFormVisible size='tiny'>
+          <el-form :model="form" :rules="rules" ref="form" >
             <el-form-item label="电影中文名" label-width="100px" prop="cName">
               <el-input v-model="form.cName"></el-input>
             </el-form-item>
@@ -49,8 +49,7 @@
              </el-upload>
           </el-form>
           
-    <el-tag :key="tag" type='success' v-for="tag in array"
-          :closable="true">{{tag}}</el-tag>
+    <el-tag :key="tag" type='success' v-for="tag in array" :closable="true" style='margin:10px'>演员：{{tag.staffName}}</el-tag>
 <!--          添加演职人员-->
            <el-button type="info" @click="actorDialog" style='margin:10px'>添加演职人员</el-button>
 
@@ -123,7 +122,7 @@ export default {
               ],
               eName:[
                    {required:true,message:'电影英文名不能为空',trigger:'blur'},
-                   {pattern:/^[0-9a-zA-z]{6,}$/,message:'电影英文名为6位以上字母或数字',trigger:'blur'}
+                   {pattern:/^[0-9a-zA-z\.\s]{6,}$/,message:'电影英文名为6位以上字母或数字',trigger:'blur'}
               ],
               type:[
                    {required:true,message:'电影类型不能为空',trigger:'blur'},
@@ -131,7 +130,7 @@ export default {
               ],
               scor:[
                    {required:true,message:'电影评分不能为空',trigger:'blur'},
-                   {pattern:/^[1-9]{1,}$/,message:'电影评分为1-10的数字',trigger:'blur'}
+                   {pattern:/^[0-9\.]{1,}$/,message:'电影评分为1-10的数字',trigger:'blur'}
               ],
               favor:[
                   {required:true,message:'喜欢人数不能为空',trigger:'blur'},
@@ -149,9 +148,6 @@ export default {
                    {required:true,message:'电影时长不能为空',trigger:'blur'},
                    {pattern:/^[0-9]{1,}$/,message:'电影时长为大于1的数字',trigger:'blur'}
               ],
-//              releaseDate:[
-//                   {required:true,message:'电影上映时间不能为空',trigger:'blur'},
-//              ],
               releaseArea:[
                    {required:true,message:'电影上映地区不能为空',trigger:'blur'},
                    {pattern:/^[\u4e00-\u9fa5]{1,}$/,message:'电影上映地区为中文',trigger:'blur'}
@@ -213,7 +209,7 @@ export default {
             }
          this.$refs[form].validate((valid) => {
              if (valid) {
-            this.$confirm('确认添加?', '提示', {
+            this.$confirm('确认添加'+' '+this.form.cName+' '+'这条数据?', '提示', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
               type: 'warning'

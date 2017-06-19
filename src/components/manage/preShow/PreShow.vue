@@ -1,10 +1,10 @@
 <template>
-    <div style='text-align:center'>
+    <div style='text-align:center;margin:10px'>
         <h2 class='h2tyle'>即将上映</h2>
-        
-        <DeleteElement :showOnhot = 'showOnhot'></DeleteElement>
+         <SearchElement :showOnhot = 'showOnhot'></SearchElement>
+       
         <AddElement :showOnhot='showOnhot' class='style' :showMoviesData='showMoviesData'></AddElement>
-        <SearchElement :showOnhot = 'showOnhot'></SearchElement>
+        <DeleteElement :showOnhot = 'showOnhot'></DeleteElement>
         <PreshowTable :showOnhot = 'showOnhot'></PreshowTable>
         <Pagenation :showOnhot='showOnhot'></Pagenation>
      </div>
@@ -23,13 +23,13 @@ export default{
     this.showMoviesData();
     },
     methods:{
-        showOnhot:function(page=1,type,value){
+        showOnhot:function(page=1,rows=5,type,value){
             let obj={};
             if(type){
                 obj[type]=value;
             }
             obj.page = page,
-            obj.rows = 5
+            obj.rows = rows,
             ajax({
                 type:'get',
                 url:'/preonshow/find',

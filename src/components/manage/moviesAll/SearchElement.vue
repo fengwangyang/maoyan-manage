@@ -7,10 +7,10 @@
       <el-option label="类型" value="type"></el-option>
       <el-option label="区域" value="area"></el-option>
     </el-select>
-    <el-button slot="append" icon="search" style='width:50px' @click='searchMoives'></el-button>
+    <el-button slot="append" icon="search" style='width:80px' @click='searchMoives'>搜索</el-button>
   </el-input>
   
-  <el-button slot="append" icon="minus" type='info' @click='emptySearch' style='float:left;margin-left:10px'>清空</el-button>
+  <el-button slot="append" type='info' @click='emptySearch' style='float:left;margin-left:10px'>刷新</el-button>
 </div>
     
 </template>
@@ -18,6 +18,7 @@
 
 <script>
 import store from "@/store";
+import {mapState} from "vuex";
 export default {
     props:['show'],
     data:function(){
@@ -34,14 +35,19 @@ export default {
             }
         store.commit("SHOW_SEARCH",data);
 
-       this.show(1,this.searchValue,this.value);
+       this.show(1,this.pageSize,this.searchValue,this.value);
     },
          emptySearch:function(){
              this.value='';
             this.searchValue = '';
-            this.showOnhot(1);
+            this.show(1,this.pageSize);
         store.commit("SHOW_SEARCH",'');
         }
+    },
+    computed:{
+        ...mapState({
+        pageSize:state=>state.moviesAll.pageSize
+    })
     }
 }
 </script>
@@ -54,7 +60,7 @@ export default {
         margin-left:10px;
         margin-top:10px;
         margin-bottom:10px;
-        width:500px;
+        width:470px;
     }
 
 
