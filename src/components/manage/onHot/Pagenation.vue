@@ -1,22 +1,28 @@
 <template>
    <div class='style'>
+      
+<!--
        <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurpage"
-      :current-page.sync="onhotData.curpage"
+      :current-page="onhotData.curpage"
       :page-sizes="[5, 6, 7, 8]"
       :page-size="size"
+       layout="total, sizes, prev, pager, next, jumper"
+      :total="onhotData.total">
+    </el-pagination>
+-->
+  
+   <el-pagination
+      @size-change=""
+      @current-change="handleCurpage"
+      :current-page.sync="onhotData.curpage"
+      :page-size="5"
       layout="prev, pager, next, jumper"
       :total="onhotData.total">
     </el-pagination>
-    
-    
    </div>
-    
-    
-</template>
-
-
+ </template>
 <script>
     import {mapState} from "vuex";
     import store from "@/store";
@@ -28,10 +34,11 @@
         },
         props:['showOnhot'],
         methods:{
+          
             handleCurpage:function(val){
                let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
-                 this.showOnhot(val,5,type,typevalue);
+                 this.showOnhot(val,type,typevalue);
             },
             handleSizeChange:function(val){
                  store.commit('PAGESIZE',val);
@@ -44,7 +51,7 @@
         computed:{
             ...mapState({   
             onhotData:state=>state.moviesAll.onhotData,
-             onhotSearchData:state=>state.moviesAll.onhotSearchData   
+            onhotSearchData:state=>state.moviesAll.onhotSearchData   
         })
         }
     }

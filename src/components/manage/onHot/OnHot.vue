@@ -15,6 +15,7 @@ import store from "@/store";
 import AddElement from "./AddElement";
 import OnhotTable from "./OnhotTable";
 import Pagenation  from "./Pagenation";
+//import Pagenation  from "../preShow/Pagenation";
 import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
 export default{
@@ -29,12 +30,13 @@ export default{
                 obj[type]=value;
             }
             obj.page = page,
-            obj.rows = 5
+            obj.rows = 5,
             ajax({
                 type:'get',
                 url:'/hotshowing/find',
                 data:obj,
                 success:(data)=>{
+                    console.log(data);
                     store.commit("ONHOT_DATA",data);
                 }
                 

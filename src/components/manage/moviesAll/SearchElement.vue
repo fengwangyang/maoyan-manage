@@ -35,12 +35,12 @@ export default {
             }
         store.commit("SHOW_SEARCH",data);
 
-       this.show(1,this.pageSize,this.searchValue,this.value);
+       this.show(1,this.searchValue,this.value);
     },
          emptySearch:function(){
              this.value='';
             this.searchValue = '';
-            this.show(1,this.pageSize);
+            this.show(1);
         store.commit("SHOW_SEARCH",'');
         }
     },

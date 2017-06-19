@@ -34,12 +34,12 @@ export default {
                 value:this.value
             }
             store.commit("ONHOT_SEARCHDATA",data);
-            this.showOnhot(1,this.pageSize,this.searchValue,this.value);
+            this.showOnhot(1,this.searchValue,this.value);
     },
          emptySearch:function(){
              this.value='';
             this.searchValue = '';
-            this.showOnhot(1,this.pageSize);
+            this.showOnhot(1);
         store.commit("ONHOT_SEARCHDATA",'');
         }
     },
