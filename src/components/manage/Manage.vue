@@ -25,8 +25,8 @@
       <el-menu-item index="pre_show"><i class="el-icon-setting"></i>即将上映</el-menu-item>
     </el-menu>
   </el-col>
-  
-  <el-col :span="20" class="right">
+<!--  <el-col :span="1"></el-col>-->
+  <el-col :span="18" class="right" :offset="1">
   
   <router-view></router-view>
 	</el-col>
@@ -48,8 +48,12 @@
             }
         },
         created:function(){
+<<<<<<< HEAD
           
             console.log(0)
+=======
+            this.getSession();
+>>>>>>> moviesRel
         },
         methods:{
             getSession:function(){
@@ -77,7 +81,7 @@
         watch:{
             "$route":function(nextPath){
                 if(nextPath.path != "/"){
-                    console.log(nextPath)
+                    this.getSession();
                 }
             }
         }
@@ -98,7 +102,8 @@
 		height:520px;
 	}
 	.right{
-		height:400px;
+		height:520px;
+/*        overflow: scroll;*/
 	}
 	.pagechange{
 		margin-left:30px;
@@ -111,10 +116,10 @@
 		
 	}
 	.footer{
-		height:50px;
+		height:36px;
 		background-color:#324057;
 		text-align:center;
-		line-height:50px;
+		line-height:36px;
 		color:white;
 	}
 </style>

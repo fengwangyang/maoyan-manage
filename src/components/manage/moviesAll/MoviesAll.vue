@@ -1,13 +1,5 @@
 <template>
-<<<<<<< HEAD
-<div>
-    <h2>电影管理</h2>
-    <AddElement>
-        
-        
-    </AddElement>
- 
-=======
+
 <div style='text-align:center'>
     <h2 class='h2tyle'>电影管理</h2>
     
@@ -17,9 +9,7 @@
     <MoviesTable :show='show'></MoviesTable>
     <UpdateElement :show='show'></UpdateElement>
     <PageNation class='pagestyle' :show='show'></PageNation>
->>>>>>> moviesAll
-    
-<!--    <AddActors>1111</AddActors>-->
+
 </div>
 
 
@@ -34,9 +24,7 @@
 
 import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
-<<<<<<< HEAD
 
-=======
 import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
 import MoviesTable from "./MoviesTable";
@@ -68,15 +56,10 @@ export default {
         }
     },
     components:{
-<<<<<<< HEAD
-        AddElement
-    }
-   
-        
-=======
+
         AddElement,MoviesTable,PageNation,SearchElement,DeleteElement,UpdateElement
     }        
->>>>>>> moviesAll
+
 }
 
 
