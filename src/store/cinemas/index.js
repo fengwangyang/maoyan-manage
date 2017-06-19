@@ -5,6 +5,7 @@ import {UPDATE_VISIBLE} from "./cinemas_const"
 import {SIT_DATA} from "./cinemas_const"
 import {HOUSE_DATA} from "./cinemas_const"
 import {SEARCH_TYPE} from "./cinemas_const"
+import {PAGE_SIZE} from "./cinemas_const"
 const cinemas = {
     state:{
        removeData:{},
@@ -14,6 +15,8 @@ const cinemas = {
        sitData:{},
        houseData:{},
        searchType:{},
+       pageSize:{},
+       inputValue:"",
     },
     mutations:{
        [REMOVE_DATA](state,data){
@@ -43,7 +46,12 @@ const cinemas = {
     [SEARCH_TYPE](state,data){
         state.searchType=data;
            console.log(data);
+    },  
+    [PAGE_SIZE](state,data){
+        state.pageSize=data;
+           console.log(data);
     },
+  
   }
 }
 export {cinemas as default}

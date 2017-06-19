@@ -14,7 +14,7 @@
  
  </template>
     <script>
-   
+        import store from "@/store"
         import {mapState} from "vuex"
        export default{
         props:["show"],
@@ -32,13 +32,18 @@
         },
         methods:{
         handleSizeChange(value){
+          store.commit("PAGE_SIZE",value);
           this.size=value,
           this.show(this.allData.curpage,value,this.searchType,this.searchValue);
             },
         handleCurrentChange(value){
           this.show(value,this.size,this.searchType,this.searchValue);
         },
-        
+       refresh(){
+        this.value="";
+        store.commit("SEARCH_TYPE",{});
+        this.show(allData.curpage,this.size);
+      },
         }
     }
     </script>

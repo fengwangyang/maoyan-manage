@@ -1,20 +1,23 @@
 
 <template>
     <div>
-    <h3 class="cinemas_h3">院线管理</h3>
-    
-    <Add style="float:left" :show="show"></Add>
+    <h2 class="cinemas_h3" style="marginTop:20px;">院线管理</h2>
+    <div style="marginTop:30px;overflow:hidden"> 
+    <Search style="float:left;marginLeft:10px;" :show="show">
+    </Search>
+   
+    <Add style="float:left; marginLeft:10px;" :show="show"></Add>
       <el-button
-      style="float:left"
+      style="float:left; marginLeft:10px"
           size="middle"
           icon="delete"
           type="warning"
           @click="remove">删除</el-button>
-    <Search style="float:left" :show="show">
-    </Search>
+     </div>
     <Update :show="show"></Update>
+ <div style="marginTop:10px">
   <el-table
-    :data="tableData"
+  :data="tableData"
     border
     style="width: 100%"
     type="index"
@@ -73,9 +76,10 @@
       </template>
     </el-table-column>
   </el-table>
-  
+  </div>
+  <div style="marginTop:10px">
   <Page :show="show"></Page>
-  
+  </div>
   </div>
 </template>
 <script>
@@ -99,8 +103,8 @@
     },
      computed:{
         ...mapState({
-             removeData:state=>state.cinemas.removeData,
-            })
+              removeData:state=>state.cinemas.removeData,
+                 })
         },
     methods:{
         show(page,row,type,value){
@@ -124,12 +128,11 @@
         selectCheckbox(row){
             store.commit("REMOVE_DATA",row);
         },
-      
-    
-       remove(){
+     
+     remove(){
           let newRemoveData=[];
            let name;
-       for (let i=0;i<this.removeData.length;i++){
+           for (let i=0;i<this.removeData.length;i++){
             newRemoveData.push(this.removeData[i]._id);
             name=this.removeData[i].cinemaName;
        }
@@ -189,9 +192,9 @@ import
 .search{
     width:50px;
     }
-    .cinemas_h3{
+.cinemas_h3{
         width:200px;
-        color:red;
+        color:blue;
         margin:auto;
     }
 </style>

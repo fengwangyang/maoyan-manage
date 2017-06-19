@@ -168,7 +168,7 @@
             houseData:state=>state.cinemas.houseData,
             sitData:state=>state.cinemas.sitData,
             allData:state=>state.cinemas.allData,
-      })
+         })
      },
      methods:{
       sitValid(rule, value, callback){

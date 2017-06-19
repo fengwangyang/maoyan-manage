@@ -1,6 +1,6 @@
 <template>
-
-   <div style="width:400px">
+ <div>
+   <div style="width:400px" class="searchInput">
     <el-input placeholder="请输入内容" v-model="value">
     <el-select v-model="select" slot="prepend" placeholder="请选择" style="width:150px">
       <el-option label="影院名称" value="cinemaName"></el-option>
@@ -10,8 +10,13 @@
     </el-select>
     <el-button slot="append" icon="search" @click="searchCinemas"></el-button>
   </el-input>
-</div>
-
+  </div>
+   <el-button
+     style="float:left;marginLeft:10px"
+          size="middle"
+          type="primary"
+          @click="refresh">刷新</el-button>
+  </div>
     </template>
     
     <script>
@@ -33,10 +38,24 @@
             searchValue:this.value,
             };
          store.commit("SEARCH_TYPE",obj),
-         this.show(1,5,this.select,this.value);
-                
-        }
-}
+         this.show(1,this.pageSize,this.select,this.value);
+       },
+       refresh(){
+        this.value="";
+        store.commit("SEARCH_TYPE",{});
+        this.show(1,this.size);
+      },
+     },
+ computed:{
+     ...mapState({
+          pageSize:state=>state.cinemas.pageSize,
+          value:state=>state.cinemas.inputValue,
+        })
+     }
     }
     </script>
-    <style></style>
+    <style scoped>
+     .searchInput{
+        float:left;
+      }
+    </style>
