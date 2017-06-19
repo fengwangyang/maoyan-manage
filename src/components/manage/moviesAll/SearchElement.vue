@@ -1,16 +1,16 @@
 <template>
     
     <div class='deletestyle'>
-  <el-input placeholder="请输入内容" v-model="value" style='float:left;width:730px'>
-    <el-select v-model="searchValue" slot="prepend" placeholder="电影中文名" style='width:150px'>
+  <el-input placeholder="请输入内容" v-model="value" style='float:left;width:400px'>
+    <el-select v-model="searchValue" slot="prepend" placeholder="电影中文名" style='width:120px'>
       <el-option label="电影中文名" value="cName"></el-option>
       <el-option label="类型" value="type"></el-option>
       <el-option label="区域" value="area"></el-option>
     </el-select>
-    <el-button slot="append" icon="search" style='width:100px' @click='searchMoives'></el-button>
+    <el-button slot="append" icon="search" style='width:50px' @click='searchMoives'></el-button>
   </el-input>
   
-  <el-button slot="append" icon="minus" type='info' @click='emptySearch' style='float:right'>清空</el-button>
+  <el-button slot="append" icon="minus" type='info' @click='emptySearch' style='float:left;margin-left:10px'>清空</el-button>
 </div>
     
 </template>
@@ -51,8 +51,10 @@ export default {
 
  .deletestyle{
         float:left;
-        margin:10px;
-        width:830px;
+        margin-left:10px;
+        margin-top:10px;
+        margin-bottom:10px;
+        width:500px;
     }
 
 

@@ -1,16 +1,16 @@
 <template>
-    <div>
+    <div class='divclass'>
         <el-table
     :data="moviesData"
     border
-    style="width: 100%" @selection-change="handleSelectionChange">
+    style="width: 100%" @selection-change="handleSelectionChange" fit>
     <el-table-column
       type="selection"
       width="55">
     </el-table-column>
     <el-table-column
       label="电影中文名" prop="cName"
-      width="120" :show-overflow-tooltip=true>
+      width="120" :show-overflow-tooltip=true fixed>
       
     </el-table-column>
     <el-table-column
@@ -64,10 +64,10 @@
     
     <el-table-column
       prop="poster"
-      label="图集" width="120" :show-overflow-tooltip=true>
+      label="图集" width="100" :show-overflow-tooltip=true>
     </el-table-column>
     
-    <el-table-column label="操作">
+    <el-table-column label="操作" fixed='right' width='120px'>
       <template scope="scope" :show-overflow-tooltip=true>
         <el-button type='info' icon='edit' @click="updateData(scope.row)">修改</el-button>
         
@@ -90,9 +90,12 @@ export default {
     data:function(){
       return  {
         
-        dialogFormVisible:false
-        
+        dialogFormVisible:false,
+        releaseDate :''
         }
+    },
+    created:function(){
+//        this.changeDate();
     },
     methods:{
         updateData:function(rows){
@@ -107,6 +110,10 @@ export default {
                 }
             })      
         },
+        changeDate:function(){
+          console.log(this.moviesData.releaseDate) ;
+        },
+        
         //选择要删除的数据保存在store中
          handleSelectionChange(val) {
              let newarry = [];
@@ -130,7 +137,9 @@ export default {
 
 
 <style scoped>
-
+    .divclass{
+        width:1000px;
+    }
 
 
 </style>

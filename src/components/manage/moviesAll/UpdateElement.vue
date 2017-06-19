@@ -2,7 +2,7 @@
     
     <div class='deletestyle'>
        
-        <el-dialog title="修改" :visible.sync=dialogFormVisible class='addDialog' :before-close='closeDialog' size='large'>
+        <el-dialog title="修改" :visible.sync=dialogFormVisible :before-close='closeDialog' size='small'>
           <el-form :model="form" :rules="rules" ref="form" :inline="true">
             <el-form-item label="电影中文名" label-width="100px" >
               <el-input v-model="form.cName"></el-input>
@@ -38,47 +38,47 @@
     </el-form>
          
 <!--         显示封面-->
-        <div>{{form.poster}}</div>
-         
-         <div>
-       <label for="">演职人员:</label>
-        <el-tag
-          :key="tag"
-          type='success'
-          v-for="tag in staffName"
-          :closable="true"
-          @close="handleClose(tag)">
-        {{tag}}
-        </el-tag>
-        <el-input
-          class="input-new-tag"
-          v-if="inputVisible"
-          v-model="inputValue"
-          ref="saveTagInput"
-          size="mini"
-          @keyup.enter.native="handleInputConfirm"
-          @blur="handleInputConfirm"
-        >
-        </el-input>
-        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 增加</el-button>
         
-    </div>
+        <el-upload
+          class="upload-demo posterstyle"
+          action="/upload"
+          :on-success="handleResPoster"
+          :on-remove="handleRemovePoster"
+          :file-list="fileListPoster"
+          list-type="picture">
+          <el-button size="small" type="primary">电影封面</el-button>
+          
+        </el-upload>
+        <div slot="tip" class="el-upload__tip"></div>
+
+<!--        演职人员-->
+        <Actor v-for='(ele,index) in this.form.staffs' :actor="ele" :index ="index" :fileListActor="fileListActor[index]" :staffs = 'form.staffs'>
+            
+         </Actor>
+        
+         
+         
+      
+        
+    
           
           
           <div slot="footer">
             <el-button @click="closeDialog">取 消</el-button>
-            <el-button type="primary" @click="confirmUpdate">确 定</el-button>
+            <el-button type="primary" @click="confirmUpdate('form')">确 定</el-button>
          </div>
           
         </el-dialog>
        
        </div>
-     
+     </div>
 </template>
 <script>
 import {ajax} from "@/components/common/ajax";
 import {mapState} from "vuex";
 import store from "@/store";
+import Actor from "./Actor";
+    
 export default {
     
     props:['show'],
@@ -86,7 +86,9 @@ export default {
       return {
            inputVisible: false,
             inputValue: '',
-            staffName:[],
+            staffPicture:[],
+          fileListPoster:[],
+          fileListActor:[],
           rules:{
               cName:[
                   {required:true,message:'电影中文名不能为空',trigger:'blur'},
@@ -135,47 +137,53 @@ export default {
                    {required:true,message:'电影简介不能为空',trigger:'blur'}
               ],
           }, 
+         
       }  
     },
-     created:function(){
-          this.pushstaffName();
-      },
+   components:{Actor},
+    watch:{
+        form:function(){
+            let posterImg = this.form.poster.substring(this.form.poster.lastIndexOf('\\')+1);
+            this.fileListPoster = [{name:this.form.cName,url:'http://localhost:3000/img/'+posterImg}];
+            
+           this.fileListActor = this.form.staffs.map(function(ele){
+                let pictureImg = ele.picture.substring(ele.picture.lastIndexOf('\\')+1);
+            
+                return [{name:ele.staffName,url:'http://localhost:3000/img/'+pictureImg}];
+           }.bind(this));
+          },   
+    },
     methods:{
          closeDialog:function(){
               store.commit('MOVIESALL_UPDATEDIV',false);
         }, 
-         pushstaffName(){
-             for(let i of this.form.staffs){
-                this.staffName.push(i.staffName);
-            }
+                //封面图片上传成功触发
+        handleResPoster(response){
+            this.form.poster = response;
         },
+        // 移除封面图片
+        handleRemovePoster(file, fileList) {
+            this.form.poster = '';
+      },
       handleClose(tag) {
         this.staffName.splice(this.staffName.indexOf(tag), 1);
       },
-
-      showInput() {
+        showInput() {
         this.inputVisible = true;
         this.$nextTick(_ => {
           this.$refs.saveTagInput.$refs.input.focus();
         });
       },
-
-      handleInputConfirm() {
-        let inputValue = this.inputValue;
-        if (inputValue) {
-          this.staffName.push(inputValue);
-        }
-        this.inputVisible = false;
-        this.inputValue = '';
-      },
+        
+        
         confirmUpdate:function(form){
-            
+           let newarray = JSON.stringify(this.form.staffs);
             let obj={
                cName:this.form.cName,
                 eName:this.form.eName,
                 type:this.form.type,
                 scor:this.form.scor,
-                staffs:this.form.staffs,
+                staffs:newarray,
                 favor:this.form.favor,
                 area:this.form.area,
                 year:this.form.year,
@@ -185,68 +193,52 @@ export default {
                 totalMoney:this.form.totalMoney,
                 briefIntro:this.form.briefIntro,
                 totalMoney:this.form.totalMoney,
+                poster:this.form.poster,
                 _id:this.form._id
              }
-             ajax({
-                type:'post',
-                url:'/movies/update',
-                data:obj,
-                success:(data)=>{
-                    console.log(data);
-                    this.show({page:this.curpage,rows:5})
-                }
-            })  
+            console.log(obj);
             store.commit('MOVIESALL_UPDATEDIV',false);
-//            this.$refs[form].validate((valid) => {
-//         if (valid) {
-//        this.$confirm('确认修改?', '提示', {
-//          confirmButtonText: '确定',
-//          cancelButtonText: '取消',
-//          type: 'warning'
-//        }).then(() => {
-//               ajax({
-//                type:'post',
-//                url:'/movies/update',
-//                data:obj,
-//                success:(data)=>{
-//                    this.show({page:this.curpage,rows:5})
-//                }
-//            })        
-//        }).catch(() => {
-//          this.$message({
-//                type: 'info',
-//                message: '已取消修改'
-//                });          
-//            });  
-//         }
-//            })
-//            
-//            
-//        },
+            this.$refs[form].validate((valid) => {
+                 if (valid) {
+                this.$confirm('确认修改?', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                       ajax({
+                        type:'post',
+                        url:'/movies/update',
+                        data:obj,
+                        success:(data)=>{
+                            this.show({page:this.curpage,rows:5})
+                        }
+                    })        
+                }).catch(() => {
+                  this.$message({
+                        type: 'info',
+                        message: '已取消修改'
+                        });          
+                    });  
+                 }
+                    })
+          },
 //        
     },
-    },
+    
     computed:{
         ...mapState({
         form:state=>state.moviesAll.updateData,
         dialogFormVisible:state=>state.moviesAll.dialogVisible
     })
-        
-    }
-    
-    
-    
-}
+     }
+ }
 </script>
 
 
 <style scope>
- 
-    .addDialog{
-        width:800px;
-        height:480px;
-        margin:auto;
-        border:none;
-        outline:none;
+    .posterstyle{
+        width:300px;
+        margin:10px auto;
     }
+    
 </style>
