@@ -1,31 +1,29 @@
 <template>
    <div class="add">
-    <el-button icon='plus' type="success" @click="dialogFormVisible = true">添加用户</el-button>
-
-    <el-dialog title="添加用户" :visible.sync="dialogFormVisible" :before-close="close">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+     <el-dialog title="添加用户" :visible.sync="dialogFormVisible" :before-close="close">
+      <el-form :model="ruleFormUpdate" :rules="rules" ref="updateForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="姓名" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+          <el-input v-model="ruleFormUpdate.name"></el-input>
         </el-form-item>
         
         <el-form-item label="电话" prop="phNum">
-          <el-input v-model="ruleForm.phNum"></el-input>
+          <el-input v-model="ruleFormUpdate.phNum"></el-input>
         </el-form-item>
         
         <el-form-item label="密码" prop="pwd">
-          <el-input v-model="ruleForm.pwd"></el-input>
+          <el-input v-model="ruleFormUpdate.pwd"></el-input>
         </el-form-item>
         
         <el-form-item label="出生日期" prop="time">
-          <el-input v-model="ruleForm.time"></el-input>
+          <el-input v-model="ruleFormUpdate.time"></el-input>
         </el-form-item>
         
         <el-form-item label="Email"  prop="email">
-          <el-input v-model="ruleForm.email"></el-input>
+          <el-input v-model="ruleFormUpdate.email"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="add('ruleForm')">确定添加</el-button>
+            <el-button @click="close">取 消</el-button>
+            <el-button type="primary" @click="add('updateForm')">修改</el-button>
         </el-form-item>
       </el-form>
       
@@ -35,18 +33,14 @@
 </template>
 <script>
     import {ajax} from "@/components/common/ajax"
+    import {mapState} from "vuex"
+    import store from "@/store";
     export default {
         props:["show"],
         data(){
             return {
-                dialogFormVisible: false, 
-                ruleForm:{
-                    name:"",
-                    phNum:"",
-                    pwd:"",
-                    email:"",
-                    time:""
-                },
+                 
+                
                 rules:{
                     name:[
                         {required: true, message: '请输入姓名', trigger: 'blur' },
@@ -77,21 +71,20 @@
             add(formName){
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$confirm('确认添加该数据?', '提示', {
+                        this.$confirm('确认修改该数据?', '提示', {
                             confirmButtonText: '确定',
                             cancelButtonText: '取消',
                             type: 'warning'
                         }).then(() => {
-                        ajax({
+                            ajax({
                             type:"post",
-                            url:"users/add",
-                            data:this.ruleForm,
+                            url:"users/update",
+                            data:this.ruleFormUpdate,
                             success:function(){
                                 this.$message({
                                     type: 'success',
-                                    message: '添加成功!'
+                                    message: '修改成功!'
                                 });
-                                this.show();
                                 this.close();
                             }.bind(this)
                         });
@@ -100,16 +93,22 @@
                                 type: 'info',
                                 message: '已取消'
                             });          
-                        }); 
+                        });   
+                        
                     } else {
                         return false;
                     }
                 });
             },
             close(){
-                this.dialogFormVisible = false
-            }
-                
+                store.commit('SET_UPDATEVISIBLE',false)
+            }  
+        },
+        computed:{
+            ...mapState({
+                dialogFormVisible:state => state.users.updateVisible,
+                ruleFormUpdate:state => state.users.rendererUsers
+            })
         }
     }
 </script>

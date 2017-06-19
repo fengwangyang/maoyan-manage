@@ -1,16 +1,17 @@
-import {SHOW_DATA,SHOW_USERS,FIND_USERS,SET_UPDATEVISIBLE,DELETE_USERS} from "./mutations"
+import {SHOW_DATA,SHOW_USERS,FIND_USERS,SET_UPDATEVISIBLE,DELETE_USERS,RENDERER_USERS} from "./mutations"
 
 const users = {
     state:{
-        data:{curpage:1,maxpage:"",rows:[],eachpage:5},
-        users:{name:"",phNum:"",email:"",pwd:"",time:""},
+        userData:{},
+        users:{},
         findUsers:{},
         updateVisible:false,
-        deleteUsers:""
+        deleteUsers:"",
+        rendererUsers:""
     },
     mutations:{
         [SHOW_DATA](state,data){
-            state.data = data;
+            state.userData = data;
         },
         [SHOW_USERS](state,data){
             state.users = data;
@@ -19,11 +20,14 @@ const users = {
             state.findUsers = data;
         },
         [SET_UPDATEVISIBLE](state,data){
-            state.updataVisible = data;
+            state.updateVisible = data;
         },
         [DELETE_USERS](state,data){
             state.deleteUsers = data;
-            console.log(state.deleteUsers);
+        },
+        [RENDERER_USERS](state,data){
+            state.rendererUsers = data;
+            console.log(data);
         }
     }
 }

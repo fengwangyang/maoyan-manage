@@ -6,6 +6,7 @@
     <el-table
         :data="tableData"
         border
+        height="400"
         style="width: 100%"
         @selection-change="handleSelectionChange">
         <el-table-column
@@ -35,34 +36,25 @@
         </el-table-column>
         <el-table-column label="操作">
           <template scope="scope">
-            <el-button
-              size="small"
+           <el-button size="small"
               icon='edit'
-              type='info'
-              @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+              type='info' 
+              @click="update(scope.$index, scope.row)">修改</el-button>
+            <UpdatUsers></UpdatUsers>
           </template>
         </el-table-column>
   </el-table>
-  <div class="block">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[5, 8, 10]"
-          :page-size="5"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="100">
-        </el-pagination>
-  </div>
-<!--  <Page :show="show"></Page>-->
+  <Page :show="show"></Page>
  </div>
 </template>
 <script>
     import {ajax} from "@/components/common/ajax"
     import store from "@/store"
-//    import {mapState} from "vuex";
+    import {mapState} from "vuex"
     import UsersManage from "./UsersManage"
-//    import Page from "./Page"
+    import UpdatUsers from "./UpdatUsers"
+    import {SHOW_DATA} from "@/store/users/mutations";
+    import Page from "./Page"
     export default {
         data(){
             return {
@@ -77,18 +69,25 @@
             }                
         },
         created(){
-            this.show();
+            this.show(1,5);
         },
         methods:{
-            show(){
+            show(page,row,type,val){
+                let obj={};
+                if(type){
+                    obj[type]=val
+                }
+                obj.rows = row;
+                obj.page = page;
                 ajax({
                     type:"get",
                     url:"/users/find",
-                    data:this.$store.state.users.findUsers,
-                    success:(data)=>{
-                        console.log(data);
-                        this.tableData = data;
-                    }
+                    data:obj,
+                    success:function(data){
+                        console.log(data.rows);
+                        this.tableData=data.rows;
+                        store.commit('SHOW_DATA',data);
+                    }.bind(this)
                 })
             },
             handleSelectionChange(val){
@@ -97,11 +96,18 @@
                     removeData_id.push(val[i]._id);
                     store.commit("DELETE_USERS",removeData_id);
                 };
-                
-            }
+            },
+            update(index,rows){
+//                console.log(index);
+//                console.log(rows);
+//                this.dialogFormVisible=true;
+                store.commit('RENDERER_USERS',rows);
+                store.commit("SET_UPDATEVISIBLE",true);
+                console.log(this.$store.state.users.updateVisible);
+            },
         },
         components:{
-            UsersManage
+            UsersManage,Page,UpdatUsers
         }
   }
 </script>

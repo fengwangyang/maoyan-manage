@@ -24,9 +24,10 @@
         methods:{
             search:function(){
                 let obj ={};
-                obj[this.users]=this.value;
+                obj.searchType = this.users;
+                obj.searchValue = this.value;
                 store.commit(FIND_USERS,obj);
-                this.show();
+                this.show(1,5,this.users,this.value);
             }
         }
   }
