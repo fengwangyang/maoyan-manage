@@ -1,4 +1,4 @@
-import {NEWS_DATA,SEARCH_DATA,DEL_DATA,EDIT_DATA,EDIT_VISBLE} from "./newsStore";
+import {NEWS_DATA,SEARCH_DATA,DEL_DATA,EDIT_DATA,EDIT_VISBLE,UPLOAD_DATA} from "./newsStore";
 
 const news = {
     state:{
@@ -7,6 +7,7 @@ const news = {
             type:"",
             value:""
         },
+        uploadimg:[],
         delData:[],
         editdata:[],
         editVisble:false
@@ -26,6 +27,9 @@ const news = {
         },
         [EDIT_VISBLE](state,editVisble){
             state.editVisble = editVisble
+        },
+        [UPLOAD_DATA](state,uploadimg){
+            state.uploadimg = uploadimg
         }
     }
 }

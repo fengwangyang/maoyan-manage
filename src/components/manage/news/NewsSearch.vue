@@ -1,23 +1,23 @@
     <template>
     <el-row>
                      <el-col :span='8'>
-                      <el-input  v-model='searintVal' placeholder="请输入内容" >
-                          <el-select :label='searchVal' v-model='searchVal' slot="prepend" placeholder="请选择">
+                      <el-input  :style='inputType' v-model='searintVal' placeholder="请输入内容" >
+                          <el-select v-model='searchVal' slot="prepend" class='select' placeholder="请选择">
                           <el-option value='newsTitle' label="资讯标题"></el-option>
                           <el-option value='movies' label="关联影片"></el-option>
                           <el-option value='mainText' label="资讯正文"></el-option>
                           <el-option value='Release' label="上映时间"></el-option>
-                        </el-select>
-                        <el-button @click='searchFrom' slot="append" icon="search"></el-button>
+                          </el-select>
+                          <el-button @click='searchFrom' slot="append" icon="search">搜索</el-button>
                       </el-input>
                       
                      </el-col>
                      
-                  
+<!--                  增加 删除按钮-->
 
               <el-col :span="2">
                 <template>
-                      <el-button @click='dislogVisble=true' type="success">增加</el-button>
+                      <el-button class='elbut' @click='dislogVisble=true' type="success">增加</el-button>
                 </template>
               </el-col>
                
@@ -30,16 +30,17 @@
               
                
     
-                 
+<!--                 增加框-->
                   
-                    <el-dialog :visible.sync="dislogVisble" :model='true'>
-                    <el-form :model='newValue' class="form">
+                      <el-dialog :visible.sync="dislogVisble" :model='true'>
+                      <el-form :model='newValue' class="form">
                            
                       <el-form-item label='资讯标题' class="flx">
-                        <el-input :style='inputType' v-model='newValue.newsTitleValue'></el-input>
+                       <el-input @input='newsjudge' :style='inputType' v-model='newValue.newsTitleValue'></el-input>
                       </el-form-item>
-                      
-                      <el-form-item label='关联影片' class="flx">
+                        
+                     
+                       <el-form-item label='关联影片' class="flx">
                        <el-select @change='addmovie' :style='inputType' v-model='moviesValue'>
                            <el-option v-for='addmovies in data.rows' :label='addmovies.movies' :value='addmovies.movies'>
                            </el-option>
@@ -49,11 +50,12 @@
                      <el-form-item label='资讯正文' class="flx">
                         <el-input :style='inputType' v-model='newValue.newsmainText'></el-input>
                      </el-form-item>
-                                
-                     <el-upload :multiple='true' :on-success='sucimage' :on-preview="handlePreview" list-type="picture" :on-remove="handleRemove" class="flx" action='/upload'>
+<!--                             图片上传   -->
+                     <el-upload :multiple='true' :on-success='sucimage' :on-preview="handlePreview" list-type="picture" :on-remove="handleRemove" class="upload" action='/upload'>
                          <el-button size='small' type='primary'>上传图片</el-button>
                      </el-upload>
-                    
+                     
+<!--                    －－－－-->
                         <div>
                             <el-button @click='dislogVisble = false' class="btnA">取消</el-button>
                             <el-button @click='newsAddFrom' class="btnB">确定</el-button>
@@ -78,6 +80,7 @@ import store from "@/store"
             props:['newAddFrom','show'],
             data(){
                 return {
+                    
                     inputType:"width:400px",
                     moviesValue:"",
                     dislogVisble:this.isclose,
@@ -92,22 +95,39 @@ import store from "@/store"
                 }
             },
             methods:{
-                sucimage(response,file,fileList){
-                    this.newValue.newsRelease.push(response)
-                    console.log(this.newValue.newsRelease)
+                newsjudge(e){
+                   
+                    
                 },
-                handleRemove(file, fileList) {
-                    console.log(98)
-                     console.log(file, fileList);
-                    },
+                sucimage(response,file,fileList){
+//                   store.commit('UPLOAD_DATA',response)
+                   this.newValue.newsRelease.push(response)
+                },
+                handleRemove(file, fileList){
+                     console.log(this.newValue.newsRelease)
+                     this.newValue.newsRelease.splice(this.newValue.newsRelease.indexOf(file.url),1)
+                     console.log('id',this.uploadimg)
+                     
+                    
+            
+                
+                },
                 handlePreview(file){
-                    console.log(file);
+                  
+                    
+                    console.log(file)
+            
+                
                 },
                 addmovie(val){
-                   this.newValue.newsmovies = val;
-                    console.log(this.newValue.newsmovies )
+                    
+                    
+                    this.newValue.newsmovies = val;
+            
+                
                 },
                 delFrom(){
+                    
                     let deldata = JSON.stringify(this.deldata)
                     var str="";
               
@@ -125,30 +145,38 @@ import store from "@/store"
                     
                 },
                 searchFrom(){
+                
+                    
                  this.search.type = this.searchVal;
                  this.search.value = this.searintVal;
                  let obj = {}
                  obj[this.searchVal]=this.searintVal
                  this.show(1,5,this.searchVal,this.searintVal)
                  store.commit('SEARCH_DATA',obj)
+                
+                
                 },
                 newsAddFrom(){
+                    var UpLoadRelease = JSON.stringify(this.newValue.newsRelease)
+                    console.log(UpLoadRelease)
                     this.$confirm('是否确定增加数据' ,'提示',{
                         confirmButtonText:'确定',
                         cancelButtonText:'取消',
                         type:'warning'
                     }).then(()=>{
-                   ajax({
-                       type:'post',
-                       url:'/news/add',
-                       data:{
+                    
+                        ajax({
+                        type:'post',
+                        url:'/news/add',
+                        data:{
                            newsTitle:this.newValue.newsTitleValue,
                            movies:this.newValue.newsmovies,
                            mainText:this.newValue.newsmainText,
-                           Release:this.newValue.newsRelease,
-                       },
-                       success:function(data){
-                           this.$confirm({
+                           Release:UpLoadRelease,
+                        },
+                        success:function(data){
+                            console.log(UpLoadRelease)
+                            this.$confirm({
                             type:'success',
                             message:'添加成功'
                         })
@@ -157,9 +185,9 @@ import store from "@/store"
                            this.newValue.newsTitleValue="",
                                this.newValue.newsmovies="",
                                this.newValue.newsmainText="",
-                               this.newValue.newsRelease=""
-                       }.bind(this)
-                   })
+                               this.newValue.newsRelease=[]
+                        }.bind(this)
+                    })
                       
                     }).catch(()=>{
                         this.$confirm({
@@ -167,15 +195,14 @@ import store from "@/store"
                             message:'已取消'
                         })
                     })
-                    
-                 
-                }
-            },
-            computed:{
-                ...mapState({
+                    }
+                    },
+                    computed:{
+                    ...mapState({
                     data:state => state.news.newdata,
                     search:state => state.news.search,
-                    deldata:state => state.news.delData
+                    deldata:state => state.news.delData,
+                    uploadimg:state => state.news.uploadimg
                 })
             }
         }
@@ -183,6 +210,16 @@ import store from "@/store"
     
     </script>
 <style lang="css">
+    .elbut{
+        margin-left: 20px;
+    }
+    .select{
+     width: 140px;   
+    }
+    .upload{
+        width: 70%;
+        margin: auto;
+    }
     .item{
         width: 90%;
         margin: auto;

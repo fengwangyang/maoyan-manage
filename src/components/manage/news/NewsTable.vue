@@ -10,7 +10,7 @@
               <el-table-column :show-overflow-tooltip='true'  prop="newsTitle" label='资讯标题'></el-table-column>
               <el-table-column :show-overflow-tooltip='true'   prop="movies" label='关联影片'></el-table-column>
               <el-table-column :show-overflow-tooltip='true'   prop="mainText" label='资讯正文'></el-table-column>
-              <el-table-column :show-overflow-tooltip='true'   prop="Release" label='上映时间'></el-table-column>
+              <el-table-column :show-overflow-tooltip='true'   prop="Release" label='图片路径'></el-table-column>
               
               <el-table-column label='操作'>
                   <template scope='scope'>
@@ -78,12 +78,14 @@ export default {
             
        },     
        handleSizeChange(rows){
+           console.log(rows)
            var datas = this.data
            datas.eachpage = rows
            store.commit('NEWS_DATA',datas)
            this.show()
        },
        handleCurrentChange(val){
+           console.log(val)
         this.data.curpage = val
         this.show(val,5,this.search.type,this.search.value)
         
@@ -97,7 +99,7 @@ export default {
             search:state => state.news.search,
             data:state => state.news.newdata,
             deldata:state => state.news.delData,
-            editdata:state => state.news.editdata,
+//            editdata:state => state.news.editdata,
             editVisble:state => state.news.editVisble
         })
     }

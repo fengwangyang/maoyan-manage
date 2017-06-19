@@ -17,9 +17,9 @@
                         <el-input :style='inputType' v-model='editdata.mainText'></el-input>
                      </el-form-item>
                      
-                     <el-form-item label='上映时间' class="flx">
-                        <el-input :style='inputType' v-model='editdata.Release'></el-input>
-                     </el-form-item>
+                     <el-upload :multiple='true' :on-success='sucimage' :on-preview="handlePreview" list-type="picture" :on-remove="handleRemove" :file-list='fileimg' class="upload" action='/upload'>
+                         <el-button size='small' type='primary'>上传图片</el-button>
+                     </el-upload>
                                 
                     
                     
@@ -47,34 +47,59 @@ import {ajax} from '../../common/ajax'
             return{
                 editValue:"",
                 inputType:"width:400px",
-                selVal:""
+                selVal:"",
+                fileimg:[]
             }
         },
+        
         created:function(){
             
         },
+        watch:{
+                editdata:function(){
+                   this.editdata.Release.forEach(function(ele){
+                       var frleName = ele.substring(ele.lastIndexOf("/")+1)
+                       this.fileimg.push({
+                           name:frleName,
+                           url:"http://127.0.0.1:3000/img/"+frleName
+                       })
+                    }.bind(this))
+                }
+                
+        },
         methods:{
+            sucimage(){
+               console.log(this.fileimg)
+            },
+            handlePreview(){
+                
+            },
+            handleRemove(){
+                console.log(this.editdata)
+            },
             cancel(){
+                this.fileimg=[]
                  store.commit('EDIT_VISBLE',false)
             },
             close(){
                  store.commit('EDIT_VISBLE',false)
             },
             newEdit(){
+                var UpLoadRelease = JSON.stringify(this.editdata.Release)
                 var obj = {
                     newsTitle:this.editdata.newsTitle,
                     movies:this.editValue,
                     mainText:this.editdata.mainText,
-                    Release:this.editdata.Release,
+                    Release:UpLoadRelease,
                     _id:this.editdata._id
                 }
-                
+               
                 ajax({
                     type:"post",
                     url:"/news/update",
                     data:obj,
                     success:(data)=>{
-                        console.log(99)
+                        this.fileimg=[]
                         this.show()
                         store.commit('EDIT_VISBLE',false)
                     }
