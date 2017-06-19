@@ -60,7 +60,7 @@ export default{
 <style scpoe>
 
     .style{
-        float:right;
+        float:left;
         margin:10px;
     }
 

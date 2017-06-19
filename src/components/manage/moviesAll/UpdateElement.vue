@@ -2,7 +2,7 @@
     
     <div class='deletestyle'>
        
-        <el-dialog title="修改" :visible.sync=dialogFormVisible :before-close='closeDialog' size='small'>
+        <el-dialog title="修改" :visible.sync=dialogFormVisible :before-close='closeDialog' size='tiny'>
           <el-form :model="form" :rules="rules" ref="form" :inline="true">
             <el-form-item label="电影中文名" label-width="100px" >
               <el-input v-model="form.cName"></el-input>
@@ -46,7 +46,7 @@
           :on-remove="handleRemovePoster"
           :file-list="fileListPoster"
           list-type="picture">
-          <el-button size="small" type="primary">电影封面</el-button>
+          <el-button type="primary">电影封面</el-button>
           
         </el-upload>
         <div slot="tip" class="el-upload__tip"></div>
@@ -55,15 +55,7 @@
         <Actor v-for='(ele,index) in this.form.staffs' :actor="ele" :index ="index" :fileListActor="fileListActor[index]" :staffs = 'form.staffs'>
             
          </Actor>
-        
-         
-         
-      
-        
-    
-          
-          
-          <div slot="footer">
+           <div slot="footer">
             <el-button @click="closeDialog">取 消</el-button>
             <el-button type="primary" @click="confirmUpdate('form')">确 定</el-button>
          </div>
@@ -92,11 +84,11 @@ export default {
           rules:{
               cName:[
                   {required:true,message:'电影中文名不能为空',trigger:'blur'},
-                  {pattern:/^[\u4e00-\u9fa5\d]{1,}$/,message:'电影中文名为1位以上汉字或数字',trigger:'blur'}
+                  {pattern:/^[\u4e00-\u9fa5\d\s]{1,}$/,message:'电影中文名为1位以上汉字或数字',trigger:'blur'}
               ],
               eName:[
                    {required:true,message:'电影英文名不能为空',trigger:'blur'},
-                   {pattern:/^[0-9a-zA-z]{2,}$/,message:'电影英文名为2位以上字母或数字',trigger:'blur'}
+                   {pattern:/^[0-9a-zA-z\s\.]{2,}$/,message:'电影英文名为2位以上字母或数字',trigger:'blur'}
               ],
               type:[
                    {required:true,message:'电影类型不能为空',trigger:'blur'},
@@ -104,7 +96,7 @@ export default {
               ],
               scor:[
                    {required:true,message:'电影评分不能为空',trigger:'blur'},
-                   {pattern:/^[0-9|10]{1,}$/,message:'电影评分为1-10的数字',trigger:'blur'}
+                   {pattern:/^[0-9\.]{1,}$/,message:'电影评分为1-10的数字',trigger:'blur'}
               ],
               favor:[
                   {required:true,message:'喜欢人数不能为空',trigger:'blur'},
@@ -174,8 +166,6 @@ export default {
           this.$refs.saveTagInput.$refs.input.focus();
         });
       },
-        
-        
         confirmUpdate:function(form){
            let newarray = JSON.stringify(this.form.staffs);
             let obj={
@@ -200,20 +190,24 @@ export default {
             store.commit('MOVIESALL_UPDATEDIV',false);
             this.$refs[form].validate((valid) => {
                  if (valid) {
-                this.$confirm('确认修改?', '提示', {
+                this.$confirm('确认修改'+' '+this.form.cName+' '+'这条数据?', '提示', {
                   confirmButtonText: '确定',
                   cancelButtonText: '取消',
                   type: 'warning'
                 }).then(() => {
-                       ajax({
+                      ajax({
                         type:'post',
                         url:'/movies/update',
                         data:obj,
                         success:(data)=>{
-                            this.show({page:this.curpage,rows:5})
+                            this.fileListPoster=[],
+                            this.fileListActor=[],
+                             this.show({page:this.curpage,rows:5})
                         }
                     })        
                 }).catch(() => {
+                    this.fileListPoster=[],
+                    this.fileListActor=[],
                   this.$message({
                         type: 'info',
                         message: '已取消修改'
@@ -228,7 +222,8 @@ export default {
     computed:{
         ...mapState({
         form:state=>state.moviesAll.updateData,
-        dialogFormVisible:state=>state.moviesAll.dialogVisible
+        dialogFormVisible:state=>state.moviesAll.dialogVisible,
+        curpage:state=>state.moviesAll.moviesData.curpage
     })
      }
  }

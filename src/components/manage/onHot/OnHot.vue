@@ -1,10 +1,10 @@
 <template>
-    <div style='text-align:center'>
+    <div style='text-align:center;margin:10px'>
         <h2 class='h2tyle'>热映电影</h2>
-        
-        <DeleteElement :showOnhot = 'showOnhot'></DeleteElement>
-        <AddElement :showOnhot='showOnhot' class='style' :showMoviesData='showMoviesData'></AddElement>
         <SearchElement :showOnhot = 'showOnhot'></SearchElement>
+        
+        <AddElement :showOnhot='showOnhot' class='style' :showMoviesData='showMoviesData'></AddElement>
+        <DeleteElement :showOnhot = 'showOnhot'></DeleteElement>
         <OnhotTable :showOnhot = 'showOnhot'></OnhotTable>
         <Pagenation :showOnhot='showOnhot'></Pagenation>
      </div>
@@ -69,6 +69,10 @@ export default{
     }
     .style{
         float:left;
+        margin:10px;
+    }
+    .divstyle{
+        text-align:center;
         margin:10px;
     }
 </style>

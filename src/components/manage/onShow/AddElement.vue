@@ -58,10 +58,12 @@
               prop="duration"
               label="时长(分钟)" width="120" :show-overflow-tooltip=true>
             </el-table-column>
-            <el-table-column
-              prop="releaseDate"
-              label="上映时间" width="120" :show-overflow-tooltip=true>
-            </el-table-column>
+             <el-table-column
+                  label="上映时间" width="120" :show-overflow-tooltip=true align='center'>
+                  <template scope='scope'>
+                     <span>{{new Date(scope.row.releaseDate).toLocaleDateString()}}</span>
+                   </template>
+                </el-table-column>
 
             <el-table-column
               prop="releaseArea"
@@ -132,11 +134,30 @@ import {mapState} from "vuex";
                     }
                 }
                 for(let i of this.checkedData){
-                    str += i.cName;
+                    str += i.cName  +' ';
                     num++;
                 }
+                
+                if(this.checkedData == 0){
+                    
+                     this.$confirm('数据已添加，请重新选择?', '提示', {
+                          confirmButtonText: '确定',
+                          cancelButtonText: '取消',
+                          type: 'warning'
+                        }).then(() => {
+                          this.$message({
+                            type: 'success'
+                          
+                          });
+                        }).catch(() => {
+                          this.$message({
+                            type: 'info'
+                        
+                          });          
+                        });
+                 }else{
                 let addmovies = JSON.stringify(this.checkedData);
-                 this.$confirm('确认添加'+str+'这'+num+'数据?', '提示', {
+                this.$confirm('确认添加'+str+'这'+num+'数据?', '提示', {
                       confirmButtonText: '确定',
                       cancelButtonText: '取消',
                       type: 'warning'
@@ -151,6 +172,7 @@ import {mapState} from "vuex";
                             success:(data)=>{
                                 this.showOnhot(this.curpage);
                                 this.dialogTableVisible= false;
+                                 this.$refs.multipleTable.clearSelection();
                                  this.$message({
                                       type: 'success',
                                         message: '添加成功!'
@@ -164,7 +186,8 @@ import {mapState} from "vuex";
                         message: '已取消添加'
                       });          
                     }); 
-                    },
+                    }
+            },
             cancelAdd:function(){
                 
                 this.dialogTableVisible = false;
@@ -185,7 +208,7 @@ import {mapState} from "vuex";
 
 <style scoped>
     .btnstyel{
-        float:right;
+        float:left;
         margin:10px;
     }
 

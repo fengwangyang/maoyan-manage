@@ -61,7 +61,7 @@ export default{
 <style scpoed>
 
     .style{
-        float:right;
+        float:left;
         margin:10px;
     }
 
