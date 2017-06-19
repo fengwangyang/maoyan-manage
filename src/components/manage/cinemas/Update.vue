@@ -3,17 +3,17 @@
     <el-dialog title="修改" :visible.sync="updateVisible" style="width:800px" :before-close="hiddenUpdateDialog">
   <el-form :model="form" label-position="right" label-width="120px" :rules="rulesUpdate"  ref="updateCinemasForm">
     <el-form-item label="影院名称：" prop="cinemaName">
-      <el-input v-model="form.cinemaName" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="form.cinemaName" auto-complete="off" ></el-input>
     </el-form-item>
        <el-form-item label="影院地址：" prop="address" >
-      <el-input v-model="form.address" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="form.address" auto-complete="off" ></el-input>
     </el-form-item>
        <el-form-item label="影院电话：" prop="tel">
-      <el-input v-model="form.tel" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="form.tel" auto-complete="off" ></el-input>
     </el-form-item>
      </el-form-item>
        <el-form-item label="官方网站：" prop="webAdress">
-      <el-input v-model="form.webAdress" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="form.webAdress" auto-complete="off" ></el-input>
     </el-form-item>
    
   </el-form>
@@ -25,17 +25,25 @@
 </el-dialog>
 
 <el-dialog title="修改影厅" :visible.sync="updateHouseVisibel" style="width:800px">
- <div v-for="House in this.houseData " class="formHouse" >
+ <div v-for="House in houseData " class="formHouse" >
   <el-form :model="House" label-position="right" label-width="120px" :rules="rulesUpdateHouse"  ref="updateHouseForm" >
     <el-form-item label="影厅名称：" prop="hName">
-      <el-input v-model="House.hName" auto-complete="off" class="ipt" disabled="true"></el-input>
+      <el-input v-model="House.hName" auto-complete="off" disabled="true"></el-input>
     </el-form-item>
     <el-form-item label="座位：" prop="sitSetting">
-      <el-input v-model="House.sitSetting" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="House.sitSetting" auto-complete="off" ></el-input>
     </el-form-item>
-    <el-button @click="preSit(House.sitSetting)">预览座位</el-button>
+    <el-form-item>
+    <el-button @click="preSit(House.sitSetting)" type="primary" >预览座位</el-button>
+    </el-form-item>
+    <el-form-item label="间隔时间：" prop="gapTime">
+      <el-input v-model="House.gapTime" auto-complete="off" ></el-input>
+    </el-form-item>
+    <el-form-item>
     <el-button @click="removeHouse(House.hName)"  class="removeHouse"icon="delete"type="warning">删除影厅</el-button>
+    </el-form-item>
  </el-form>
+ 
     
   </div>
  <div slot="footer" class="dialog-footer">
@@ -49,12 +57,17 @@
 <el-dialog title="添加影厅" :visible.sync="addHouseVisible" style="width:800px">
   <el-form label-position="right" label-width="120px" :model="updateAddHouseFrom" ref="updateAddHouse"  :rules="rulesUpdateAddHouse" >
     <el-form-item label="影厅名称：" prop="hName">
-      <el-input v-model="updateAddHouseFrom.hName" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="updateAddHouseFrom.hName" auto-complete="off" ></el-input>
     </el-form-item>
     <el-form-item label="座位：" prop="updateSit">
-      <el-input v-model="updateAddHouseFrom.updateSit" auto-complete="off" class="ipt"></el-input>
+      <el-input v-model="updateAddHouseFrom.updateSit" auto-complete="off" ></el-input>
     </el-form-item>
+    <el-form-item>
     <el-button type="primary" @click="()=>preSit(this.updateAddHouseFrom.updateSit)">座位预览</el-button>
+    </el-form-item>
+    <el-form-item label="间隔时间：" prop="gapTime">
+      <el-input v-model="updateAddHouseFrom.gapTime" auto-complete="off" class="ipt"></el-input>
+    </el-form-item>
 </el-form>
 <div slot="footer" class="dialog-footer">
     <el-button @click="addHouseVisible= false">取 消</el-button>
@@ -96,7 +109,7 @@
                  updateHouseVisibel:false,
                  addHouseVisible:false,
                  updateAddHouseFrom:{
-                    updateSit:"",
+                 updateSit:"",
                  },
                 
                 rulesUpdate: {
@@ -126,6 +139,10 @@
                         { required: true, message: '输入内容为0或1的二维数组!', trigger: 'blur' },
                          {validator:this.sitValid, trigger: 'blur'},
                            ], 
+                  gapTime: [
+                        { required: true, message: '间隔时间必须为一位或俩位的数字!', trigger: 'blur' },
+                         {pattern:/^\d{1,2}$/,message:'间隔时间必须为一位或俩位的数字', trigger: 'blur' },
+                           ],   
                    } ,
             rulesUpdateAddHouse: {
                   hName: [
@@ -135,7 +152,11 @@
                  updateSit: [
                         { required: true, message: '输入内容为0或1的二维数组!', trigger: 'blur' },
                          {validator:this.sitValid, trigger: 'blur'},
-                           ], 
+                           ],
+                 gapTime: [
+                        { required: true, message: '间隔时间必须为一位或俩位的数字!', trigger: 'blur' },
+                         {pattern:/^\d{1,2}$/,message:'间隔时间必须为一位或俩位的数字', trigger: 'blur' },
+                           ],    
                    }
                 }
             },
@@ -209,9 +230,10 @@
                         type: 'success',
                         message: '修改成功!'
                             });
+                        store.commit("UPDATE_VISIBLE",false);
                         }
                    })
-            this.hiddenUpdateVisible();     
+                
            
         }).catch(() => {
           this.$message({
@@ -235,9 +257,9 @@
         },
          updateHouse(){
            this.updateHouseVisibel=true;
-                  
-        },
+          },
         comfirUpdateHouse(){
+        console.log(this.houseData);
          this.updateHouseVisibel=false;
         },
         addHouse(formName){
@@ -261,6 +283,7 @@
                      let obj={};
                     obj.hName=name;
                     obj.sitSetting=this.updateAddHouseFrom.updateSit;
+                    obj.gapTime=this.updateAddHouseFrom.gapTime;
                     this.houseData.push(obj);
                      this.$message({
                         type: 'success',
@@ -296,25 +319,42 @@
             data:{_id:this.form._id},
             success:(data)=>{
                 console.log(data);
-               store.commit("HOUSE_DATA",data.houses);
+                this.houseData=data.house;
+               store.commit("UPDATE_DATA",row);
                store.commit("UPDATE_VISIBLE",false);
               }
             });
             
         },
-        removeHouse(id){
+        removeHouse(name){
+        
+         this.$confirm('确认删除'+name+'影院', '是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
             let houseData=this.houseData;
             for(let i=0;i<houseData.length; i++){
-                if(houseData[i].hName==id){
+                if(houseData[i].hName==name){
                     houseData.splice(i--,1);
                 }
             }
-            console.log(houseData);
-           store.commit("HOUSE_DATA",houseData);
-        },
+        this.$message({
+            type: 'success',
+            message: '删除成功'
+          }); 
+         
+         }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消修改'
+          }); 
+        })
+        
         
       }
         
+    }
     }
     </script>
     <style scoped>
@@ -322,9 +362,7 @@
           border:"1px solid red";
           margin-top:30px;
         }
-        .ipt{
-            color:red;
-        }
+       
     .showSitImg{
         display:inline-block;
         width:15px;

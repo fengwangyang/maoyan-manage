@@ -47,8 +47,12 @@
     <el-form-item label="座位：" prop="sitSetting">
       <el-input v-model="addHouse.sitSetting" auto-complete="off" class="ipt"></el-input>
     </el-form-item>
-    <el-button type="primary" @click="preSit">座位预览</el-button>
-   
+    <el-form-item>
+    <el-button type="primary" @click="preSit" class="preSitBtn">座位预览</el-button>
+    </el-form-item>
+   <el-form-item label="间隔时间：" prop="gapTime">
+      <el-input v-model="addHouse.gapTime" auto-complete="off" class="ipt"></el-input>
+    </el-form-item>
 </el-form>
 <div slot="footer" class="dialog-footer">
      <el-button @click="addaddHouseVisible = false">取 消</el-button>
@@ -98,12 +102,13 @@
                addHouse:{
                 hName:"",
                 sitSetting:"",
+                gapTime:"",
                },
                addaddHouseVisible:false,
                preLookVisible:false,
                houses:[],
                rules: {
-                  cinemaName: [
+        cinemaName: [
                         { required: true, message: '请输入影院名称', trigger: 'blur' },
                          {pattern:/^[\u4E00-\u9FA5\0-9a-zA-Z]{1,}$/,message:'影院名必须为俩个字符以上', trigger: 'blur' },
                             ],
@@ -120,7 +125,7 @@
                          {pattern:/^www\.\w{2,}\.com$/,message:'必须为www.xx.com',trigger: 'blur'},
                            ],
            
-        },
+                        },
         houseRules:{
             hName: [
                         { required: true, message: '请输入影厅名称', trigger: 'blur' },
@@ -129,6 +134,10 @@
             sitSetting: [
                         { required: true, message: '输入内容为0或1的二维数组!', trigger: 'blur' },
                          {validator:this.sitValid, trigger: 'blur'},
+                           ], 
+            gapTime: [
+                        { required: true, message: '间隔时间必须为一位或俩位的数字!', trigger: 'blur' },
+                         {pattern:/^\d{1,2}$/,message:'间隔时间必须为一位或俩位的数字', trigger: 'blur' },
                            ], 
         }
         }
@@ -143,6 +152,7 @@
         store.commit("SIT_DATA",this.addHouse.sitSetting);
          this.preLookVisible=true;
         },
+      
         sitValid(rule, value, callback){
              var valueArr= JSON.parse(value);
                  var flag=[];
@@ -184,8 +194,9 @@
             type: 'warning'
         }) .then(() => {
                     let obj={};
-                    obj.hName=this.hName;
-                    obj.sitSetting=this.sitSetting;
+                    obj.hName=name;
+                    obj.sitSetting=this.addHouse.sitSetting;
+                    obj.gapTime=this.addHouse.gapTime;
                     this.houses.push(obj);
                     this.$message({
                         type: 'success',
@@ -279,5 +290,6 @@
     background-size:100%;
     
    }
+
     
     </style>
