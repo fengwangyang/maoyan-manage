@@ -145,6 +145,10 @@
      computed:{
      ...mapState({
          sitData:state=>state.cinemas.sitData,
+         pageSize:state=>state.cinemas.pageSize,
+         allData:state=>state.cinemas.allData,
+        searchType:state=>state.cinemas.searchType.searchType,
+        searchValue:state=>state.cinemas.searchType.searchValue,
       })
      },
      methods:{
@@ -247,7 +251,7 @@
                         message: '添加成功!'
                    });
                    this.houses=[];
-                  this.show(1,5);
+                  this.show(this.allData.curpage,this.pageSize,this.searchType,this.searchValue);
                   this.dialogFormVisible=false;
               }
           })

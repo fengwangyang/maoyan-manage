@@ -168,6 +168,7 @@
             houseData:state=>state.cinemas.houseData,
             sitData:state=>state.cinemas.sitData,
             allData:state=>state.cinemas.allData,
+            pageSize:state=>state.cinemas.pageSize,
          })
      },
      methods:{
@@ -233,7 +234,7 @@
                         store.commit("UPDATE_VISIBLE",false);
                         }
                    })
-                
+                this.show(this.allData.curpage,this.pageSize,this.searchType,this.searchValue)
            
         }).catch(() => {
           this.$message({

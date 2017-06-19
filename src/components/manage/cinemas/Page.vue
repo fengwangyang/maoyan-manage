@@ -39,11 +39,7 @@
         handleCurrentChange(value){
           this.show(value,this.size,this.searchType,this.searchValue);
         },
-       refresh(){
-        this.value="";
-        store.commit("SEARCH_TYPE",{});
-        this.show(allData.curpage,this.size);
-      },
+       
         }
     }
     </script>
