@@ -61,20 +61,19 @@
                         //循环判断当前添加的场次时间在哪个场次之前，并把添加的场次放在比该场次时间大的之前
                         let sessionArry = house.sessions;
                         for(let i = 0;i < sessionArry.length;i++){
-                            if(sessionArry[i].time[1].getTime() > session.time[1].getTime()){
-                                if(i == sessionArry.length - 1){
-                                    sessionArry.unshift(session);
-                                }else{
-                                    let behindArr = sessionArry.slice(i,sessionArry.length).unshift(session);
-                                    let frontArr = sessionArry.slice(0,i);
-                                    house.sessions = [...frontArr,...behindArr];
-                                }
-                                break;
-                            }else if(sessionArry[i].time[1].getTime() < session.time[1].getTime() && i == sessionArry.length - 1){
-                                sessionArry.push(session);
+                            let sessionStart = this.start.getTime();
+                            if(new Date(sessionArry[i].time[0]).getTime() > sessionStart){
+                                let behindArr = sessionArry.slice(i,sessionArry.length)
+                                behindArr.unshift(session);
+                                let frontArr = sessionArry.slice(0,i);
+                                house.sessions = [...frontArr,...behindArr]; 
                                 break;
                             }else{
-                                sessionArry.unshift(session);
+                                if(i == sessionArry.length - 1){
+                                    house.sessions.push(session);
+                                    break;
+                                }
+                                continue;
                             }
                         }
                     }else{
@@ -88,54 +87,74 @@
                             return val
                         }
                     });
-                    console.log(cinema);
-//                    ajax({
-//                        url:"/cinemas/update",
-//                        type:"post",
-//                        data:{_id:cinema._id,houses:JSON.stringify(cinema.house)},
-//                        success:()=>{
-//                            this.show();
-//                            this.handleClose();
-//                        }
-//                    });
+                    ajax({
+                        url:"/cinemas/update",
+                        type:"post",
+                        data:{_id:cinema._id,houses:JSON.stringify(cinema.houses)},
+                        success:()=>{
+                            this.editMovie.cinemas.map((val)=>{
+                                if(val._id == cinema._id){
+                                    val.houses = cinema.houses;
+                                }
+                            });
+                            console.log(this.editMovie.cinemas);
+                            ajax({
+                                url:"/linkedMovies/update",
+                                type:"post",
+                                data:{_id:this.editMovie._id,cinemas:JSON.stringify(this.editMovie.cinemas)},
+                                success:()=>{
+                                    this.show();
+                                this.handleClose();
+                                this.start = "";
+                                }
+                            })
+                        }
+                    });
                 }else{
                     this.$alert("场次信息添加不正确，请重新输入","提示",{
                         confirmButtonText:"确定",
                     })
                 }
-
             },
             addSession(house,cinema){
+                this.start = "";
+                this.end = "";
                 store.commit(SWITCH_VISIBLE_SESSION,true);
             },
             setEndTime(){
-                let duration = this.editMovie.duration;
-                if(duration && this.start){
-                    this.end = new Date(this.start.getTime() + Number(duration)*60*1000)
-                }else{
+                let e = this.start;
 
-                }
             }
         },
         watch:{
             start:function(e){
+                let nowTime = new Date();
                 let duration = this.editMovie.duration;
-                if(this.house.sessions && e && duration){
-                    this.house.sessions.map((val)=>{
+                if(!e) return;
+                if(e && e.getTime() > nowTime.getTime()){
+                    if(this.house.sessions && duration){
                         let startTime = e.getTime();
-                        let validateStart = val.time[0].getTime()- this.house.gapTime*60*1000 - duration*60*1000;
-                        let validateEnd = val.time[1].getTime() + this.house.gapTime*60*1000;
-                        let isInTime = validateStart < startTime && startTime < validateEnd;
-                        if(isInTime){
-                            this.$alert("该时间段已有场次，开场时间必须在已有场次之前或之后！","提示",{
-                                confirmButtonText:"确认"
-                            });
-                        }else{
-
-                        }
-                    })
+                        this.house.sessions.map((val)=>{
+                            let validateStart = new Date(val.time[0]).getTime()- this.house.gapTime*60*1000 - duration*60*1000;
+                            let validateEnd = new Date(val.time[1]).getTime() + this.house.gapTime*60*1000;
+                            let isInTime = validateStart < startTime && startTime < validateEnd;
+                            if(isInTime){
+                                this.$alert("该时间段已有场次，开场时间必须在已有场次之前或之后！","提示",{
+                                    confirmButtonText:"确认"
+                                });
+                                this.start = "";
+                                return;
+                            }
+                        });
+                        this.end = new Date(e.getTime() + Number(duration)*60*1000);
+                    }else{
+                        this.end = new Date(e.getTime() + Number(duration)*60*1000);
+                    }
                 }else{
-                    
+                    this.$alert("只能选择当前时间之后的时间段，请重新选择！","提示",{
+                        confirmButtonText:"确认"
+                    });
+                    this.start = "";
                 }
             }
         },

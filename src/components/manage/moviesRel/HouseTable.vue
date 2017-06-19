@@ -1,11 +1,12 @@
 <template>
   <div>
-      
-       <el-table fit :data="data">
+       <el-table fit :data="data" :row-style="rowStyle">
            <el-table-column align="center" prop="hName" label="影厅名" width="100"></el-table-column>
-           <el-table-column align="center" label="场次" >
+           <el-table-column align="center" label="场次">
                <template scope="house">
-                   <Session v-for="(session,index) in house.row.sessions" :session="session" :key="index"></Session>
+                  <div class="session">
+                      <Session v-for="(session,index) in house.row.sessions" :index="index" :session="session" :house="house.row" :key="index" :cinema="cinema" :updateSessions="updateSessions" :show="show"></Session>
+                  </div>
                </template>
            </el-table-column>
            <el-table-column align="center" label="操作" width="120">
@@ -24,10 +25,10 @@
     import store from "@/store"
 
     export default{
-        props:["data","cinema","show"],
+        props:["data","cinema","show","updateSessions"],
         data(){
             return {
-//                cinema:{},
+                rowStyle:{padding:"8px"}
             }
         },
         components:{Session,AddSession},
@@ -38,3 +39,9 @@
         }
     }
 </script>
+<style>
+    .session{
+        width: 100%;
+/*        display: flex;*/
+    }
+</style>

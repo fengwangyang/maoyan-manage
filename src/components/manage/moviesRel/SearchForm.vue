@@ -1,13 +1,16 @@
 <template>
-    <div>
-      <el-input placeholder="搜索电影名/类型/地区" v-model="value" class="searchForm">
+    <div class="search">
+      <el-input :placeholder="holderText" v-model="value" class="searchForm">
         <el-select class="selector" v-model="attr" slot="prepend" placeholder="请选择" width="120">
-          <el-option label="电影名" value="cName" ></el-option>
+          <el-option v-for="(val,index) in optionData" :label="val.text" :value="val.value" :key="index"></el-option>
+<!--
           <el-option label="类型" value="type"></el-option>
           <el-option label="地区" value="area"></el-option>
+-->
         </el-select>
-        <el-button @click='searchData' slot="append" icon="search"></el-button>
+        <el-button @click='searchData' slot="append" icon="search">搜索</el-button>
       </el-input>
+      <el-button class="clearBtn" @click="initData" type="primary">清空刷新</el-button>
     </div>
 </template>
 <script>
@@ -18,28 +21,33 @@
     export default {
         data:function(){
             return {
-                attr :"cName",
+                attr :this.optionData[0].value,
                 value:""
             }
         },
-        props:['show'],
+        props:['show',"optionData","commitMutations","newData","holderText"],
         methods:{
             searchData(){
                 if(this.value){
                     let obj = {};
                     obj[this.attr] = this.value;
-                    store.commit(FIND_MOVIES,obj);
-                    let newData = this.$store.state.moviesRel.data;
+                    store.commit(this.commitMutations[1],obj);
+                    let newData = this.newData;
                     newData.curpage = 1;
-                    store.commit(SHOW_MOVIES_LINKED,newData);
+                    store.commit(this.commitMutations[0],newData);
                     this.show();
                 }else{
                     this.$alert("请输入完整的信息","提示",{
                         confirmButtonText: '确定'
                     })
-                }
-                
-            }
+                } 
+            },
+            initData(){
+                this.value = "";
+                store.commit(this.commitMutations[1],{});
+                store.commit(this.commitMutations[0],{rows:[],eachpage:6,curpage:1});
+                this.show();
+            },
         },
         computes:{
 //            ...mapState({
@@ -48,9 +56,17 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .selector{
-        width: 120px;
+        width: 100px;
+        
+        
+    }
+    .search{
+        display: flex;
+        width: 475px;
+        justify-content: space-between;
+/*        margin-bottom: 8px;*/
     }
     .searchForm{
         width: 360px;

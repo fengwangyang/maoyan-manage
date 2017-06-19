@@ -1,8 +1,9 @@
 <template>
 
 <div>
+  <h1 class="title">电影院线匹配管理</h1>
    <div class="topPanel">
-        <SearchForm :show='show'></SearchForm><el-button type="success" @click="initalTable">刷新</el-button><AddMovieTable :freshTable="show"></AddMovieTable><el-button type="warning" icon="delete" @click="delData">批量删除</el-button>
+        <SearchForm :show='show' holderText="搜索电影名/类型/地区" :optionData="options" :commitMutations="commitMutations" :newData="data"></SearchForm><AddMovieTable :freshTable="show"></AddMovieTable><el-button type="warning" icon="delete" @click="delData">批量删除</el-button>
    </div>
     <MainTable tableRef="linkedMovie" :show='show' :data="data.rows" :getUpdateData="getUpdateData" :isShow="true" :addToSelect="addToSelect" :openCinemas="openCinemas"></MainTable>
     <Page :show="show" :handleSizeChange="handleSizeChange" :goTo="goTo" :data="data"></Page>
@@ -17,7 +18,7 @@
     import AddMovieTable from "./AddMovieTable";
     import BrowseCinemas from "./BrowseCinemas";
     import AddCinemas from "./AddCinemas";
-    import {SHOW_MOVIES_LINKED,FIND_MOVIES,SHOW_MOVIE_CINEMAS,SHOW_ALL_CINEMAS,SWITCH_VISIBLE,SWITCH_VISIBLE_ADD} from "@/store/moviesRel/mutations";
+    import {SHOW_MOVIES_LINKED,FIND_MOVIES,SHOW_MOVIE_CINEMAS,SHOW_ALL_CINEMAS,SWITCH_VISIBLE,SWITCH_VISIBLE_ADD,FIND_LINKED_CINEMA,SHOW_LINKED_CINEMAS} from "@/store/moviesRel/mutations";
     import {mapState} from "vuex";
     import Page from "./Page";
     import {ajax} from "@/components/common/ajax";
@@ -26,8 +27,9 @@
     export default {
         data:function(){
             return {
-//                data:{rows:[],eachpage:10,maxpage:"",curpage:1}
                 delDatas:[],
+                options:[{text:"电影名",value:"cName"},{text:"地区",value:"area"},{text:"类型",value:"type"}],
+                commitMutations:[SHOW_MOVIES_LINKED,FIND_MOVIES],
             }
         },
         components:{MainTable,SearchForm,AddMovieTable,Page,BrowseCinemas,AddCinemas},
@@ -67,12 +69,12 @@
                 store.commit(SHOW_MOVIE_CINEMAS,data);
             },
             openCinemas(data){
-                if(data.cinemas){
+                if(data.cinemas && data.cinemas.length > 0){
                     store.commit(SWITCH_VISIBLE,true);
                     store.commit(SHOW_MOVIE_CINEMAS,data);
                 }else{
                     this.$alert("没有关联影院，请添加关联影院","提示",{
-                        confirmButtonText: '确定'
+                        confirmButtonText: '确定',
                     })
                 }
             },
@@ -102,10 +104,10 @@
                             }   
                         })
                     }).catch(() => {
-                      this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                      });          
+//                      this.$message({
+//                        type: 'info',
+//                        message: '已取消删除'
+//                      });          
                     });
 
                 }else{
@@ -123,9 +125,10 @@
                 this.show();
             },
             showCinemas(){
+                let findCinema = this.$store.state.moviesRel.findCinema;
                 ajax({
                     url:"/cinemas/find",
-                    data:{page:this.allCinemas.curpage,rows:this.allCinemas.rows},
+                    data:{page:this.allCinemas.curpage,rows:this.allCinemas.eachpage,...findCinema},
                     success:(data)=>{
                         store.commit(SHOW_ALL_CINEMAS,data);
                     }
@@ -142,17 +145,26 @@
         watch:{
             "$route":function(){
                 store.commit(FIND_MOVIES,{});
+                let obj = this.data;
+                obj.eachpage = 6;
+                store.commit(SHOW_MOVIES_LINKED,obj);
                 this.show();
             }
-        }
-            
+        } 
     }
 </script>
 <style>
     .topPanel{
         display: flex;
-        width: 650px;
+        width: 730px;
         justify-content: space-between;
         margin: 20px 0;
+    }
+    .title{
+        text-align: center;
+        font-size: 22px;
+        margin-top: 8px;
+        letter-spacing: 5px;
+        color: #20A0FF;
     }
 </style>
