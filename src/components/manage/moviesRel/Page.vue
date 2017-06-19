@@ -1,5 +1,5 @@
 <template>
-        <div class="block">
+        <div >
             <el-pagination
               @current-change="goTo"
               @size-change="handleSizeChange"

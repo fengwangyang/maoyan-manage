@@ -1,5 +1,5 @@
 <template>
-   <div class='style'>
+   <div>
        <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurpage"
@@ -54,8 +54,6 @@
 
 
 <style scoped>
-    .style{
-        float:left;
-        }
+   
 
 </style>

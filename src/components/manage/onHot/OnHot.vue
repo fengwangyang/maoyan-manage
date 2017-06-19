@@ -19,17 +19,17 @@ import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
 export default{
     created:function(){
-    this.showOnhot();  
+    this.showOnhot(1,5);  
     this.showMoviesData();
     },
     methods:{
-        showOnhot:function(page=1,type,value){
+        showOnhot:function(page,rows,type,value){
             let obj={};
             if(type){
                 obj[type]=value;
             }
             obj.page = page,
-            obj.rows = 5
+            obj.rows = rows,
             ajax({
                 type:'get',
                 url:'/hotshowing/find',
@@ -40,19 +40,19 @@ export default{
                 
             })
         },
-        showMoviesData:function(page=1,rows=5){
-                let obj={};
-                obj.page=page;
-                obj.rows=rows;
-                 ajax({
-                    type:"get",
-                    url:"/movies/find",
-                    data:obj,
-                    success:(data)=>{   
-                        store.commit('ONHOT_MOVIESDATA',data);
-                    }
-                })
-            },
+       // showMoviesData:function(page=1,rows=5){
+              //   let obj={};
+              //   obj.page=page;
+               //  obj.rows=rows;
+                //  ajax({
+                 //    type:"get",
+                  //   url:"/movies/find",
+                 //    data:obj,
+                    // success:(data)=>{   
+                     //    store.commit('ONHOT_MOVIESDATA',data);
+                  //   }
+                // })
+           //  },
     },
     components:{
         OnhotTable,AddElement,Pagenation,DeleteElement,SearchElement
@@ -61,11 +61,11 @@ export default{
 }
 
 </script>
-<style>
+<style scoped>
 
 .h2tyle{
         margin:10px auto;
-        color:cornflowerblue;
+        color:blue;
     }
     .style{
         float:left;
