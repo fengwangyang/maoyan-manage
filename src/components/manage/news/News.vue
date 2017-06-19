@@ -1,9 +1,12 @@
 <template>
  
      <el-row>
-        <h1>资讯管理</h1>
+       <div class="rows">
+        <h2>资讯管理</h2>
         <NewsSearch :show='show'></NewsSearch>
         <NewsTable :show='show'></NewsTable>
+       </div>
+       
      </el-row>
    
 
@@ -35,7 +38,7 @@ export default {
                        obj[type]=value
                    }
                    obj.page = page;
-                   obj.rows = 5;
+                   obj.rows = 6;
                     ajax({
                         type:"post",
                         url:"/news/find",
@@ -54,6 +57,16 @@ export default {
             }        
 </script>
 <style>
+    h2{    
+/*        width: 100%;*/
+        text-align: center;
+        color: blue;
+        margin-top: 20px;
+    }
+    .rows{
+        width: 90;
+        padding: 20px;
+    }
     .sel{
         width: 100px;
     }

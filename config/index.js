@@ -34,7 +34,11 @@ module.exports = {
                 filter: function (pathname, req) {
                     return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)|(/managers)|(/getSession)|(/upload)');
                 }
+
        }
+
+           }
+
     },
         
     
@@ -44,5 +48,6 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
-  }
+  
+}
 }

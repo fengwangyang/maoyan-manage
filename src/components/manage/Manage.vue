@@ -48,8 +48,10 @@
             }
         },
         created:function(){
+
             this.getSession();
 //            console.log(0)
+
         },
         methods:{
             getSession:function(){

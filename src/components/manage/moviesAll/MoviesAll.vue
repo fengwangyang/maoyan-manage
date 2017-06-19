@@ -5,7 +5,9 @@
         
         
     </AddElement>
+
 <!--    <MoviesTable :show='show'></MoviesTable>-->
+
     
 </div>
 
@@ -21,7 +23,9 @@
 
 import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
+
 //import MoviesTable from "./MoviesTable";
+
 import store from "@/store";
 export default {
     created:function(){

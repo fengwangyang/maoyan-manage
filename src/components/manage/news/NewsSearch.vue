@@ -1,6 +1,9 @@
     <template>
     <el-row>
-                     <el-col :span='8'>
+                    <div class="table">
+                        
+                  
+                      <el-col>
                       <el-input  :style='inputType' v-model='searintVal' placeholder="请输入内容" >
                           <el-select v-model='searchVal' slot="prepend" class='select' placeholder="请选择">
                           <el-option value='newsTitle' label="资讯标题"></el-option>
@@ -14,20 +17,21 @@
                      </el-col>
                      
 <!--                  增加 删除按钮-->
-
-              <el-col :span="2">
-                <template>
-                      <el-button class='elbut' @click='dislogVisble=true' type="success">增加</el-button>
-                </template>
+                
+                
+              <el-col>
+                <el-button class='elbut' @click='shows' type="primary">刷新</el-button>
               </el-col>
                
-                <el-col :span="1">
-                <template>
-                      <el-button @click='delFrom' type="danger">删除</el-button>
-                </template>
+              <el-col>
+                <el-button class='elbut' @click='dislogVisble=true' icon="plus" type="success">增加</el-button>
+              </el-col>
+               
+              <el-col>
+                    <el-button class='elbut' @click='delFrom' icon="delete" type="danger">删除</el-button>
               </el-col>
               
-              
+                </div>
                
     
 <!--                 增加框-->
@@ -48,10 +52,11 @@
                       </el-form-item>
                         
                      <el-form-item label='资讯正文' class="flx">
-                        <el-input :style='inputType' v-model='newValue.newsmainText'></el-input>
+                        <el-input type="textarea"
+  :autosize="{ minRows: 8, maxRows: 6}" :style='inputType' v-model='newValue.newsmainText'></el-input>
                      </el-form-item>
 <!--                             图片上传   -->
-                     <el-upload :multiple='true' :on-success='sucimage' :on-preview="handlePreview" list-type="picture" :on-remove="handleRemove" class="upload" action='/upload'>
+                     <el-upload  :multiple='true' :on-success='sucimage' :on-preview="handlePreview" list-type="picture" :on-remove="handleRemove" class="upload" action='/upload'>
                          <el-button size='small' type='primary'>上传图片</el-button>
                      </el-upload>
                      
@@ -80,7 +85,6 @@ import store from "@/store"
             props:['newAddFrom','show'],
             data(){
                 return {
-                    
                     inputType:"width:400px",
                     moviesValue:"",
                     dislogVisble:this.isclose,
@@ -95,6 +99,9 @@ import store from "@/store"
                 }
             },
             methods:{
+                shows(){
+                    this.show()
+                },
                 newsjudge(e){
                    
                     
@@ -210,11 +217,17 @@ import store from "@/store"
     
     </script>
 <style lang="css">
+    .table{
+        width: 650px;
+        display: flex;
+        justify-content: space-between;
+        margin: 30px 0;
+    }
     .elbut{
-        margin-left: 20px;
+        margin-left: 10px;
     }
     .select{
-     width: 140px;   
+     width: 150px;   
     }
     .upload{
         width: 70%;
