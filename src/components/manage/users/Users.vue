@@ -1,7 +1,7 @@
 <template>
 <div>
         
-    <h1 class="usersH1">用户管理</h1>
+    <h2 class="usersH1">用户管理</h2>
       <UsersManage :show="show" class="usersInput"></UsersManage>
     <el-table
         :data="tableData"

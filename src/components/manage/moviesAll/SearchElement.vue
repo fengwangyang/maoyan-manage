@@ -37,12 +37,12 @@ export default {
 
        this.show(1,this.pageSize,this.searchValue,this.value);
     },
-         emptySearch:function(){
+    emptySearch:function(){
              this.value='';
             this.searchValue = '';
+            store.commit("SHOW_SEARCH",{});
             this.show(1,this.pageSize);
-        store.commit("SHOW_SEARCH",'');
-        }
+      }
     },
     computed:{
         ...mapState({

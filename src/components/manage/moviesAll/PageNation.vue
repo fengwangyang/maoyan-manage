@@ -20,15 +20,15 @@
     export default {
         data:function(){
             return {
-                size:0
-            }
+                size:"",
+             }
         },
         props:['show'],
         methods:{
             handleCurpage:function(val){
                let type=this.searchData.searchValue;
                let typevalue = this.searchData.value; 
-                 this.show(val,5,type,typevalue);
+                 this.show(val,this.size,type,typevalue);
             },
             handleSizeChange:function(val){
                 this.size = val;

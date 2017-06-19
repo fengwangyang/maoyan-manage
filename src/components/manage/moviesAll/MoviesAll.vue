@@ -29,10 +29,10 @@ import UpdateElement from "./UpdateElement";
 import store from "@/store";
 export default {
     created:function(){
-        this.show();
+        this.show(1,5);
     },
     methods:{
-         show:function(page=1,rows=5,type,value){
+         show:function(page,rows,type,value){
              let obj={};
              if(type){
                  obj[type]=value;
