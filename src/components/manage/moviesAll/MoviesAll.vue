@@ -28,7 +28,7 @@
 
 import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
-<<<<<<< HEAD
+
 
 import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
