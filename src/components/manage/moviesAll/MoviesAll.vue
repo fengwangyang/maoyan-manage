@@ -1,31 +1,18 @@
 <template>
 
-
-<div style='text-align:center'>
+<div style='text-align:center;margin:10px'>
     <h2 class='h2tyle'>电影管理</h2>
 
-  <MoviesTable :show='show'></MoviesTable>
-
-    
-    <DeleteElement :show='show'></DeleteElement>
-    <AddElement :show='show'></AddElement>
     <SearchElement :show='show'></SearchElement>
-    <MoviesTable :show='show'></MoviesTable>
+    <AddElement :show='show'></AddElement>
+    <DeleteElement :show='show'></DeleteElement>
+     <MoviesTable :show='show'></MoviesTable>
     <UpdateElement :show='show'></UpdateElement>
     <PageNation class='pagestyle' :show='show'></PageNation>
 
 </div>
-
-
 </template>
-   
-    
-    
-
-
-
-<script>
-
+  <script>
 import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
 
@@ -78,13 +65,10 @@ export default {
     }
     .h2tyle{
         margin:10px auto;
-        color:cornflowerblue;
+/*        color:cornflowerblue;*/
+        color:#324057;
+        
     }
 
 
 </style>
-<!--
-<DeleteElement :show='show'></DeleteElement>
-       <SearchElement :show='show'></SearchElement>
-       <CinemaTable :show='show'></CinemaTable>
-       <PageNation :show='show'></PageNation>-->

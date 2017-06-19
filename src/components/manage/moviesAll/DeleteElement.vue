@@ -64,7 +64,7 @@ export default{
 <style scoped>
 
     .deletestyle{
-        float:right;
+        float:left;
         margin:10px;
     }
 

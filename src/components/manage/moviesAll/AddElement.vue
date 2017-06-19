@@ -3,8 +3,8 @@
     <div class='deletestyle'>
         <el-button type="success" @click="dialogFormVisible = true" icon='plus'>添加</el-button>
         
-        <el-dialog title="添加" :visible.sync=dialogFormVisible class='addDialog'>
-          <el-form :inline="true" :model="form" :rules="rules" ref="form" >
+        <el-dialog title="添加" :visible.sync=dialogFormVisible >
+          <el-form :inline='true' :model="form" :rules="rules" ref="form" >
             <el-form-item label="电影中文名" label-width="100px" prop="cName">
               <el-input v-model="form.cName"></el-input>
             </el-form-item>
@@ -23,6 +23,9 @@
             </el-form-item>
             <el-form-item label="地区" label-width="100px" prop="area">
               <el-input v-model="form.area"></el-input>
+            </el-form-item>
+            <el-form-item label="年代" label-width="100px" prop="area">
+              <el-input v-model="form.year"></el-input>
             </el-form-item>
             <el-form-item label="时长" label-width="100px" prop="duration">
               <el-input v-model="form.duration"></el-input>
@@ -46,11 +49,13 @@
              </el-upload>
           </el-form>
           
+    <el-tag :key="tag" type='success' v-for="tag in array"
+          :closable="true">{{tag}}</el-tag>
 <!--          添加演职人员-->
-           <el-button type="info" @click="dialogActorFormVisible=true" style='margin:10px'>添加演职人员</el-button>
+           <el-button type="info" @click="actorDialog" style='margin:10px'>添加演职人员</el-button>
 
         <el-dialog title="演职人员" :visible.sync="dialogActorFormVisible" size='mini'>
-          <el-form :model="actor" label-position="right">
+          <el-form :model="actor" label-position="right" ref="actor">
             <el-form-item label="演员"  label-width="80px">
               <el-input v-model="actor.staffName" auto-complete="off" style='width:200px'></el-input>
             </el-form-item>
@@ -67,18 +72,15 @@
            </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button @click="dialogActorFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="addActor">确 定</el-button>
+            <el-button type="primary" @click="addActor('actor')">确 定</el-button>
            
           </div>
         </el-dialog>
-          
-          
-          <div slot="footer">
-            <el-button @click="dialogVisible = false">取 消</el-button>
+         <div slot="footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
             <el-button type="primary" @click="confirmAdd('form')">确 定</el-button>
          </div>
         </el-dialog>
-       
        </div>
      
 </template>
@@ -86,8 +88,7 @@
 import {ajax} from "@/components/common/ajax";
 import {mapState} from "vuex";
 export default {
-    
-    props:['show'],
+     props:['show'],
     data:function(){
       return {
           form:{
@@ -106,7 +107,7 @@ export default {
               poster:'',
               staffs: '',
             },
-          actor:{
+           actor:{
             staffName: '',
              role:'',
              picture:''
@@ -173,20 +174,27 @@ export default {
         handleResActor(response, file, fileList){
                this.actor.picture = file.response;
             },
-         addActor(){
-              this.dialogActorFormVisible = false;
-             this.dialogFormVisible=false,
-             this.array.push(this.actor);
-           this.form.staffs = JSON.stringify(this.array);
+        actorDialog(){
+             this.dialogActorFormVisible = true;
+             this.dialogFormVisible=true;
             this.actor.staffName='';
             this.actor.role='';
             this.actor.picture='';
+            },
+         addActor(actors){
+             let obj = {};
+                obj.staffName = this.actor.staffName;
+                obj.role = this.actor.role;
+                obj.picture = this.actor.picture;
+              this.dialogActorFormVisible = false;
+             this.dialogFormVisible=true,
+             this.array.push(obj);
+           
+           this.form.staffs = JSON.stringify(this.array);
+            this.$refs[actors].resetFields();
         },
-        
         confirmAdd:function(form){
-            
             let obj={
-                
                 cName:this.form.cName,
                 eName:this.form.eName,
                 type:this.form.type,
@@ -203,8 +211,6 @@ export default {
                 totalMoney:this.form.totalMoney,
                 poster:this.form.poster,
             }
-            
-            console.log(obj)
          this.$refs[form].validate((valid) => {
              if (valid) {
             this.$confirm('确认添加?', '提示', {
@@ -219,20 +225,7 @@ export default {
                 success:(data)=>{
                     this.show({page:this.curpage,rows:5});
                        this.dialogFormVisible=false;
-                        this.form.cName='';
-                        this.form.eName='';
-                          this.form.type='';
-                          this.form.scor='';
-                          this.form.staffs='';
-                          this.form.favor='';
-                          this.form.area='';
-                          this.form.year='';
-                          this.form.duration='';
-                          this.form.releaseDate='';
-                          this.form.releaseArea='';
-                          this.form.totalMoney='';
-                          this.form.briefIntro='';
-                          this.form.poster='';
+                        this.$refs[form].resetFields();
                 }
             })        
         }).catch(() => {
@@ -243,32 +236,22 @@ export default {
             });  
          }
             })
-            
-            
-        }
-       
-    },
+       }
+     },
     computed:{
         ...mapState({
         curpage:state=>state.moviesAll.moviesData.curpage
         })
        }
-    
-}
+ }
 </script>
 
 
 <style scope>
  .deletestyle{
-        float:right;
+        float:left;
          margin:10px;
         
     }
-    .addDialog{
-        width:800px;
-        height:480px;
-        margin:auto;
-        border:none;
-        outline:none;
-    }
+   
 </style>
