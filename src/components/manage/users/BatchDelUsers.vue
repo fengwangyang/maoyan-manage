@@ -8,16 +8,33 @@
         props:["show"],
         methods:{
             del(){
-                ajax({
-                    type:"post",
-                    url:"/users/del",
-                    data:{
-                        ids:JSON.stringify(this.data)
-                    },
-                    success:function(){
-                        this.show();
-                    }.bind(this)
-                });
+                this.$confirm('确认删除该数据?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() =>{
+                    ajax({
+                        type:"post",
+                        url:"/users/del",
+                        data:{
+                            ids:JSON.stringify(this.data)
+                        },
+                        success:function(){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                            this.show();
+                        }.bind(this)
+                    });
+                            
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });          
+                }); 
+                
             }
         },
         computed:{
