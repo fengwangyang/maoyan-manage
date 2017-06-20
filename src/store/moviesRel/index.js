@@ -1,20 +1,20 @@
 import {SHOW_MOVIES_LINKED,FIND_MOVIES,SHOW_MOVIE_CINEMAS,SHOW_ALL_CINEMAS,SHOW_ALL_MOVIES,SWITCH_VISIBLE,SWITCH_VISIBLE_ADD,SWITCH_VISIBLE_SESSION,GET_HOUSE,GET_LINKED_CINEMA,GET_SESSION,FIND_CINEMA,FIND_ALL_MOVIE,SHOW_LINKED_CINEMAS,FIND_LINKED_CINEMA} from "./mutations"
 const moviesRel = {
     state:{
-        data:{rows:[],eachpage:8,maxpage:"",curpage:1},
+        data:{rows:[],eachpage:5,maxpage:"",curpage:1},
         findMovie:{},
         editMovie:{cinemas:[]},
         cinemas:[],
-        allCinemas:{rows:[],curpage:1,eachpage:6},
+        allCinemas:{rows:[],curpage:1,eachpage:5},
         findCinema:{},
-        movies:{rows:[],eachpage:8,maxpage:"",curpage:1},
+        movies:{rows:[],eachpage:5,maxpage:"",curpage:1},
         findMovies:{},
         addCinemaVisible:false,
         cinemaVisible:false,
         sessionVisible:false,
         house:{hName:""},
         linkedCinema:{},
-        linkedCinemas:{rows:[],eachpage:6,maxpage:"",curpage:1},
+        linkedCinemas:{rows:[],eachpage:5,maxpage:"",curpage:1},
         session:{time:"",price:"",cName:""}
     },
     mutations:{

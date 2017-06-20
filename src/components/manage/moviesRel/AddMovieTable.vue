@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-button icon="plus" type="success" @click="initTable">添加电影</el-button>
+        <el-button icon="plus" type="success" @click="initTable">电影</el-button>
         <el-dialog top="20px" title="添加关联电影" :visible.sync="dialogTableVisible" class="moviesTable" size="small">
              <div>
                 
@@ -8,7 +8,7 @@
                     <SearchForm :show='show' :optionData="options" :commitMutations="commitMutations" :newData="movies" holderText="搜索电影名/类型/地区" ></SearchForm>
                 </div>
                  <MainTable tableRef="addMovies" :show='show' :data="movies.rows" :isShow="false" :addToSelect="addToSelect"></MainTable>
-                <Page :show="show" :handleSizeChange="handleSizeChange" :goTo="goTo" :data="movies"></Page>
+                <Page :show="show" :data="movies" :pageMutation="commitMutations[0]"></Page>
              </div>
               <div slot="footer" class="dialog-footer">
                 <el-button @click="close">取 消</el-button>
@@ -55,18 +55,6 @@
                         store.commit(SHOW_ALL_MOVIES,data);
                     }
                 })
-            },
-            handleSizeChange(rows){
-                let newData = this.movies;
-                newData.eachpage = rows;
-                store.commit(SHOW_ALL_MOVIES,newData);
-                this.show()
-            },
-            goTo(nowpage){
-                let newData = this.movies;
-                newData.curpage = nowpage;
-                store.commit(SHOW_ALL_MOVIES,newData);
-                this.show()
             },
             confirmAdd(){
                 if(this.selectedData.length > 0){

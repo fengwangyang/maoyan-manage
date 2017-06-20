@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-table fit :data="data" border style="width: 100%" height="360" :ref="tableRef" @selection-change="addToSelect">
+        <el-table fit :data="data" border style="width: 100%" :ref="tableRef" @selection-change="addToSelect">
            <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column align="center" :show-overflow-tooltip="true" prop="cName" label="电影名" width="180" fixed class="cName"></el-table-column>
             <el-table-column align="center" prop="type" label="类型" width="150"></el-table-column>

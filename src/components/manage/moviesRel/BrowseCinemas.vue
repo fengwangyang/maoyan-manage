@@ -4,9 +4,9 @@
           <SearchForm :show='showCinemas' :optionData="options" :commitMutations="commitMutations" :newData="linkedCinemas" holderText="请输入影院名/所在地区"></SearchForm>
       </div>
         <CinemasTable :show="show" :data="linkedCinemas.rows" :getSelect="getSelect" :isShow="true"></CinemasTable>
-         <Page :show="showCinemas" :handleSizeChange="handleSizeChange" :goTo="goTo" :data="linkedCinemas"></Page>
+         <Page :show="showCinemas" :data="linkedCinemas" :pageMutation="commitMutations[0]"></Page>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="close">取 消</el-button>
+            <el-button @click="close">关闭</el-button>
             <el-button icon="delete" type="primary" @click="confirmRemove">移除关联影院</el-button>
           </div>
     </el-dialog>
@@ -25,7 +25,7 @@
             return {
                 selectedData:[],
                 options:[{text:"院线名",value:"cinemaName"},{text:"地区",value:"area"}],
-                commitMutations:[SHOW_LINKED_CINEMAS,FIND_LINKED_CINEMA]
+                commitMutations:[SHOW_LINKED_CINEMAS,FIND_LINKED_CINEMA],
             }
         },
         components:{CinemasTable,Page,SearchForm},
@@ -42,7 +42,7 @@
         methods:{
             initData(){
                 store.commit(FIND_LINKED_CINEMA,{});
-                store.commit(SHOW_LINKED_CINEMAS,{rows:[],eachpage:6,curpage:1});
+                store.commit(SHOW_LINKED_CINEMAS,{rows:[],eachpage:5,curpage:1});
                 this.showCinemas();
             },
             showCinemas(){
@@ -63,7 +63,7 @@
                     }
                 }
                 store_linkedCinemas.rows = findCinemas.slice(startIndex,endIndex);
-                store_linkedCinemas.total = store_linkedCinemas.rows.length;
+                store_linkedCinemas.total = findCinemas.length;
                 store.commit(SHOW_LINKED_CINEMAS,store_linkedCinemas);
             },
             getSelect(selection){
@@ -71,18 +71,6 @@
             },
             close(){
                 store.commit(SWITCH_VISIBLE,false);
-            },
-            handleSizeChange(rows){
-                let store_linkedCinemas = this.linkedCinemas;
-                store_linkedCinemas.eachpage = rows;
-                store.commit(SHOW_LINKED_CINEMAS,store_linkedCinemas);
-                this.showCinemas()
-            },
-            goTo(nowpage){
-                let store_linkedCinemas = this.linkedCinemas;
-                store_linkedCinemas.curpage = nowpage;
-                store.commit(SHOW_LINKED_CINEMAS,store_linkedCinemas);
-                this.showCinemas()
             },
             confirmRemove(){
                 if(this.selectedData.length > 0){
@@ -105,8 +93,9 @@
                             data:{_id:this.editMovie._id,cinemas:JSON.stringify(linkedCinemas)},
                             type:"post",
                             success:()=>{
-                                this.close();
                                 this.show();
+//                                this.showCinemas();
+                                this.close();
                             }
                         })
                     })

@@ -1,24 +1,26 @@
 <template>
     <div>
-        <el-popover :ref="session.cName" placement="right" width="400" v-model="sessionVisible" :hide="initPoper" trigger="click" hide="close">
+        <el-popover :ref="session.cName" placement="right" width="400" v-model="sessionVisible" :hide="initPoper" trigger="click" hide="close" :title="`${house.hName}中《${session.cName}》的场次`">
           <el-form>
                 <el-form-item label="开场" label-width="60px">
                     <el-date-picker
                       v-model="startTime"
                       type="datetime"
                       @change="setStartTime"
-                      placeholder="请选择开场时间">
+                      placeholder="请选择开场时间"
+                      :disable="isOnRevise"
+                      >
                     </el-date-picker>
                 </el-form-item>
                 <el-form-item label="离场" label-width="60px">
                     <el-date-picker
                       v-model="endTime"
                       type="datetime"
-                      placeholder="请选择离场时间" :disabled="true">
+                      placeholder="请选择离场时间" :disabled="true" >
                     </el-date-picker>
                 </el-form-item>
                 <el-form-item label="价格" label-width="60px">
-                   <el-input-number v-model="price" :min="1" :max="200"></el-input-number>
+                   <el-input-number :disable="isOnRevise" v-model="price" :min="1" :max="200"></el-input-number>
                 </el-form-item>
           </el-form>
           <div style="text-align: right; margin: 0">
@@ -61,14 +63,12 @@
             },
             showMo(){
                 if(new Date(this.session.time[0]).getTime() < new Date().getTime()){
-                    this.close()
-                    this.$alert("该场次已过失效，无法修改","提示",{
-                        confirmButtonText:"确定"
-                    })
+                    this.isOnRevise = true
                 }else{
                     this.startTime = this.session.time[0];
                     this.endTime = this.session.time[1];
                     this.price = this.session.price;
+                    this.isOnRevise = false
                 }
 
             },
@@ -151,7 +151,7 @@
                         this.endTime = new Date(startSec + Number(this.house.gapTime)*60*1000);
                     }
                 }else{
-                    this.$alert("请选择大于当前时间的开场时间","提示",{
+                    this.$alert("该场次已过失效无法修改","提示",{
                         confimButtonText:"确定"
                     })
                 }

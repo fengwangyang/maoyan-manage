@@ -3,10 +3,6 @@
       <el-input :placeholder="holderText" v-model="value" class="searchForm">
         <el-select class="selector" v-model="attr" slot="prepend" placeholder="请选择" width="120">
           <el-option v-for="(val,index) in optionData" :label="val.text" :value="val.value" :key="index"></el-option>
-<!--
-          <el-option label="类型" value="type"></el-option>
-          <el-option label="地区" value="area"></el-option>
--->
         </el-select>
         <el-button @click='searchData' slot="append" icon="search">搜索</el-button>
       </el-input>
@@ -45,7 +41,7 @@
             initData(){
                 this.value = "";
                 store.commit(this.commitMutations[1],{});
-                store.commit(this.commitMutations[0],{rows:[],eachpage:6,curpage:1});
+//                store.commit(this.commitMutations[0],{rows:[],eachpage:5,curpage:1});
                 this.show();
             },
         },
@@ -64,7 +60,7 @@
     }
     .search{
         display: flex;
-        width: 430px;
+        width: 434px;
         justify-content: space-between;
 /*        margin-bottom: 8px;*/
     }

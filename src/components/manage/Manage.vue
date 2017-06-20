@@ -65,7 +65,6 @@
 
             this.getSession();
 
-
         },
         components:{IndexManage,Cinemas},
         methods:{
