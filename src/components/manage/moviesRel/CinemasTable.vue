@@ -1,5 +1,5 @@
 <template>
-    <el-table tooltip-effect="light" fit :data="data" border style="width: 100%" height="300" @selection-change="getSelect" @expand="updateSessions">
+    <el-table tooltip-effect="light" fit :data="data" border style="width: 100%" @selection-change="getSelect" @expand="updateSessions">
        
        <el-table-column v-if="isShow" type="expand">
            <template scope="cinemas">

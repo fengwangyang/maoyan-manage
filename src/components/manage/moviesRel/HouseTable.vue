@@ -2,7 +2,7 @@
   <div>
        <el-table fit :data="data" :row-style="rowStyle">
            <el-table-column align="center" prop="hName" label="影厅名" width="100"></el-table-column>
-           <el-table-column align="center" label="场次">
+           <el-table-column align="center" label="场次(点击场次查看/修改)">
                <template scope="house">
                   <div class="session">
                       <Session v-for="(session,index) in house.row.sessions" :index="index" :session="session" :house="house.row" :key="index" :cinema="cinema" :updateSessions="updateSessions" :show="show"></Session>

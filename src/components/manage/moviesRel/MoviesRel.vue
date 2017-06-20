@@ -156,9 +156,9 @@
 <style>
     .topPanel{
         display: flex;
-        width: 730px;
+        width: 660px;
         justify-content: space-between;
-        margin: 20px 0;
+        margin: 10px 0;
     }
     .title{
         text-align: center;

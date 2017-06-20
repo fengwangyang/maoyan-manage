@@ -6,7 +6,7 @@
         <CinemasTable :show="show" :data="linkedCinemas.rows" :getSelect="getSelect" :isShow="true"></CinemasTable>
          <Page :show="showCinemas" :handleSizeChange="handleSizeChange" :goTo="goTo" :data="linkedCinemas"></Page>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="close">取 消</el-button>
+            <el-button @click="close">关闭</el-button>
             <el-button icon="delete" type="primary" @click="confirmRemove">移除关联影院</el-button>
           </div>
     </el-dialog>
@@ -63,7 +63,7 @@
                     }
                 }
                 store_linkedCinemas.rows = findCinemas.slice(startIndex,endIndex);
-                store_linkedCinemas.total = store_linkedCinemas.rows.length;
+                store_linkedCinemas.total = findCinemas.length;
                 store.commit(SHOW_LINKED_CINEMAS,store_linkedCinemas);
             },
             getSelect(selection){
@@ -105,8 +105,9 @@
                             data:{_id:this.editMovie._id,cinemas:JSON.stringify(linkedCinemas)},
                             type:"post",
                             success:()=>{
-                                this.close();
                                 this.show();
+//                                this.showCinemas();
+                                this.close();
                             }
                         })
                     })

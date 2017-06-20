@@ -48,8 +48,6 @@
                 this.selectedData = selection;
             },
             confirmAdd(){
-//                console.log(0);
-//                        return;
                 if(this.selectedData.length > 0){
                     let obj = this.editMovie;
                     let linkedCinemas = obj.cinemas;
@@ -58,8 +56,7 @@
                        for(let i = 0;i < linkedCinemas.length;i++){
                             for(let j = 0;j < selectedCinemas.length; j ++){
                                 if(linkedCinemas[i]._id == selectedCinemas[j]._id){
-                                     console.log(0);
-                                    selectedCinemas.splice(i--,1);
+                                    selectedCinemas.splice(j--,1);
                                 }
                             }
                         }
@@ -68,7 +65,7 @@
                         obj.cinemas = selectedCinemas
                     }
                     if(selectedCinemas.length > 0){
-                        this.$confirm(`确认添加${selectedCinemas.length}影院到${this.editMovie.cName}?`,"确认", {
+                        this.$confirm(`确认添加${selectedCinemas.length}家影院到${this.editMovie.cName}?`,"确认", {
                             confirmButtonText: '确定',
                             cancelButtonText: '取消',
                             type: 'warning'

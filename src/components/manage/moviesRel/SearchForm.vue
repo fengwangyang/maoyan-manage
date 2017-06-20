@@ -3,14 +3,10 @@
       <el-input :placeholder="holderText" v-model="value" class="searchForm">
         <el-select class="selector" v-model="attr" slot="prepend" placeholder="请选择" width="120">
           <el-option v-for="(val,index) in optionData" :label="val.text" :value="val.value" :key="index"></el-option>
-<!--
-          <el-option label="类型" value="type"></el-option>
-          <el-option label="地区" value="area"></el-option>
--->
         </el-select>
         <el-button @click='searchData' slot="append" icon="search">搜索</el-button>
       </el-input>
-      <el-button class="clearBtn" @click="initData" type="primary">清空刷新</el-button>
+      <el-button class="clearBtn" @click="initData" type="primary">刷新</el-button>
     </div>
 </template>
 <script>
@@ -64,7 +60,7 @@
     }
     .search{
         display: flex;
-        width: 475px;
+        width: 430px;
         justify-content: space-between;
 /*        margin-bottom: 8px;*/
     }

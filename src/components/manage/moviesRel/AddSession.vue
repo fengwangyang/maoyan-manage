@@ -1,6 +1,6 @@
 <template>
    <div>
-       <el-popover :title="house.hName" v-model="dialogVisible" placement="right">
+       <el-popover :title="house.hName + ' 添加《' + editMovie.cName + '》场次'" trigger="click" :visible="dialogVisible" placement="right">
             <el-form>
                 <el-form-item label="开场" label-width="60px">
                     <el-date-picker
@@ -25,7 +25,7 @@
                 <el-button @click="handleClose">取 消</el-button>
                 <el-button type="primary" icon="plus" @click="confirmAddSession">确 定</el-button>
               </div>
-              <el-button slot="reference" icon="plus" type="info" @click="addSession(house,cinema)" size="small">添加场次</el-button>
+              <el-button slot="reference" icon="plus" type="info" @click="addSession" size="small">添加场次</el-button>
         </el-popover>
    </div>
 
@@ -41,7 +41,7 @@
             return {
                 start:"",
                 end:"",
-                price:""
+                price:"",
             }
         },
         props:["house","cinema","show"],
@@ -116,7 +116,7 @@
                     })
                 }
             },
-            addSession(house,cinema){
+            addSession(){
                 this.start = "";
                 this.end = "";
                 store.commit(SWITCH_VISIBLE_SESSION,true);
