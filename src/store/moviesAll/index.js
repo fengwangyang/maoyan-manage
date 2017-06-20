@@ -11,6 +11,9 @@ const ONHOT_SEARCHDATA = 'ONHOT_SEARCHDATA';
 const ONSHOW_DATA ='ONSHOW_DATA';
 const PRESHOW_DATA = 'PRESHOW_DATA';
 const PAGESIZE = 'PAGESIZE';
+const ONHOTPAGESIZE = 'ONHOTPAGESIZE';
+const ONSHOWPAGESIZE = 'ONSHOWPAGESIZE';
+const PRESHOWPAGESIZE = 'PRESHOWPAGESIZE';
 const moviesAll = {
     
     state:{
@@ -25,7 +28,10 @@ const moviesAll = {
         onhotSearchData:'',
         onshowData:'',
         preshowData:'',
-        pageSize:0
+        pageSize:0,
+        onhotPagesize:0,
+        onshowPagesize:0,
+        preshowPagesize:0
     },
     mutations:{
       [MOVIESALL_DATA](state,data){
@@ -65,6 +71,15 @@ const moviesAll = {
         },
         [PAGESIZE](state,data){
             state.pageSize = data;
+        },
+        [ONHOTPAGESIZE](state,data){
+            state.onhotPagesize = data;
+        },
+         [ONSHOWPAGESIZE](state,data){
+            state.onshowPagesize = data;
+        },
+         [PRESHOWPAGESIZE](state,data){
+            state.preshowPagesize = data;
         }
         
     }

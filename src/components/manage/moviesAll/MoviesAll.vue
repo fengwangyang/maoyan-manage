@@ -25,7 +25,7 @@ import store from "@/store";
 export default {
     created:function(){
         this.show(1,5);
-        store.commit('PAGESIZE',val);
+        store.commit('PAGESIZE',5);
     },
     methods:{
          show:function(page=1,rows=5,type,value){

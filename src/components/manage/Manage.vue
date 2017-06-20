@@ -63,7 +63,7 @@
         },
         created:function(){
 
-            this.getSession();
+//            this.getSession();
 
         },
         components:{IndexManage,Cinemas},
@@ -97,7 +97,7 @@
             "$route":function(nextPath){
                 if(nextPath.path != "/"){
 
-                    this.getSession();
+//                    this.getSession();
 
 //                    console.log(nextPath)
 
