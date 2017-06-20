@@ -1,5 +1,6 @@
 <template>
 
+   
 <div style='text-align:center;margin:10px'>
     <h2 class='h2tyle'>电影管理</h2>
 
@@ -17,12 +18,14 @@ import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
 
 
+
 import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
 import MoviesTable from "./MoviesTable";
 import PageNation from "./PageNation";
 import UpdateElement from "./UpdateElement";
 //import AddActors from "./AddActors";
+
 
 //import MoviesTable from "./MoviesTable";
 

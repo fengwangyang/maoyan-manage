@@ -65,6 +65,7 @@
 
             this.getSession();
 
+
         },
         components:{IndexManage,Cinemas},
         methods:{
@@ -113,9 +114,7 @@
 		background-color:#475669;
         height: 60px;
 	}
-	h2{
-		
-	}
+	
     .left{
 		background-color:#EFF2F7;
 		height:520px;

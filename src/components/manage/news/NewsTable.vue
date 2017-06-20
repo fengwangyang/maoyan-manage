@@ -1,6 +1,6 @@
 <template lang="html">
       <el-row>
-          <el-table height="300"
+          <el-table 
               ref='multipleTable'
               class='tab' border
               :data="data.rows"
@@ -25,7 +25,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="data.curpage"
-      :page-sizes="[6, 8, 10]"
+      :page-sizes="[5,6,7,8]"
       :page-size="data.eachpage"
       layout="total, sizes, prev, pager, next, jumper"
       :total="data.total">
@@ -62,12 +62,11 @@ export default {
                url:"/news/find",
                data:{_id:rows._id},
                success:(data)=>{
-                   store.commit('EDIT_DATA',data)
+                   store.commit('EDIT_DATA',data);
                    store.commit('EDIT_VISBLE',true)
                }
            }) 
            
-           console.log(this.rows)
         },
        handleSelection(val){
            
@@ -78,14 +77,12 @@ export default {
             
        },     
        handleSizeChange(rows){
-           console.log(rows)
            var datas = this.data
            datas.eachpage = rows
            store.commit('NEWS_DATA',datas)
-           this.show()
+//           this.show(rows,datas.curpage)
        },
        handleCurrentChange(val){
-           console.log(val)
         this.data.curpage = val
         this.show(val,5,this.search.type,this.search.value)
         

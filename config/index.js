@@ -34,8 +34,16 @@ module.exports = {
                 filter: function (pathname, req) {
                     return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)|(/managers)|(/getSession)|(/upload)');
                 }
+<<<<<<< HEAD
        }
 
+=======
+
+       }
+
+           }
+
+>>>>>>> news
     },
         
     

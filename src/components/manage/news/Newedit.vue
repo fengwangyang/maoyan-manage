@@ -14,7 +14,8 @@
                       </el-form-item>
                         
                      <el-form-item label='资讯正文' class="flx">
-                        <el-input :style='inputType' v-model='editdata.mainText'></el-input>
+                        <el-input type="textarea"
+  autosize :style='inputType'  :autosize="{ minRows: 8, maxRows: 6}" v-model='editdata.mainText'></el-input>
                      </el-form-item>
                      
                      <el-upload :multiple='true' :on-success='sucimage' :on-preview="handlePreview" list-type="picture" :on-remove="handleRemove" :file-list='fileimg' class="upload" action='/upload'>
@@ -27,7 +28,7 @@
                             <el-button @click='cancel' class="btnA">取消</el-button>
                             <el-button @click='newEdit' class="btnB">确定</el-button>
                         </div>
-                  </el-form>
+                    </el-form>
         
                     </el-dialog>
                   
