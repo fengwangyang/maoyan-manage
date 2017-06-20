@@ -3,7 +3,7 @@
      <el-row>
        <div class="rows">
         <h2>资讯管理</h2>
-        <NewsSearch :show='show' style="marginLeft:10px"></NewsSearch>
+        <NewsSearch :show='show' ></NewsSearch>
         <NewsTable :show='show'></NewsTable>
        </div>
        

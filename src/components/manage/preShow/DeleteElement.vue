@@ -62,7 +62,9 @@ export default{
 
     .style{
         float:left;
-        margin:10px;
+         margin-top:10px;
+       margin-bottom: 10px;
+        margin-left: 20px;
     }
 
 </style>

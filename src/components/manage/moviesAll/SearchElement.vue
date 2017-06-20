@@ -10,7 +10,7 @@
     <el-button slot="append" icon="search" style='width:80px' @click='searchMoives'>搜索</el-button>
   </el-input>
   
-  <el-button slot="append" type='primary' @click='emptySearch' style='float:right'>刷新</el-button>
+  <el-button slot="append" type='primary' @click='emptySearch' style='float:left;marginLeft:20px;'>刷新</el-button>
 </div>
     
 </template>
@@ -56,8 +56,8 @@ export default {
 
  .deletestyle{
         float:left;
-        margin:10px;
-        width:480px;
+        margin-top: 10px;
+       
     }
 
 

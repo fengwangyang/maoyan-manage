@@ -136,6 +136,7 @@ export default {
 
 <style scoped>
     .divclass{
+        
 /*        width:1000px;*/
     }
 

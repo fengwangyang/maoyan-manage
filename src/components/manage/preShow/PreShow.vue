@@ -62,11 +62,11 @@ export default{
 }
 
 </script>
-<style>
+<style scoped>
 
 .h2tyle{
         margin:10px auto;
-        color:cornflowerblue;
+        color:blue;
     }
     .style{
         float:left;

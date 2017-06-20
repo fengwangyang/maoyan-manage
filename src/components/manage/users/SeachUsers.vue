@@ -1,7 +1,7 @@
 <template>
 
 <div>
-        <el-input placeholder="请输入内容" v-model="value" style="width:400px;float:left;marginLeft:10px" >
+        <el-input placeholder="请输入内容" v-model="value" style="width:400px;float:left" >
 
             <el-select v-model="users" slot="prepend" placeholder="请选择" style="width:120px;">
                 <el-option label="姓名" value="name"></el-option>

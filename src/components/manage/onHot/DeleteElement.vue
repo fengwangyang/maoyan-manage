@@ -1,5 +1,5 @@
 <template>
-    <div class='style'>
+    <div class='delstyle'>
         <el-button type="warning" icon='delete' @click='deleteMovies'>删除</el-button>
         
     </div>
@@ -57,11 +57,13 @@ export default{
 }
 
 </script>
-<style scpoe>
+<style scoped>
 
-    .style{
+    .delstyle{
         float:left;
-        margin:10px;
+         margin-left:20px;
+        margin-top:10px;
+        margin-bottom: 10px;
     }
 
 </style>

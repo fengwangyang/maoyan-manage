@@ -3,7 +3,7 @@
         <h2 class='h2tyle'>热映电影</h2>
         <SearchElement :showOnhot = 'showOnhot'></SearchElement>
         
-        <AddElement :showOnhot='showOnhot' class='style' :showMoviesData='showMoviesData'></AddElement>
+        <AddElement :showOnhot='showOnhot' class='divstyle' :showMoviesData='showMoviesData'></AddElement>
         <DeleteElement :showOnhot = 'showOnhot'></DeleteElement>
         <OnhotTable :showOnhot = 'showOnhot'></OnhotTable>
         <Pagenation :showOnhot='showOnhot'></Pagenation>
@@ -72,12 +72,16 @@ export default{
         margin:10px auto;
         color:blue;
     }
-    .style{
-        float:left;
-        margin:10px;
+.divstyle{
+             float:left;
+         margin-left:20px;
+        margin-top:10px;
+     margin-bottom: 10px;
     }
+/*
     .divstyle{
         text-align:center;
         margin:10px;
     }
+*/
 </style>

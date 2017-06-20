@@ -63,9 +63,11 @@ export default{
 </script>
 <style scoped>
 
-    .deletestyle{
+     .deletestyle{
         float:left;
-        margin:10px;
+         margin-left:20px;
+        margin-top:10px;
+         margin-bottom: 10px;
     }
 
 </style>

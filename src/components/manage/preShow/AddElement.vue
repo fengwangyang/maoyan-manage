@@ -198,8 +198,10 @@ import {mapState} from "vuex";
 
 <style scoped>
     .btnstyel{
-        float:left;
-        margin:10px;
+       float:left;
+         margin-top:10px;
+        margin-left: 20px;
+       margin-bottom: 10px;
     }
 
 
