@@ -6,7 +6,8 @@
                 <el-option label="email" value="email"></el-option>
                 <el-option label="生日" value="time"></el-option>
             </el-select>
-            <el-button slot="append" icon="search" @click='search'>查询</el-button>
+            <el-button slot="append" icon="search" @click='search'>搜索</el-button>
+            <el-button @click="resetForm('users')">重置</el-button>
         </el-input>
 </template>
 <script>
@@ -29,6 +30,9 @@
                 obj.searchValue = this.value;
                 store.commit(FIND_USERS,obj);
                 this.show(1,5,this.users,this.value);
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
             }
         }
   }

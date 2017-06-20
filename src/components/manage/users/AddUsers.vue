@@ -24,7 +24,7 @@
           <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button @click="close">取 消</el-button>
             <el-button type="primary" @click="add('ruleForm')">确定添加</el-button>
         </el-form-item>
       </el-form>
@@ -93,13 +93,15 @@
                                 });
                                 this.show();
                                 this.close();
+                                this.$refs[formName].resetFields();
                             }.bind(this)
                         });
                        }).catch(() => {
                             this.$message({
                                 type: 'info',
                                 message: '已取消'
-                            });          
+                            });
+                            
                         }); 
                     } else {
                         return false;
@@ -107,7 +109,8 @@
                 });
             },
             close(){
-                this.dialogFormVisible = false
+                this.dialogFormVisible = false;
+                this.$refs.ruleForm.resetFields();
             }
                 
         }
