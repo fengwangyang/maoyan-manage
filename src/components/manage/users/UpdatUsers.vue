@@ -1,6 +1,6 @@
 <template>
    <div class="add">
-     <el-dialog title="添加用户" :visible.sync="dialogFormVisible" :before-close="close">
+     <el-dialog title="添加用户" size="tiny" :visible.sync="dialogFormVisible" :before-close="close">
       <el-form :model="ruleFormUpdate" :rules="rules" ref="updateForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="姓名" prop="name">
           <el-input v-model="ruleFormUpdate.name"></el-input>

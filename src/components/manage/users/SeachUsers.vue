@@ -8,6 +8,7 @@
                 <el-option label="生日" value="time"></el-option>
             </el-select>
             <el-button slot="append" icon="search" @click='search'>搜索</el-button>
+
         </el-input>
         <el-button type='primary' @click='refresh' style='float:left;marginLeft:20px'>刷新</el-button>
     </div>
@@ -15,7 +16,10 @@
 <script>
     import {ajax} from "@/components/common/ajax"
     import store from "@/store"
-    import {mapState} from "vuex"
+
+    import {mapState} from "vuex";
+    import {FIND_USERS} from "@/store/users/mutations"
+
     export default {
         props:["show"],
         data:function(){
@@ -29,6 +33,7 @@
                 let obj ={};
                 obj.searchType = this.users;
                 obj.searchValue = this.value;
+
                 store.commit('FIND_USERS',obj);
                 this.show(1,this.pageSize,this.users,this.value);
             },
@@ -43,6 +48,8 @@
                   pageSize:state=>state.cinemas.pageSize,
        })
      }
+
+            
   }
 </script>
 <style scoped="scoped">
