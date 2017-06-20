@@ -118,6 +118,7 @@ export default {
  .tab{    
         text-align: center;
          overflow: hidden;
+        margin-top:10px;
     }
     .item_A{
          height: 100px;

@@ -3,7 +3,7 @@
      <el-row>
        <div class="rows">
         <h2>资讯管理</h2>
-        <NewsSearch :show='show'></NewsSearch>
+        <NewsSearch :show='show' style="marginLeft:20px"f></NewsSearch>
         <NewsTable :show='show'></NewsTable>
        </div>
        
@@ -74,8 +74,7 @@ export default {
     }
     .rows{
         width: 90;
-        padding: 10px;
-    }
+            }
     .sel{
         width: 100px;
     }

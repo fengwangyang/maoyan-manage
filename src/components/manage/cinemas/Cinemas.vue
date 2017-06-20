@@ -2,7 +2,7 @@
 <template>
     <div >
     <h2 class="cinemas_h3" style="marginTop:10px;textAlign:center" >院线管理</h2>
-    <div style="marginTop:30px;overflow:hidden"> 
+    <div style="marginTop:20px;overflow:hidden"> 
     <Search style="float:left;marginLeft:10px;" :show="show">
     </Search>
    

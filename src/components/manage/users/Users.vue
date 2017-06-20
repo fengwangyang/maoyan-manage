@@ -7,8 +7,7 @@
         style="marginTop:10px;"
         :data="tableData"
         border
-        margin="20"
-         @selection-change="handleSelectionChange">
+        @selection-change="handleSelectionChange">
         <el-table-column
           type="selection"
           width="55">
@@ -118,11 +117,9 @@
         text-align: center
     }
     .usersInput{
-        margin-top: 10px;
+        margin-top: 20px;
         margin-left: 10px
     }
-    .el-table{
-         margin-top: 10px;
-    }
+  
 </style>
 

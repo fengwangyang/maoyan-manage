@@ -221,10 +221,10 @@ import store from "@/store"
         width: 650px;
         display: flex;
         justify-content: space-between;
-        margin: 30px 0;
+        margin-top:20px;
     }
     .elbut{
-        margin-left: 10px;
+        margin-left: 15px;
     }
     .select{
      width: 150px;   
