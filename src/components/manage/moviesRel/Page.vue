@@ -5,28 +5,30 @@
               @size-change="handleSizeChange"
               :current-page="data.curpage"
               :page-size="data.eachpage"
-              :page-sizes="[5,6,7,8]"
+              :page-sizes="[5,6,7]"
               layout="total,sizes, prev, pager, next, jumper"
               :total="data.total">
             </el-pagination>
         </div>
 </template>
 <script>
+    import store from "@/store"
+    
     export default {
-        props:["show","handleSizeChange","goTo","data"],
+        props:["show","data","pageMutation"],
         methods:{
-//            handleSizeChange(rows){
-//                let newData = this.movies;
-//                newData.eachpage = rows;
-//                store.commit(SHOW_ALL_MOVIES,newData);
-//                this.show()
-//            },
-//            goTo(nowpage){
-//                let newData = this.movies;
-//                newData.curpage = nowpage;
-//                store.commit(SHOW_ALL_MOVIES,newData);
-//                this.show()
-//            },
+            handleSizeChange(rows){
+                let newData = this.data;
+                newData.eachpage = rows;
+                store.commit(this.pageMutation,newData);
+                this.show()
+            },
+            goTo(nowpage){
+                let newData = this.data;
+                newData.curpage = nowpage;
+                store.commit(this.pageMutation,newData);
+                this.show()
+            },
         },
     }
 </script>

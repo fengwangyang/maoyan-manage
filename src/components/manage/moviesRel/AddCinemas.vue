@@ -4,7 +4,7 @@
           <SearchForm :show='showCinemas' :optionData="options" :commitMutations="commitMutations" :newData="allCinemas" holderText="请输入影院名/所在地区"></SearchForm>
       </div>
         <CinemasTable :data="allCinemas.rows" :getSelect="getSelect"></CinemasTable>
-         <Page :show="showCinemas" :handleSizeChange="handleSizeChange" :goTo="goTo" :data="allCinemas"></Page>
+         <Page :show="showCinemas" :data="allCinemas" :pageMutation="commitMutations[0]"></Page>
           <div slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
             <el-button icon="share" type="primary" @click="confirmAdd">确认关联</el-button>
@@ -98,18 +98,6 @@
                         confirmButtonText: '确定'
                     })
                 }
-            },
-            handleSizeChange(rows){
-                let newData = this.allCinemas;
-                newData.eachpage = rows;
-                store.commit(SHOW_ALL_CINEMAS,newData);
-                this.showCinemas()
-            },
-            goTo(nowpage){
-                let newData = this.allCinemas;
-                newData.curpage = nowpage;
-                store.commit(SHOW_ALL_CINEMAS,newData);
-                this.showCinemas()
             },
             searchData(){
                 if(this.value){

@@ -41,7 +41,7 @@
             initData(){
                 this.value = "";
                 store.commit(this.commitMutations[1],{});
-                store.commit(this.commitMutations[0],{rows:[],eachpage:6,curpage:1});
+//                store.commit(this.commitMutations[0],{rows:[],eachpage:5,curpage:1});
                 this.show();
             },
         },
