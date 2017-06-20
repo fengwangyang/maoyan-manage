@@ -4,8 +4,8 @@
                         
                   
                       <el-col>
-                      <el-input  :style='inputType' v-model='searintVal' placeholder="请输入内容" >
-                          <el-select v-model='searchVal' slot="prepend" class='select' placeholder="请选择">
+                      <el-input  :style='inputType' v-model='searintVal' placeholder="请输入内容" style="width:400px;">
+                          <el-select v-model='searchVal' slot="prepend" class='select' placeholder="请选择" >
                           <el-option value='newsTitle' label="资讯标题"></el-option>
                           <el-option value='movies' label="关联影片"></el-option>
                           <el-option value='mainText' label="资讯正文"></el-option>
@@ -20,15 +20,15 @@
                 
                 
               <el-col>
-                <el-button class='elbut' @click='shows' type="primary">刷新</el-button>
+                <el-button class='elbut' @click='shows' type="primary" style="marginLeft:20px">刷新</el-button>
               </el-col>
                
               <el-col>
-                <el-button class='elbut' @click='dislogVisble=true' icon="plus" type="success">增加</el-button>
+                <el-button class='elbut' @click='dislogVisble=true' icon="plus" type="success"  style="marginLeft:20px">添加</el-button>
               </el-col>
                
               <el-col>
-                    <el-button class='elbut' @click='delFrom' icon="delete" type="warning">删除</el-button>
+                    <el-button class='elbut' @click='delFrom' icon="delete" type="warning"  style="marginLeft:20px">删除</el-button>
               </el-col>
                </div>
                
@@ -93,7 +93,7 @@ import store from "@/store"
                         newsmainText:"",
                         newsRelease:[],
                     },
-                    searchVal:"",
+                    searchVal:"newsTitle",
                     searintVal:""
                 }
             },
@@ -227,7 +227,7 @@ import store from "@/store"
         margin-left: 15px;
     }
     .select{
-     width: 150px;   
+     width: 120px;   
     }
     .upload{
         width: 70%;

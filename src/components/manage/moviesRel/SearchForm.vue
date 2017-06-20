@@ -1,7 +1,7 @@
 <template>
     <div class="search">
       <el-input :placeholder="holderText" v-model="value" class="searchForm">
-        <el-select class="selector" v-model="attr" slot="prepend" placeholder="请选择" width="120">
+        <el-select class="selector" v-model="attr" slot="prepend" placeholder="请选择" >
           <el-option v-for="(val,index) in optionData" :label="val.text" :value="val.value" :key="index"></el-option>
         </el-select>
         <el-button @click='searchData' slot="append" icon="search">搜索</el-button>
@@ -54,17 +54,16 @@
 </script>
 <style scoped>
     .selector{
-        width: 100px;
-        
-        
+        width: 120px;
+      
     }
     .search{
         display: flex;
-        width: 434px;
+        width: 470px;
         justify-content: space-between;
 /*        margin-bottom: 8px;*/
     }
     .searchForm{
-        width: 360px;
+        width: 400px;
     }
 </style>

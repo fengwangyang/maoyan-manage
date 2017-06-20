@@ -156,14 +156,16 @@
 <style>
     .topPanel{
         display: flex;
-        width: 620px;
+        width: 650px;
         justify-content: space-between;
         margin: 10px 0;
     }
     .title{
         text-align: center;
-        margin-top: 8px;
+        margin-top:10px;
+        margin-bottom: 20px;
         letter-spacing: 5px;
         color: blue;
+        
     }
 </style>

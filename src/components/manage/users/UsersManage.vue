@@ -1,13 +1,13 @@
 <template>
    
       <div>
-          <SeachUsers :show="show" style="float:left;marginLeft:10px"></SeachUsers>
+          <SeachUsers :show="show" style="float:left"></SeachUsers>
     
       
-          <AddUsers :show="show" style="float:left;marginLeft:10px"></AddUsers>
+          <AddUsers :show="show" style="float:left;marginLeft:20px"></AddUsers>
       
    
-          <BatchDelUsers :show="show" style="float:left;marginLeft:10px"></BatchDelUsers>
+          <BatchDelUsers :show="show" style="float:left;marginLeft:20px"></BatchDelUsers>
       </div>
    
 </template>

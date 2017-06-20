@@ -2,17 +2,17 @@
  <div>
    <div style="width:400px" class="searchInput">
     <el-input placeholder="请输入内容" v-model="value">
-    <el-select v-model="select" slot="prepend" placeholder="请选择" style="width:150px">
+    <el-select v-model="select" slot="prepend" placeholder="请选择" style="width:120px">
       <el-option label="影院名称" value="cinemaName"></el-option>
       <el-option label="影院地址" value="address"></el-option>
       <el-option label="影院电话" value="tel"></el-option>
       <el-option label="官方网站" value="webAdress"></el-option>
     </el-select>
-    <el-button slot="append" icon="search" @click="searchCinemas"></el-button>
+    <el-button slot="append" icon="search" @click="searchCinemas">搜索</el-button>
   </el-input>
   </div>
    <el-button
-     style="float:left;marginLeft:10px"
+     style="float:left;marginLeft:20px"
           size="middle"
           type="primary"
           @click="refresh">刷新</el-button>
@@ -28,7 +28,7 @@
         data() {
            return {
                  value: '',
-                 select: ''
+                 select: 'cinemaName'
                     }
                   },
     methods:{

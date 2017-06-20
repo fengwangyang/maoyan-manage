@@ -243,7 +243,7 @@ export default {
 </script>
 
 
-<style scope>
+<style scoped>
  .deletestyle{
         float:left;
          margin:10px;

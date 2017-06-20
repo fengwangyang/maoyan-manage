@@ -1,5 +1,5 @@
 <template>
-    <div style='text-align:center;margin:10px'>
+    <div style='text-align:center;'>
         <h2 class='h2tyle'>热映电影</h2>
         <SearchElement :showOnhot = 'showOnhot'></SearchElement>
         
@@ -22,17 +22,18 @@ export default{
     created:function(){
     this.showOnhot(1,5);  
     this.showMoviesData();
+    store.commit('ONHOTPAGESIZE',5);
     },
     methods:{
-        showOnhot:function(page,rows,type,value){
+
+        showOnhot:function(page=1,rows=5,type,value){
+
             let obj={};
             if(type){
                 obj[type]=value;
             }
             obj.page = page,
-
             obj.rows = rows,
-
             ajax({
                 type:'get',
                 url:'/hotshowing/find',
@@ -45,18 +46,18 @@ export default{
             })
         },
         showMoviesData:function(page=1,rows=5){
-                let obj={};
-                obj.page=page;
-                obj.rows=rows;
-                 ajax({
-                    type:"get",
-                    url:"/movies/find",
-                    data:obj,
-                    success:(data)=>{   
-                        store.commit('ONHOT_MOVIESDATA',data);
-                    }
-                })
-            },
+                 let obj={};
+                 obj.page=page;
+                 obj.rows=rows;
+                  ajax({
+                     type:"get",
+                     url:"/movies/find",
+                     data:obj,
+                     success:(data)=>{   
+                         store.commit('ONHOT_MOVIESDATA',data);
+                     }
+                 })
+             },
     },
     components:{
         OnhotTable,AddElement,Pagenation,DeleteElement,SearchElement
@@ -65,11 +66,11 @@ export default{
 }
 
 </script>
-<style>
+<style scoped>
 
 .h2tyle{
         margin:10px auto;
-        color:cornflowerblue;
+        color:blue;
     }
     .style{
         float:left;

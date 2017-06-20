@@ -1,5 +1,5 @@
 <template>
-    <div style='text-align:center;margin:10px'>
+    <div style='text-align:center;'>
         <h2 class='h2tyle'>热播电影</h2>
         <SearchElement :showOnhot = 'showOnhot'></SearchElement>
         <AddElement :showOnhot='showOnhot' class='style' :showMoviesData='showMoviesData'></AddElement>
@@ -20,6 +20,7 @@ export default{
     created:function(){
     this.showOnhot();  
     this.showMoviesData();
+    store.commit('ONSHOWPAGESIZE',5);
     },
     methods:{
         showOnhot:function(page=1,rows=5,type,value){

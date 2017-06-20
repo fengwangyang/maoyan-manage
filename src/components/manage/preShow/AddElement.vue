@@ -97,7 +97,8 @@ import {mapState} from "vuex";
             return {
                  dialogTableVisible: false,
                 checkedData:[],
-                alldata:[]
+                alldata:[],
+                checked:[]
             }
         },
         created:function(){
@@ -106,6 +107,7 @@ import {mapState} from "vuex";
         methods:{
             handleSelectionChange(val) {
                  this.checkedData=val;
+                 this.checked=val;
                 },
             handleCurpage:function(val){
                 this.showMoviesData(val);
@@ -136,6 +138,12 @@ import {mapState} from "vuex";
                     str += i.cName +' ';
                     num++;
                 }
+                
+                
+                if(this.checked == 0){
+                     this.$message('请选择消息！');
+                }
+                
                 if(this.checkedData == 0){
                     
                      this.$confirm('数据已添加，请重新选择?', '提示', {

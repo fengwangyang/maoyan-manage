@@ -11,17 +11,7 @@
       :total="moviesData.total">
     </el-pagination>
     
-<!--
-    <el-pagination
-      @size-change=""
-      @current-change="handleCurpage"
-      :current-page.sync="moviesData.curpage"
-      :page-size="5"
-      layout="prev, pager, next, jumper"
-      :total="moviesData.total">
-    </el-pagination>
--->
-    
+ 
 </template>
 
 
@@ -31,7 +21,7 @@
     export default {
         data:function(){
             return {
-                size:"",
+                size:0,
              }
         },
         props:['show'],
@@ -46,7 +36,7 @@
                 store.commit('PAGESIZE',val);
                 let type=this.searchData.searchValue;
                let typevalue = this.searchData.value; 
-                this.show(1,val,type,typevalue);
+                this.show(this.moviesData.curpage,val,type,typevalue);
             }
         },
         computed:{

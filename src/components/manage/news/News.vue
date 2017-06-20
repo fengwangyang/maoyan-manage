@@ -3,7 +3,7 @@
      <el-row>
        <div class="rows">
         <h2>资讯管理</h2>
-        <NewsSearch :show='show' style="marginLeft:20px"f></NewsSearch>
+        <NewsSearch :show='show' style="marginLeft:10px"></NewsSearch>
         <NewsTable :show='show'></NewsTable>
        </div>
        
@@ -37,7 +37,7 @@ export default {
                        obj[type]=value
                    }
                    obj.page = page;
-                   obj.rows = 6;
+                   obj.rows = 5;
                     ajax({
                         type:"post",
                         url:"/news/find",

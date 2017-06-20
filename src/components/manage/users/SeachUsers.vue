@@ -1,15 +1,15 @@
 <template>
 <div>
-        <el-input placeholder="请输入内容" v-model="value" style="width:400px">
-            <el-select v-model="users" slot="prepend" placeholder="请选择" style="width:150px;">
+        <el-input placeholder="请输入内容" v-model="value" style="width:400px;float:left;marginLeft:10px" >
+            <el-select v-model="users" slot="prepend" placeholder="请选择" style="width:120px;">
                 <el-option label="姓名" value="name"></el-option>
                 <el-option label="电话" value="phNum"></el-option>
                 <el-option label="email" value="email"></el-option>
                 <el-option label="生日" value="time"></el-option>
             </el-select>
-            <el-button slot="append" icon="search" @click='search'>查询</el-button>
+            <el-button slot="append" icon="search" @click='search'>搜索</el-button>
         </el-input>
-        <el-button slot="append" type='info' @click='refresh' style='margin-left:10px'>刷新</el-button>
+        <el-button type='primary' @click='refresh' style='float:left;marginLeft:20px'>刷新</el-button>
     </div>
 </template>
 <script>
@@ -20,7 +20,7 @@
         props:["show"],
         data:function(){
             return{
-                users:"",
+                users:"name",
                 value:""
             }
         },
@@ -46,10 +46,6 @@
   }
 </script>
 <style scoped="scoped">
- .el-select{
-    width: 150px;
-  }
-    .el-option{
-        width: 400px;
-    }
+
+ 
 </style>

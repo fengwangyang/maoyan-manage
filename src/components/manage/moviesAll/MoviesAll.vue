@@ -1,7 +1,7 @@
 <template>
 
    
-<div style='text-align:center;margin:10px'>
+<div style='text-align:center;'>
     <h2 class='h2tyle'>电影管理</h2>
 
     <SearchElement :show='show'></SearchElement>
@@ -16,26 +16,19 @@
   <script>
 import {ajax} from "@/components/common/ajax";
 import AddElement from "./AddElement";
-
-
-
 import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
 import MoviesTable from "./MoviesTable";
 import PageNation from "./PageNation";
 import UpdateElement from "./UpdateElement";
-//import AddActors from "./AddActors";
-
-
-//import MoviesTable from "./MoviesTable";
-
 import store from "@/store";
 export default {
     created:function(){
         this.show(1,5);
+        store.commit('PAGESIZE',val);
     },
     methods:{
-         show:function(page,rows,type,value){
+         show:function(page=1,rows=5,type,value){
              let obj={};
              if(type){
                  obj[type]=value;
@@ -63,7 +56,7 @@ export default {
 </script>
 <style scpoe>
     .pagestyle{
-        margin-top:20px;
+        margin-top:10px;
         float:left;
     }
     .h2tyle{

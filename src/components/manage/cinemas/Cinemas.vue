@@ -6,9 +6,9 @@
     <Search style="float:left;marginLeft:10px;" :show="show">
     </Search>
    
-    <Add style="float:left; marginLeft:10px;" :show="show"></Add>
+    <Add style="float:left; marginLeft:20px;" :show="show"></Add>
       <el-button
-      style="float:left; marginLeft:10px"
+      style="float:left; marginLeft:20px"
           size="middle"
           icon="delete"
           type="warning"
@@ -199,7 +199,7 @@ import
     }
 .cinemas_h3{
          color:blue;
-        margin:auto;
+     
     }
 </style>
 

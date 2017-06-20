@@ -1,18 +1,16 @@
 <template>
    <div class='style'>
-
     <el-pagination
+
       @size-change="handleSizeChange"
       @current-change="handleCurpage"
-      :current-page="onshowData.curpage"
-      :page-sizes="[5, 6, 7, 8]"
+      :current-page="onhotData.curpage"
+      :page-sizes="[5, 6, 7]"
       :page-size="size"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="onshowData.total">
+      :total="onhotData.total">
     </el-pagination>
-
     </div>
-
    
     
 </template>
@@ -30,18 +28,16 @@
         props:['showOnhot'],
         methods:{
             handleCurpage:function(val){
-                
                let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
-                this.showOnhot(val,this.size,type,typevalue);
-
+                 this.showOnhot(val,this.size,type,typevalue);
             },
             handleSizeChange:function(val){
-                 store.commit('PAGESIZE',val);
+                 store.commit('ONHOTPAGESIZE',val);
                  this.size = val;
                   let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
-            this.showOnhot(1,val,type,typevalue);
+            this.showOnhot(this.onhotData.curpage,val,type,typevalue);
             
         },
         },
@@ -49,7 +45,6 @@
             ...mapState({    
                 onhotData:state=>state.moviesAll.onhotData,
             
-//           onshowData:state=>state.moviesAll.onshowData,
             onhotSearchData:state=>state.moviesAll.onhotSearchData   
         })
         }
@@ -58,8 +53,6 @@
 
 
 <style scoped>
-    .style{
-        float:left;
-        }
+   
 
 </style>

@@ -44,11 +44,11 @@
                  this.showOnhot(val,this.size,type,typevalue);
             },
             handleSizeChange:function(val){
-                 store.commit('PAGESIZE',val);
+                 store.commit('ONSHOWPAGESIZE',val);
                  this.size = val;
                   let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
-            this.showOnhot(1,val,type,typevalue);
+            this.showOnhot(this.onshowData.curpage,val,type,typevalue);
          },
         },
         computed:{

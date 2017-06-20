@@ -1,5 +1,5 @@
 <template>
-    <div style='text-align:center;margin:10px'>
+    <div style='text-align:center;'>
         <h2 class='h2tyle'>即将上映</h2>
          <SearchElement :showOnhot = 'showOnhot'></SearchElement>
        
@@ -21,6 +21,8 @@ export default{
     created:function(){
     this.showOnhot();  
     this.showMoviesData();
+      store.commit('PRESHOWPAGESIZE',5);  
+    
     },
     methods:{
         showOnhot:function(page=1,rows=5,type,value){
@@ -64,7 +66,7 @@ export default{
 
 .h2tyle{
         margin:10px auto;
-        color:blue;
+        color:cornflowerblue;
     }
     .style{
         float:left;
