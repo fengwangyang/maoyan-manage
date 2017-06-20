@@ -60,7 +60,7 @@
     }
     .search{
         display: flex;
-        width: 430px;
+        width: 434px;
         justify-content: space-between;
 /*        margin-bottom: 8px;*/
     }

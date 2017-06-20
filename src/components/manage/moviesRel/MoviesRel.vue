@@ -3,7 +3,7 @@
 <div>
   <h1 class="title">电影院线匹配管理</h1>
    <div class="topPanel">
-        <SearchForm :show='show' holderText="搜索电影名/类型/地区" :optionData="options" :commitMutations="commitMutations" :newData="data"></SearchForm><AddMovieTable :freshTable="show"></AddMovieTable><el-button type="warning" icon="delete" @click="delData">批量删除</el-button>
+        <SearchForm :show='show' holderText="搜索电影名/类型/地区" :optionData="options" :commitMutations="commitMutations" :newData="data"></SearchForm><AddMovieTable :freshTable="show"></AddMovieTable><el-button type="warning" icon="delete" @click="delData">删除</el-button>
    </div>
     <MainTable tableRef="linkedMovie" :show='show' :data="data.rows" :getUpdateData="getUpdateData" :isShow="true" :addToSelect="addToSelect" :openCinemas="openCinemas"></MainTable>
     <Page :show="show" :handleSizeChange="handleSizeChange" :goTo="goTo" :data="data" :pageMutation="commitMutations[0]"></Page>
@@ -156,7 +156,7 @@
 <style>
     .topPanel{
         display: flex;
-        width: 660px;
+        width: 620px;
         justify-content: space-between;
         margin: 10px 0;
     }

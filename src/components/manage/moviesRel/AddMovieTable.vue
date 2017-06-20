@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-button icon="plus" type="success" @click="initTable">添加电影</el-button>
+        <el-button icon="plus" type="success" @click="initTable">电影</el-button>
         <el-dialog top="20px" title="添加关联电影" :visible.sync="dialogTableVisible" class="moviesTable" size="small">
              <div>
                 
