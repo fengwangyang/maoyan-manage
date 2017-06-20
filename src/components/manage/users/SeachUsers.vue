@@ -12,6 +12,7 @@
 <script>
     import {ajax} from "@/components/common/ajax"
     import store from "@/store"
+    import {mapState} from "vuex";
     import {FIND_USERS} from "@/store/users/mutations"
     export default {
         props:["show"],

@@ -2,7 +2,7 @@
    <div class="add">
     <el-button icon='plus' type="success" @click="dialogFormVisible = true">添加用户</el-button>
 
-    <el-dialog title="添加用户" :visible.sync="dialogFormVisible" :before-close="close">
+    <el-dialog title="添加用户" size="tiny" :visible.sync="dialogFormVisible" :before-close="close">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="姓名" prop="name">
           <el-input v-model="ruleForm.name"></el-input>
@@ -113,6 +113,5 @@
         }
     }
 </script>
-<style>
-
+<style scoped="scoped">
 </style>
