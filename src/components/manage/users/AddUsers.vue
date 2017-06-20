@@ -1,6 +1,7 @@
 <template>
    <div class="add">
-    <el-button icon='plus' type="success" @click="dialogFormVisible = true" >添加</el-button>
+    <el-button icon='plus' type="success"  @click="dialogFormVisible = true">添加</el-button>
+
 
     <el-dialog title="添加用户" size="tiny" :visible.sync="dialogFormVisible" :before-close="close">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -24,8 +25,10 @@
           <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button @click="close">取 消</el-button>
-            <el-button type="primary" @click="add('ruleForm')">确定添加</el-button>
+
+            <el-button class=btnstyel @click="dialogFormVisible = false">取 消</el-button>
+            <el-button class='btnstyel' type="primary" @click="add('ruleForm')">确定添加</el-button>
+
         </el-form-item>
       </el-form>
       
@@ -117,4 +120,12 @@
     }
 </script>
 <style scoped="scoped">
+
+/*
+    .btnstyel{
+        float:left;
+        margin:10px;
+    }
+*/
+
 </style>

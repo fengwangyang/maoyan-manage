@@ -1,6 +1,7 @@
 <template>
    
       <div>
+
           <SeachUsers :show="show" style="float:left"></SeachUsers>
     
       
@@ -8,6 +9,7 @@
       
    
           <BatchDelUsers :show="show" style="float:left;marginLeft:20px"></BatchDelUsers>
+
       </div>
    
 </template>

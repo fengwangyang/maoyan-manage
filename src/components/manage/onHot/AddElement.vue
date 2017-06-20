@@ -135,19 +135,7 @@ import {mapState} from "vuex";
                     num++;
                 }
                if(this.checkedData == 0){
-                     this.$confirm('数据已添加，请重新选择?', '提示', {
-                          confirmButtonText: '确定',
-                          cancelButtonText: '取消',
-                          type: 'warning'
-                        }).then(() => {
-                          this.$message({
-                            type: 'success'
-                          });
-                        }).catch(() => {
-                          this.$message({
-                            type: 'info'
-                        });          
-                        });
+                     this.$message('数据重复，请重新添加！')
                  }else{
                 let addmovies = JSON.stringify(this.checkedData);
                 console.log(addmovies);

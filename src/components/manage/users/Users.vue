@@ -15,24 +15,29 @@
         </el-table-column>
         <el-table-column
           prop="name"
-          label="姓名" :show-overflow-tooltip=true >
+          :show-overflow-tooltip=true
+          label="姓名">
         </el-table-column>
         <el-table-column
           prop="pwd"
-          label="密码" :show-overflow-tooltip=true >
+          :show-overflow-tooltip=true
+          label="密码">
         </el-table-column>
          <el-table-column
           prop="phNum"
-          label="电话" :show-overflow-tooltip=true >
+          :show-overflow-tooltip=true
+          label="电话">
         </el-table-column>
         <el-table-column
           prop="time"
-          label="生日":show-overflow-tooltip=true >
+          :show-overflow-tooltip=true
+          label="生日">
         </el-table-column>
         <el-table-column
           prop="email"
-          label="邮箱"
-        :show-overflow-tooltip=true >
+          :show-overflow-tooltip=true
+          label="邮箱">
+
         </el-table-column>
         <el-table-column label="操作">
           <template scope="scope">

@@ -140,27 +140,12 @@ import {mapState} from "vuex";
                 }
                 
                 
-                if(this.checked == 0){
-                     this.$message('请选择消息！');
-                }
+//                if(this.checked == 0){
+//                     this.$message('请选择消息！');
+//                }
                 
                 if(this.checkedData == 0){
-                    
-                     this.$confirm('数据已添加，请重新选择?', '提示', {
-                          confirmButtonText: '确定',
-                          cancelButtonText: '取消',
-                          type: 'warning'
-                        }).then(() => {
-                          this.$message({
-                            type: 'success',
-                             message: '已取消添加'
-                          });
-                        }).catch(() => {
-                          this.$message({
-                            type: 'info'
-                        
-                          });          
-                        });
+                     this.$message('数据重复，请重新添加！')
                  }else{
                  let addmovies = JSON.stringify(this.checkedData);
                  this.$confirm('确认添加'+str+'这'+num+'条数据?', '提示', {
