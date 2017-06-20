@@ -10,7 +10,7 @@
         </el-select>
         <el-button @click='searchData' slot="append" icon="search">搜索</el-button>
       </el-input>
-      <el-button class="clearBtn" @click="initData" type="primary">清空刷新</el-button>
+      <el-button class="clearBtn" @click="initData" type="primary">刷新</el-button>
     </div>
 </template>
 <script>
@@ -64,7 +64,7 @@
     }
     .search{
         display: flex;
-        width: 475px;
+        width: 430px;
         justify-content: space-between;
 /*        margin-bottom: 8px;*/
     }

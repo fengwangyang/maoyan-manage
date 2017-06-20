@@ -10,8 +10,6 @@
      </el-row>
    
 
-    
-
 </template>
 <script>
 import {ajax} from '../../common/ajax'
@@ -61,7 +59,7 @@ export default {
 /*        width: 100%;*/
         text-align: center;
         color: blue;
-        margin-top: 20px;
+        margin-top: 10px;
     }
     .rows{
         width: 90;

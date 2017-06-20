@@ -313,7 +313,7 @@
          this.preLookSitVisible=true;
            
         },
-        resetUpdateVisible(){
+    resetUpdateVisible(){
            ajax({
             type:"get",
             url:"/cinemas/find",
@@ -321,8 +321,7 @@
             success:(data)=>{
                 console.log(data);
                 this.houseData=data.house;
-               store.commit("UPDATE_DATA",row);
-               store.commit("UPDATE_VISIBLE",false);
+                store.commit("UPDATE_VISIBLE",false);
               }
             });
             

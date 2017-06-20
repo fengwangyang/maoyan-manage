@@ -8,6 +8,8 @@
           @click="dialogFormVisible = true"
           >添加</el-button>
           
+
+
 <el-dialog title="添加" :visible.sync="dialogFormVisible" size="middle">
   <el-form label-position="right" label-width="120px" :rules="rules" :model="addForm" ref="addCinemasForm" >
     <el-form-item label="影院名称：" prop="cinemaName" >
@@ -62,8 +64,9 @@
     
     
     
- <el-dialog title="座位预览" :visible.sync="preLookVisible" style="width:800px">
- <div v-for="r in this.sitData" style="margin-left:50px;">
+ <el-dialog title="座位预览" :visible.sync="preLookVisible" 
+ style="width:800px">
+ <div v-for="r in this.sitData" style="margin-left:50px">
  <label v-for="t in r">
  <label  v-if="t==0" class="showSitImg"></label >
  <label  v-if="t==1" class="hiddenSitImg"></label >
@@ -155,6 +158,7 @@
       preSit(){
         store.commit("SIT_DATA",this.addHouse.sitSetting);
          this.preLookVisible=true;
+         
         },
       
         sitValid(rule, value, callback){
@@ -182,7 +186,8 @@
                }
                  if(count==flag.length){
                      callback();
-                 }
+                 };
+              
               }
                      else{
                   callback(new Error('输入内容为0或1的二维数组!'));

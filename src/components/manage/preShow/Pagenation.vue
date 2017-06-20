@@ -6,7 +6,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurpage"
       :current-page="preshowData.curpage"
-      :page-sizes="[5, 6, 7, 8]"
+      :page-sizes="[5, 6, 7]"
       :page-size="size"
       layout="total, sizes, prev, pager, next, jumper"
       :total="preshowData.total">

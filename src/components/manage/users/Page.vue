@@ -4,7 +4,7 @@
           @size-change="handleSizeChange"
           @current-change="goTo"
           :current-page.sync="data.curpage"
-          :page-sizes="[5,6,7,8]"
+          :page-sizes="[5,6,7]"
           :page-size="rowsVal"
           layout="total,sizes, prev, pager, next, jumper"
           :total="data.total">
@@ -25,6 +25,7 @@
         },
         methods:{
             handleSizeChange(val){
+                store.commit("PAGE_SIZE",value);
                 this.rowsVal=val;
                 console.log(val);
                 this.show(this.page,val,this.type.searchType,this.type.searchValue);

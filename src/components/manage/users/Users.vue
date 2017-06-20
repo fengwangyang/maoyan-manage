@@ -114,11 +114,11 @@
 <style scoped="scoped">
     .usersH1{
         color: blue;
-        margin-top: 20px;
+        margin-top: 10px;
         text-align: center
     }
     .usersInput{
-        margin-top: 30px;
+        margin-top: 10px;
         margin-left: 10px
     }
     .el-table{

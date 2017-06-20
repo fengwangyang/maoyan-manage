@@ -64,7 +64,7 @@ export default{
 
 .h2tyle{
         margin:10px auto;
-        color:cornflowerblue;
+        color:blue;
     }
     .style{
         float:left;

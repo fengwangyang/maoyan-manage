@@ -1,7 +1,7 @@
 <template>
 
 <div>
-  <h1 class="title">电影院线匹配管理</h1>
+  <h2 class="title">电影院线匹配管理</h2>
    <div class="topPanel">
         <SearchForm :show='show' holderText="搜索电影名/类型/地区" :optionData="options" :commitMutations="commitMutations" :newData="data"></SearchForm><AddMovieTable :freshTable="show"></AddMovieTable><el-button type="warning" icon="delete" @click="delData">批量删除</el-button>
    </div>
@@ -156,15 +156,14 @@
 <style>
     .topPanel{
         display: flex;
-        width: 730px;
+        width: 670px;
         justify-content: space-between;
         margin: 20px 0;
     }
     .title{
         text-align: center;
-        font-size: 22px;
         margin-top: 8px;
         letter-spacing: 5px;
-        color: #20A0FF;
+        color: blue;
     }
 </style>

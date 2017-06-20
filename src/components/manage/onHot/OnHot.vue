@@ -15,44 +15,46 @@ import store from "@/store";
 import AddElement from "./AddElement";
 import OnhotTable from "./OnhotTable";
 import Pagenation  from "./Pagenation";
+//import Pagenation  from "../preShow/Pagenation";
 import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
 export default{
     created:function(){
-    this.showOnhot(1,5);  
+    this.showOnhot();  
     this.showMoviesData();
     },
     methods:{
-        showOnhot:function(page,rows,type,value){
+        showOnhot:function(page=1,type,value){
             let obj={};
             if(type){
                 obj[type]=value;
             }
             obj.page = page,
-            obj.rows = rows,
+            obj.rows = 5,
             ajax({
                 type:'get',
                 url:'/hotshowing/find',
                 data:obj,
                 success:(data)=>{
+                    console.log(data);
                     store.commit("ONHOT_DATA",data);
                 }
                 
             })
         },
-       // showMoviesData:function(page=1,rows=5){
-              //   let obj={};
-              //   obj.page=page;
-               //  obj.rows=rows;
-                //  ajax({
-                 //    type:"get",
-                  //   url:"/movies/find",
-                 //    data:obj,
-                    // success:(data)=>{   
-                     //    store.commit('ONHOT_MOVIESDATA',data);
-                  //   }
-                // })
-           //  },
+        showMoviesData:function(page=1,rows=5){
+                let obj={};
+                obj.page=page;
+                obj.rows=rows;
+                 ajax({
+                    type:"get",
+                    url:"/movies/find",
+                    data:obj,
+                    success:(data)=>{   
+                        store.commit('ONHOT_MOVIESDATA',data);
+                    }
+                })
+            },
     },
     components:{
         OnhotTable,AddElement,Pagenation,DeleteElement,SearchElement
@@ -61,11 +63,11 @@ export default{
 }
 
 </script>
-<style scoped>
+<style>
 
 .h2tyle{
         margin:10px auto;
-        color:blue;
+        color:cornflowerblue;
     }
     .style{
         float:left;

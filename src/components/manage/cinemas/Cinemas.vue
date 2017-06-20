@@ -1,7 +1,7 @@
 
 <template>
-    <div>
-    <h2 class="cinemas_h3" style="marginTop:20px;">院线管理</h2>
+    <div >
+    <h2 class="cinemas_h3" style="marginTop:10px;textAlign:center" >院线管理</h2>
     <div style="marginTop:30px;overflow:hidden"> 
     <Search style="float:left;marginLeft:10px;" :show="show">
     </Search>
@@ -26,12 +26,14 @@
     
     <el-table-column
      type="selection"
-      width="55">
+      width="55"
+     >
     </el-table-column>
     
     <el-table-column
       label="影院名称"
-      width="180">
+      width="180" 
+       :show-overflow-tooltip=true>
       <template scope="scope">
          <span style="margin-left: 10px">{{ scope.row.cinemaName }}</span>
       </template>
@@ -39,7 +41,8 @@
     
      <el-table-column
       label="影院地址"
-      width="180">
+      width="180"
+      :show-overflow-tooltip=true>
       <template scope="scope">
          <span style="margin-left: 10px">{{ scope.row.address }}</span>
       </template>
@@ -47,7 +50,8 @@
     
       <el-table-column
       label="影院电话"
-      width="180">
+      width="180"
+      :show-overflow-tooltip=true>
       <template scope="scope">
          <span style="margin-left: 10px">{{ scope.row.tel }}</span>
       </template>
@@ -55,7 +59,8 @@
     
       <el-table-column
       label="官方网站"
-      width="180">
+      width="180"
+      :show-overflow-tooltip=true>
       <template scope="scope">
          <span style="margin-left: 10px">{{ scope.row.webAdress }}</span>
       </template>
@@ -193,8 +198,7 @@ import
     width:50px;
     }
 .cinemas_h3{
-        width:200px;
-        color:blue;
+         color:blue;
         margin:auto;
     }
 </style>
