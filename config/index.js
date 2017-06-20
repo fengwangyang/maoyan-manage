@@ -30,7 +30,7 @@ module.exports = {
     proxyTable: {
        '*' : {
 
-                target: 'http://192.168.14.62:3000',
+                target: 'http://127.0.0.1:3000',
                 changeOrigin: true,
                 filter: function (pathname, req) {
                     return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)|(/managers)|(/getSession)|(/upload)');

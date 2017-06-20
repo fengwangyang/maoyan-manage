@@ -1,7 +1,7 @@
 <template>
-<div>
+<div class="style">
         <el-input placeholder="请输入内容" v-model="value" style="width:400px">
-            <el-select v-model="users" slot="prepend" placeholder="请选择" style="width:150px;">
+            <el-select v-model="users" slot="prepend" placeholder="请选择" style="width:120px;">
                 <el-option label="姓名" value="name"></el-option>
                 <el-option label="电话" value="phNum"></el-option>
                 <el-option label="email" value="email"></el-option>
@@ -20,7 +20,7 @@
         props:["show"],
         data:function(){
             return{
-                users:"",
+                users:"name",
                 value:""
             }
         },
@@ -46,10 +46,10 @@
   }
 </script>
 <style scoped="scoped">
- .el-select{
-    width: 150px;
-  }
-    .el-option{
-        width: 400px;
+      .style{
+        float:left;
+        margin:10px;
+        width:480px;
     }
+
 </style>
