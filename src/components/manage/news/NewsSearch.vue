@@ -1,6 +1,6 @@
     <template>
     <el-row>
-                    <div class="table">
+              <div class="table">
                         
                   
                       <el-col>
@@ -28,10 +28,9 @@
               </el-col>
                
               <el-col>
-                    <el-button class='elbut' @click='delFrom' icon="delete" type="danger">删除</el-button>
+                    <el-button class='elbut' @click='delFrom' icon="delete" type="warning">删除</el-button>
               </el-col>
-              
-                </div>
+               </div>
                
     
 <!--                 增加框-->
@@ -39,19 +38,19 @@
                       <el-dialog :visible.sync="dislogVisble" :model='true'>
                       <el-form :model='newValue' class="form">
                            
-                      <el-form-item label='资讯标题' class="flx">
+                      <el-form-item label-width='80px' label='资讯标题' class="flx">
                        <el-input @input='newsjudge' :style='inputType' v-model='newValue.newsTitleValue'></el-input>
                       </el-form-item>
                         
-                     
-                       <el-form-item label='关联影片' class="flx">
-                       <el-select @change='addmovie' :style='inputType' v-model='moviesValue'>
-                           <el-option v-for='addmovies in data.rows' :label='addmovies.movies' :value='addmovies.movies'>
+                       
+                       <el-form-item label-width='80px' label='关联影片' class="flx">
+                       <el-select @visible-change='addmovie' :multiple=true :style='inputType' v-model='moviesValue'>
+                           <el-option :key="index" v-for='(addmovies,index) in movies ' :label='addmovies.movies' :value='addmovies.movies'>
                            </el-option>
                        </el-select>
                       </el-form-item>
                         
-                     <el-form-item label='资讯正文' class="flx">
+                     <el-form-item label-width='80px' label='资讯正文' class="flx">
                         <el-input type="textarea"
   :autosize="{ minRows: 8, maxRows: 6}" :style='inputType' v-model='newValue.newsmainText'></el-input>
                      </el-form-item>
@@ -111,9 +110,9 @@ import store from "@/store"
                    this.newValue.newsRelease.push(response)
                 },
                 handleRemove(file, fileList){
-                     console.log(this.newValue.newsRelease)
+                     
                      this.newValue.newsRelease.splice(this.newValue.newsRelease.indexOf(file.url),1)
-                     console.log('id',this.uploadimg)
+                   
                      
                     
             
@@ -122,12 +121,12 @@ import store from "@/store"
                 handlePreview(file){
                   
                     
-                    console.log(file)
+                    
             
                 
                 },
                 addmovie(val){
-                    
+                    console.log(val)
                     
                     this.newValue.newsmovies = val;
             
@@ -177,7 +176,7 @@ import store from "@/store"
                         url:'/news/add',
                         data:{
                            newsTitle:this.newValue.newsTitleValue,
-                           movies:this.newValue.newsmovies,
+                           movies:this.moviesValue,
                            mainText:this.newValue.newsmainText,
                            Release:UpLoadRelease,
                         },
@@ -209,7 +208,8 @@ import store from "@/store"
                     data:state => state.news.newdata,
                     search:state => state.news.search,
                     deldata:state => state.news.delData,
-                    uploadimg:state => state.news.uploadimg
+                    uploadimg:state => state.news.uploadimg,
+                    movies:state => state.news.movies    
                 })
             }
         }
@@ -240,7 +240,6 @@ import store from "@/store"
     }
     .flx{
         width: 70%;
-        display: flex;
         margin-left: 15%;
         margin-top: 20px;
         align-items: center;
