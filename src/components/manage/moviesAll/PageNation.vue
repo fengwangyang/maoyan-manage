@@ -11,6 +11,17 @@
       :total="moviesData.total">
     </el-pagination>
     
+<!--
+    <el-pagination
+      @size-change=""
+      @current-change="handleCurpage"
+      :current-page.sync="moviesData.curpage"
+      :page-size="5"
+      layout="prev, pager, next, jumper"
+      :total="moviesData.total">
+    </el-pagination>
+-->
+    
 </template>
 
 

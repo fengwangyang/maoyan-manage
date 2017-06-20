@@ -1,5 +1,16 @@
 <template>
-    <el-form :model="actor" label-position="right">
+<!--
+   <div style='margin:10px'>
+       
+   
+   <el-popover
+  ref="popover4"
+  placement="right"
+  width="300"
+  trigger="click">
+-->
+  
+      <el-form :model="actor" label-position="right">
         <el-form-item label="演员"  label-width="80px">
           <el-input v-model="actor.staffName" auto-complete="off" style='width:200px'></el-input>
         </el-form-item>
@@ -16,6 +27,16 @@
           <el-button type="primary">演员图片</el-button>
          </el-upload>
    </el-form>
+  
+  
+  
+<!--
+</el-popover>
+   
+   <el-button v-popover:popover4>{{actor.staffName}}</el-button>
+   
+    </div>
+-->
 </template>
 <script>
    import {mapState} from "vuex"; 
@@ -55,5 +76,6 @@
         width:300px;
         margin:10px auto;
     }
+
 
 </style>

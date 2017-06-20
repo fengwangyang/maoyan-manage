@@ -20,17 +20,19 @@ import DeleteElement from "./DeleteElement";
 import SearchElement from "./SearchElement";
 export default{
     created:function(){
-    this.showOnhot();  
+    this.showOnhot(1,5);  
     this.showMoviesData();
     },
     methods:{
-        showOnhot:function(page=1,type,value){
+        showOnhot:function(page,rows,type,value){
             let obj={};
             if(type){
                 obj[type]=value;
             }
             obj.page = page,
-            obj.rows = 5,
+
+            obj.rows = rows,
+
             ajax({
                 type:'get',
                 url:'/hotshowing/find',

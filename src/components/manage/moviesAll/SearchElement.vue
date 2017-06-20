@@ -2,7 +2,7 @@
     
     <div class='deletestyle'>
   <el-input placeholder="请输入内容" v-model="value" style='float:left;width:400px'>
-    <el-select v-model="searchValue" slot="prepend" placeholder="电影中文名" style='width:120px'>
+    <el-select v-model="searchValue" slot="prepend" placeholder="请选择" style='width:120px'>
       <el-option label="电影中文名" value="cName"></el-option>
       <el-option label="类型" value="type"></el-option>
       <el-option label="区域" value="area"></el-option>

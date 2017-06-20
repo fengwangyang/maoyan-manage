@@ -4,7 +4,7 @@
        
         <el-dialog title="修改" :visible.sync=dialogFormVisible :before-close='closeDialog' size='tiny'>
           <el-form :model="form" :rules="rules" ref="form" :inline="true">
-            <el-form-item label="电影中文名" label-width="100px" >
+            <el-form-item label="电影中文名" label-width="100px" prop='cName'>
               <el-input v-model="form.cName"></el-input>
             </el-form-item>
             <el-form-item label="电影英文名" label-width="100px" prop="eName">
@@ -83,8 +83,10 @@ export default {
           fileListActor:[],
           rules:{
               cName:[
+                 
                   {required:true,message:'电影中文名不能为空',trigger:'blur'},
-                  {pattern:/^[\u4e00-\u9fa5\d\s]{1,}$/,message:'电影中文名为1位以上汉字或数字',trigger:'blur'}
+                  {pattern:/^[\u4e00-\u9fa5\d]{1,}$/,message:'电影中文名为1位以上汉字或数字',trigger:'blur'}
+                  
               ],
               eName:[
                    {required:true,message:'电影英文名不能为空',trigger:'blur'},
@@ -136,12 +138,12 @@ export default {
     watch:{
         form:function(){
             let posterImg = this.form.poster.substring(this.form.poster.lastIndexOf('\\')+1);
-            this.fileListPoster = [{name:this.form.cName,url:'http://localhost:3000/img/'+posterImg}];
+            this.fileListPoster = [{name:this.form.cName,url:"/img/"+posterImg}];
             
            this.fileListActor = this.form.staffs.map(function(ele){
                 let pictureImg = ele.picture.substring(ele.picture.lastIndexOf('\\')+1);
             
-                return [{name:ele.staffName,url:'http://localhost:3000/img/'+pictureImg}];
+                return [{name:ele.staffName,url:"/img/"+pictureImg}];
            }.bind(this));
           },   
     },
@@ -208,7 +210,8 @@ export default {
                 }).catch(() => {
                     this.fileListPoster=[],
                     this.fileListActor=[],
-                  this.$message({
+                    this.$refs[form].resetFields();
+                    this.$message({
                         type: 'info',
                         message: '已取消修改'
                         });          

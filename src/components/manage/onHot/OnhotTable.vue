@@ -11,8 +11,7 @@
             <el-table-column
               label="电影中文名" prop="cName"
               width="120" :show-overflow-tooltip=true fixed align='center'>
-
-            </el-table-column>
+        </el-table-column>
             <el-table-column
               prop="eName"
               label="电影英文名"

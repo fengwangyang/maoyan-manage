@@ -1,16 +1,5 @@
 <template>
    <div class='style'>
-<!--
-        <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurpage"
-      :current-page.sync="onshowData.curpage"
-      :page-size="size"
-      layout="prev, pager, next, jumper"
-      :total="onshowData.total">
-    </el-pagination>
--->
-    
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurpage"
@@ -21,6 +10,16 @@
       :total="onshowData.total">
     </el-pagination>
     
+<!--
+    <el-pagination
+      @size-change=""
+      @current-change="handleCurpage"
+      :current-page.sync="onshowData.curpage"
+      :page-size="5"
+      layout="prev, pager, next, jumper"
+      :total="onshowData.total">
+    </el-pagination>
+-->
    </div>
    
     
@@ -39,10 +38,10 @@
         props:['showOnhot'],
         methods:{
             handleCurpage:function(val){
-                store.commit('PAGESIZE',val);
+                
                let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
-                 this.showOnhot(val,type,typevalue);
+                 this.showOnhot(val,this.size,type,typevalue);
             },
             handleSizeChange:function(val){
                  store.commit('PAGESIZE',val);
@@ -50,18 +49,16 @@
                   let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
             this.showOnhot(1,val,type,typevalue);
-            
-        },
+         },
         },
         computed:{
-            ...mapState({    onshowData:state=>state.moviesAll.onshowData,
+            ...mapState({    
+                onshowData:state=>state.moviesAll.onshowData,
              onhotSearchData:state=>state.moviesAll.onhotSearchData   
         })
         }
     }
-    
-    
-</script>
+ </script>
 
 
 <style scoped>
