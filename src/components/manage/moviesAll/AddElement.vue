@@ -24,7 +24,7 @@
             <el-form-item label="地区" label-width="100px" prop="area">
               <el-input v-model="form.area"></el-input>
             </el-form-item>
-            <el-form-item label="年代" label-width="100px" prop="area">
+            <el-form-item label="年代" label-width="100px" prop="year">
               <el-input v-model="form.year"></el-input>
             </el-form-item>
             <el-form-item label="时长" label-width="100px" prop="duration">

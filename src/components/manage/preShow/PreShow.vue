@@ -23,13 +23,13 @@ export default{
     this.showMoviesData();
     },
     methods:{
-        showOnhot:function(page=1,type,value){
+        showOnhot:function(page=1,rows=5,type,value){
             let obj={};
             if(type){
                 obj[type]=value;
             }
             obj.page = page,
-            obj.rows = 5,
+            obj.rows = rows,
             ajax({
                 type:'get',
                 url:'/preonshow/find',

@@ -29,10 +29,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
        '*' : {
-                target: 'http://127.0.0.1:3000',
+                target: 'http://192.168.14.63:3000',
                 changeOrigin: true,
                 filter: function (pathname, req) {
-                    return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)|(/upload)');
+                    return pathname.match('^(/users)|(/movies)|(/news)|(/logout)|(/cinemas)|(/hotshowing)|(/preonshow)|(/hotbroadcast)|(/linkedMovies)|(/upload)|(/img)');
                 }
         }
     },

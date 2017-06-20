@@ -97,10 +97,11 @@ import {mapState} from "vuex";
             return {
                  dialogTableVisible: false,
                 checkedData:[],
+                alldata:[]
             }
         },
         created:function(){
-            
+            this.findAllData();
         },
         methods:{
             handleSelectionChange(val) {
@@ -109,14 +110,24 @@ import {mapState} from "vuex";
             handleCurpage:function(val){
                 this.showMoviesData(val);
             },
+            findAllData:function(){
+                ajax({
+                    type:'get',
+                    url:'/preonshow/find',
+                    data:{},
+                    success:(data)=>{
+                       this.alldata = data
+                    }
+                })
+            },
             confirmAdd:function(){
                 let str = '';
                 let num ='';
-                 for(let i=0;i<this.preshowData.length;i++){
+                 for(let i=0;i<this.alldata.length;i++){
                    
                     for(let j=0;j<this.checkedData.length;j++){
                         
-                        if(this.preshowData[i].cName== this.checkedData[j].cName){
+                        if(this.alldata[i].cName== this.checkedData[j].cName){
                             this.checkedData.splice(j--,1);
                         }
                     }

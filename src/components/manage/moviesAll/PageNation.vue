@@ -1,7 +1,6 @@
 <template>
 
     
-<!--
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurpage"
@@ -12,7 +11,7 @@
       :total="moviesData.total">
     </el-pagination>
     
--->
+<!--
     <el-pagination
       @size-change=""
       @current-change="handleCurpage"
@@ -21,6 +20,7 @@
       layout="prev, pager, next, jumper"
       :total="moviesData.total">
     </el-pagination>
+-->
     
 </template>
 
@@ -39,7 +39,7 @@
             handleCurpage:function(val){
                let type=this.searchData.searchValue;
                let typevalue = this.searchData.value; 
-                 this.show(val,type,typevalue);
+                 this.show(val,this.size,type,typevalue);
             },
             handleSizeChange:function(val){
                 this.size = val;

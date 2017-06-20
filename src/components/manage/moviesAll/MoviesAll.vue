@@ -24,13 +24,13 @@ export default {
         this.show();
     },
     methods:{
-         show:function(page=1,type,value){
+         show:function(page=1,rows=5,type,value){
              let obj={};
              if(type){
                  obj[type]=value;
              }
              obj.page = page;
-             obj.rows = 5;
+             obj.rows = rows;
         ajax({
             type:'get',
             url:'movies/find',

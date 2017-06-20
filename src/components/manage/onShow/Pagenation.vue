@@ -1,6 +1,5 @@
 <template>
    <div class='style'>
-<!--
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurpage"
@@ -10,8 +9,8 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="onshowData.total">
     </el-pagination>
--->
     
+<!--
     <el-pagination
       @size-change=""
       @current-change="handleCurpage"
@@ -20,6 +19,7 @@
       layout="prev, pager, next, jumper"
       :total="onshowData.total">
     </el-pagination>
+-->
    </div>
    
     
@@ -41,7 +41,7 @@
                 
                let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
-                 this.showOnhot(val,type,typevalue);
+                 this.showOnhot(val,this.size,type,typevalue);
             },
             handleSizeChange:function(val){
                  store.commit('PAGESIZE',val);
@@ -49,8 +49,7 @@
                   let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
             this.showOnhot(1,val,type,typevalue);
-            
-        },
+         },
         },
         computed:{
             ...mapState({    

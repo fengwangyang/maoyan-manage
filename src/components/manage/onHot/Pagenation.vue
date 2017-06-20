@@ -1,26 +1,15 @@
 <template>
    <div class='style'>
-<!--
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurpage"
-      :current-page="onshowData.curpage"
+      :current-page="onhotData.curpage"
       :page-sizes="[5, 6, 7, 8]"
       :page-size="size"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="onshowData.total">
-    </el-pagination>
--->
-    
-    <el-pagination
-      @size-change=""
-      @current-change="handleCurpage"
-      :current-page.sync="onhotData.curpage"
-      :page-size="5"
-      layout="prev, pager, next, jumper"
       :total="onhotData.total">
     </el-pagination>
-   </div>
+    </div>
    
     
 </template>
@@ -38,10 +27,9 @@
         props:['showOnhot'],
         methods:{
             handleCurpage:function(val){
-                
                let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
-                 this.showOnhot(val,type,typevalue);
+                 this.showOnhot(val,this.size,type,typevalue);
             },
             handleSizeChange:function(val){
                  store.commit('PAGESIZE',val);
