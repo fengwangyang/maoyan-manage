@@ -1,9 +1,9 @@
 <template>
-    <el-table tooltip-effect="light" fit :data="data" border style="width: 100%" @selection-change="getSelect" @expand="updateSessions">
+    <el-table tooltip-effect="dark" fit :data="data" border height="330" style="width: 100%" @selection-change="getSelect" @expand="updateSessions">
        
-       <el-table-column v-if="isShow" type="expand">
+       <el-table-column v-if="isShow" type="expand" class="houseTable">
            <template scope="cinemas">
-               <HouseTable :updateSessions="updateSessions" :data="cinema.houses" :addSession="addSession" :cinema="cinema" :show="show"></HouseTable>
+               <HouseTable :updateSessions="updateSessions" :data="cinemas.row.houses" :addSession="addSession" :cinema="cinema" :show="show"></HouseTable>
            </template>
        </el-table-column>
        <el-table-column type="selection" width="40"></el-table-column>
@@ -48,7 +48,6 @@
                                     this.show();
                                 }
                             })
-                            this.cinema = data;
                         }
                     })
                 }
@@ -61,3 +60,9 @@
         }
     }
 </script>
+<style scoped>
+
+    .el-table__expanded-cell {
+        padding: 0!important;
+    }
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :visible.sync="isVisible" :title="`《${editMovie.cName}》的已关联影院`" :before-close="close" size="small" top="20px">
+    <el-dialog :visible.sync="isVisible" :title="`《${editMovie.cName}》的已关联影院`" :before-close="close" size="large" top="20px">
          <div class="search_linked_cinema">
           <SearchForm :show='showCinemas' :optionData="options" :commitMutations="commitMutations" :newData="linkedCinemas" holderText="请输入影院名/所在地区"></SearchForm>
       </div>

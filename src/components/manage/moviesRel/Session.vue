@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-popover :ref="session.cName" placement="right" width="400" v-model="sessionVisible" :hide="initPoper" trigger="click" hide="close" :title="`${house.hName}中《${session.cName}》的场次`">
+        <el-dialog width="400" :visible.sync="sessionVisible" :before-close="close" :title="`${house.hName}中《${session.cName}》的场次`" :modal="false">
           <el-form>
                 <el-form-item label="开场" label-width="60px">
                     <el-date-picker
@@ -8,7 +8,6 @@
                       type="datetime"
                       @change="setStartTime"
                       placeholder="请选择开场时间"
-                      :disable="isOnRevise"
                       >
                     </el-date-picker>
                 </el-form-item>
@@ -20,22 +19,22 @@
                     </el-date-picker>
                 </el-form-item>
                 <el-form-item label="价格" label-width="60px">
-                   <el-input-number :disable="isOnRevise" v-model="price" :min="1" :max="200"></el-input-number>
+                   <el-input-number v-model="price" :min="1" :max="200"></el-input-number>
                 </el-form-item>
           </el-form>
           <div style="text-align: right; margin: 0">
-            <el-button size="mini" icon="delete" type="danger" @click="delSession">删除</el-button>
-            <el-button icon="edit" type="primary" size="mini" @click="confirmUpdateSession">修改</el-button>
+            <el-button icon="delete" type="danger" @click="delSession">删除</el-button>
+            <el-button icon="edit" type="primary" @click="confirmUpdateSession">修改</el-button>
           </div>
+
+        </el-dialog>
+
           <el-button slot="reference" class="sessionInfo" size="mini" @click="showMo">
                 <p><span>开场：</span>{{new Date(session.time[0]).toLocaleString()}}</p>
                 <p><span>离场：</span>{{new Date(session.time[1]).toLocaleString()}}</p>
               <p class="movieP"><span>电影：</span>{{session.cName}}</p>
                 <p><span>票价：</span>{{session.price}}</p>
-            </el-button>
-        </el-popover>
-
-
+        </el-button>
     </div>
 </template>
 <script>
@@ -63,14 +62,16 @@
             },
             showMo(){
                 if(new Date(this.session.time[0]).getTime() < new Date().getTime()){
-                    this.isOnRevise = true
+                    this.sessionVisible = false;
+                    this.$alert("该场次已过时效无法修改！","提示",{
+                        confirmButtonText:"确定",
+                    })
                 }else{
+                    this.sessionVisible = true;
                     this.startTime = this.session.time[0];
                     this.endTime = this.session.time[1];
                     this.price = this.session.price;
-                    this.isOnRevise = false
                 }
-
             },
             confirmUpdateSession(){
                 this.$confirm(`确认修改《${this.editMovie.cName}》在${this.cinema.cinemaName}${this.house.hName}的场次吗？`,"确认",{
