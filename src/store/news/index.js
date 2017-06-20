@@ -1,4 +1,4 @@
-import {NEWS_DATA,SEARCH_DATA,DEL_DATA,EDIT_DATA,EDIT_VISBLE,UPLOAD_DATA} from "./newsStore";
+import {NEWS_DATA,SEARCH_DATA,DEL_DATA,EDIT_DATA,EDIT_VISBLE,UPLOAD_DATA,MOVIES_DATA} from "./newsStore";
 
 const news = {
     state:{
@@ -10,7 +10,8 @@ const news = {
         uploadimg:[],
         delData:[],
         editdata:[],
-        editVisble:false
+        editVisble:false,
+        movies:[]
     },
     mutations:{
         [NEWS_DATA](state,data){
@@ -30,6 +31,10 @@ const news = {
         },
         [UPLOAD_DATA](state,uploadimg){
             state.uploadimg = uploadimg
+        },
+        [MOVIES_DATA](state,movies){
+            console.log(movies)
+            state.movies = movies
         }
     }
 }

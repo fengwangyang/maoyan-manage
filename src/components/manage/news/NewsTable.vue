@@ -6,11 +6,15 @@
               :data="data.rows"
               style="width:100%"
               @selection-change='handleSelection'>
-              <el-table-column :show-overflow-tooltip='true'  type="selection" width="55"></el-table-column>
-              <el-table-column :show-overflow-tooltip='true'  prop="newsTitle" label='资讯标题'></el-table-column>
-              <el-table-column :show-overflow-tooltip='true'   prop="movies" label='关联影片'></el-table-column>
-              <el-table-column :show-overflow-tooltip='true'   prop="mainText" label='资讯正文'></el-table-column>
-              <el-table-column :show-overflow-tooltip='true'   prop="Release" label='图片路径'></el-table-column>
+              <el-table-column :show-overflow-tooltip='true' type="selection" width="55"></el-table-column>
+              <el-table-column :show-overflow-tooltip='true' prop="newsTitle" label='资讯标题'></el-table-column>
+              <el-table-column :show-overflow-tooltip='true' label='关联影片'>
+              <template :data="movies" scope='scope'>
+                  <span :key="index" v-for='(item,index) in scope.row.movies'>{{item}}</span>
+              </template>
+              </el-table-column>
+              <el-table-column :show-overflow-tooltip='true' prop="mainText" label='资讯正文'></el-table-column>
+              <el-table-column :show-overflow-tooltip='true' prop="Release" label='图片路径'></el-table-column>
               
               <el-table-column label='操作'>
                   <template scope='scope'>
@@ -53,17 +57,19 @@ export default {
         data() {
       return {
         checked:true,
-        obj:[]
+        obj:[],
+        movie:[]
       }
-     },
+      },
        methods:{
         edit(rows){
+            console.log(rows)
            ajax({
                type:"get",
                url:"/news/find",
                data:{_id:rows._id},
                success:(data)=>{
-                   store.commit('EDIT_DATA',data);
+                   store.commit('EDIT_DATA',data)
                    store.commit('EDIT_VISBLE',true)
                }
            }) 
@@ -81,7 +87,6 @@ export default {
            var datas = this.data
            datas.eachpage = rows
            store.commit('NEWS_DATA',datas)
-//           this.show(rows,datas.curpage)
        },
        handleCurrentChange(val){
         this.data.curpage = val
@@ -90,15 +95,15 @@ export default {
        }  
       },
       created:function(){
-      
+      console.log("aa",this.movies)
       },
-       computed:{
+      computed:{
         ...mapState({
             search:state => state.news.search,
             data:state => state.news.newdata,
             deldata:state => state.news.delData,
-//            editdata:state => state.news.editdata,
-            editVisble:state => state.news.editVisble
+            editVisble:state => state.news.editVisble,
+            movies:state => state.news.movies
         })
     }
 }

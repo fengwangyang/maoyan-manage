@@ -25,9 +25,10 @@ export default {
             },
               components:{
               NewsSearch,NewsTable
-              }, 
+            }, 
             created:function(){
                 this.show()
+                this.movie()
             },
             methods:{
                show(page=1,rows,type,value){
@@ -45,7 +46,17 @@ export default {
                             store.commit("NEWS_DATA",data)
                     }.bind(this)
                     })
+                },
+                movie(){
+                ajax({
+                type:"post",
+                url:"/movies/find",
+                data:{},
+                success:function(data){
+                    store.commit("MOVIES_DATA",data)
                 }
+              })     
+               }
             },
             computed:{
                 ...mapState({

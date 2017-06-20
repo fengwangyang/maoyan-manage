@@ -3,15 +3,15 @@
                     <el-dialog :before-close='close' :visible.sync="editVisble" :model='true'>
                     <el-form :model='editdata'  class="form">
                            
-                      <el-form-item label='资讯标题' class="flx">
+                    <el-form-item label='资讯标题' class="flx">
                         <el-input :style='inputType' v-model='editdata.newsTitle'></el-input>
-                      </el-form-item>
+                    </el-form-item>
                       
-                      <el-form-item label='关联影片' class="flx">
+                    <el-form-item label='关联影片' class="flx">
                         <el-select :style='inputType' @change='selmovies' v-model='editValue' :placeholder='editdata.movies'>
-                            <el-option value='edititem.movies' v-for='edititem in data.rows' :label='edititem.movies'></el-option>
+                        <el-option :key="index" :value='edititem.movies' v-for='(edititem,index) in movies' :label='edititem.movies'></el-option>
                         </el-select>
-                      </el-form-item>
+                    </el-form-item>
                         
                      <el-form-item label='资讯正文' class="flx">
                         <el-input type="textarea"
@@ -116,6 +116,7 @@ import {ajax} from '../../common/ajax'
             ...mapState({
                 editdata:state => state.news.editdata,
                 data:state => state.news.newdata,
+                movies:state => state.news.movies,
                 editVisble:state => state.news.editVisble
             })
         }
