@@ -67,7 +67,7 @@ export default{
         float:left;
          margin-left:20px;
         margin-top:10px;
-         margin-bottom: 10px;
+        margin-bottom: 10px;
     }
 
 </style>

@@ -57,7 +57,7 @@ export default {
  .deletestyle{
         float:left;
         margin-top: 10px;
-       
+       margin-bottom: 10px;
     }
 
 
