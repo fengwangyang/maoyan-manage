@@ -1,6 +1,7 @@
 <template>
    <div>
-       <el-popover :title="house.hName + ' 添加《' + editMovie.cName + '》场次'" trigger="click" :visible="dialogVisible" placement="right">
+      <el-button icon="plus" type="info" @click="addSession">添加场次</el-button>
+       <el-dialog :title="house.hName + '影厅添加《' + editMovie.cName + '》场次'" trigger="click" :visible.sync="dialogVisible" size="tiny" :modal="false" :before-close="handleClose">
             <el-form>
                 <el-form-item label="开场" label-width="60px">
                     <el-date-picker
@@ -21,12 +22,12 @@
                    <el-input-number v-model="price" :min="1" :max="200"></el-input-number>
                 </el-form-item>
             </el-form>
-              <div class="footerButton">
+              <div slot="footer">
                 <el-button @click="handleClose">取 消</el-button>
                 <el-button type="primary" icon="plus" @click="confirmAddSession">确 定</el-button>
               </div>
-              <el-button slot="reference" icon="plus" type="info" @click="addSession" size="small">添加场次</el-button>
-        </el-popover>
+              
+        </el-dialog>
    </div>
 
 </template>
@@ -48,6 +49,7 @@
         methods:{
             handleClose(){
                 store.commit(SWITCH_VISIBLE_SESSION,false);
+                
             },
             handleChang(){
                 
@@ -104,8 +106,7 @@
                                 data:{_id:this.editMovie._id,cinemas:JSON.stringify(this.editMovie.cinemas)},
                                 success:()=>{
                                     this.show();
-                                this.handleClose();
-                                this.start = "";
+                                    this.handleClose();
                                 }
                             })
                         }
@@ -122,8 +123,7 @@
                 store.commit(SWITCH_VISIBLE_SESSION,true);
             },
             setEndTime(){
-                let e = this.start;
-
+                
             }
         },
         watch:{
