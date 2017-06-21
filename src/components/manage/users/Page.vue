@@ -1,14 +1,14 @@
 <template>
-    <div class="block">
+    <div style="marginTop:10px">
       <el-pagination
           @size-change="handleSizeChange"
           @current-change="goTo"
           :current-page.sync="data.curpage"
-          :page-sizes="[5,8,10]"
+          :page-sizes="[5,6,7]"
           :page-size="rowsVal"
           layout="total,sizes, prev, pager, next, jumper"
           :total="data.total">
-        </el-pagination>
+     </el-pagination>
     </div>
 </template>
 <script>
@@ -25,6 +25,7 @@
         },
         methods:{
             handleSizeChange(val){
+                store.commit("PAGE_SIZE",value);
                 this.rowsVal=val;
                 console.log(val);
                 this.show(this.page,val,this.type.searchType,this.type.searchValue);
@@ -46,5 +47,5 @@
     }
 </script>
 <style>
-
+  
 </style>

@@ -1,4 +1,4 @@
-import {SHOW_DATA,SHOW_USERS,FIND_USERS,SET_UPDATEVISIBLE,DELETE_USERS,RENDERER_USERS} from "./mutations"
+import {SHOW_DATA,SHOW_USERS,FIND_USERS,SET_UPDATEVISIBLE,DELETE_USERS,RENDERER_USERS,PAGE_SIZE} from "./mutations"
 
 const users = {
     state:{
@@ -7,7 +7,8 @@ const users = {
         findUsers:{},
         updateVisible:false,
         deleteUsers:"",
-        rendererUsers:""
+        rendererUsers:"",
+        pageSize:"",
     },
     mutations:{
         [SHOW_DATA](state,data){
@@ -27,6 +28,10 @@ const users = {
         },
         [RENDERER_USERS](state,data){
             state.rendererUsers = data;
+            console.log(data);
+        },
+        [PAGE_SIZE](state,data){
+            state.pageSize = data;
             console.log(data);
         }
     }

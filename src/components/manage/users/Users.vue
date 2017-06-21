@@ -1,13 +1,12 @@
 <template>
 <div>
         
-    <h1>用户管理</h1>
-      <UsersManage :show="show"></UsersManage>
+    <h2 class="usersH1">用户管理</h2>
+      <UsersManage :show="show" class="usersInput" style="overflow:hidden"></UsersManage>
     <el-table
+        style="marginTop:10px;"
         :data="tableData"
         border
-        height="400"
-        style="width: 100%"
         @selection-change="handleSelectionChange">
         <el-table-column
           type="selection"
@@ -16,23 +15,29 @@
         </el-table-column>
         <el-table-column
           prop="name"
+          :show-overflow-tooltip=true
           label="姓名">
         </el-table-column>
         <el-table-column
           prop="pwd"
+          :show-overflow-tooltip=true
           label="密码">
         </el-table-column>
          <el-table-column
           prop="phNum"
+          :show-overflow-tooltip=true
           label="电话">
         </el-table-column>
         <el-table-column
           prop="time"
+          :show-overflow-tooltip=true
           label="生日">
         </el-table-column>
         <el-table-column
           prop="email"
+          :show-overflow-tooltip=true
           label="邮箱">
+
         </el-table-column>
         <el-table-column label="操作">
           <template scope="scope">
@@ -44,7 +49,7 @@
           </template>
         </el-table-column>
   </el-table>
-  <Page :show="show"></Page>
+  <Page :show="show" ></Page>
  </div>
 </template>
 <script>
@@ -111,5 +116,15 @@
         }
   }
 </script>
-<style></style>
+<style scoped="scoped">
+    .usersH1{
+        color: blue;
+        margin-top: 10px;
+        text-align: center
+    }
+    .usersInput{
+        margin-top: 20px;
+    }
+  
+</style>
 

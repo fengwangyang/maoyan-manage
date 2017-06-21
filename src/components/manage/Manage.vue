@@ -18,14 +18,14 @@
 <el-row class="tac">
   <el-col :span="4"  class="left">
        <el-menu  :router=true>
-       <el-menu-item index="/users"><i class="el-icon-menu"></i>用户管理</el-menu-item>
-        <el-menu-item index="/on_hot"><i class="el-icon-menu"></i>热映管理</el-menu-item>
+       <el-menu-item index="users"><i class="el-icon-menu"></i>用户管理</el-menu-item>
+        <el-menu-item index="on_hot"><i class="el-icon-menu"></i>热映管理</el-menu-item>
       <el-menu-item index="on_show"><i class="el-icon-menu"></i>热播管理</el-menu-item>
       <el-menu-item index="news"><i class="el-icon-menu"></i>资讯管理</el-menu-item>
       <el-menu-item index="movies_all"><i class="el-icon-menu"></i>电影管理</el-menu-item>
-      <el-menu-item index="movies_rel"><i class="el-icon-menu"></i>电影院线匹配管理</el-menu-item> 
-      <el-menu-item index="cinemas"><i class="el-icon-menu"></i>电影院线管理</el-menu-item>
       <el-menu-item index="pre_show"><i class="el-icon-menu"></i>即将上映</el-menu-item>
+     <el-menu-item index="cinemas"><i class="el-icon-menu"></i>电影院线管理</el-menu-item>
+     <el-menu-item index="movies_rel"><i class="el-icon-menu"></i>电影院线匹配管理</el-menu-item> 
     </el-menu>
   </el-col>
   <el-col :span="18" class="right" :offset="1">
@@ -62,7 +62,9 @@
             }
         },
         created:function(){
-            this.getSession();
+
+//            this.getSession();
+
         },
         components:{IndexManage,Cinemas},
         methods:{
@@ -95,7 +97,7 @@
             "$route":function(nextPath){
                 if(nextPath.path != "/"){
 
-                    this.getSession();
+//                    this.getSession();
 
 //                    console.log(nextPath)
 
@@ -111,9 +113,7 @@
 		background-color:#475669;
         height: 60px;
 	}
-	h2{
-		
-	}
+	
     .left{
 		background-color:#EFF2F7;
 		height:520px;

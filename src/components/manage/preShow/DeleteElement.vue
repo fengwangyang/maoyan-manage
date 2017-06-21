@@ -61,8 +61,10 @@ export default{
 <style scpoed>
 
     .style{
-        float:right;
-        margin:10px;
+        float:left;
+         margin-top:10px;
+       margin-bottom: 10px;
+        margin-left: 20px;
     }
 
 </style>

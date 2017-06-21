@@ -1,6 +1,17 @@
 <template>
    <div class='style'>
-        <el-pagination
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurpage"
+      :current-page="onshowData.curpage"
+      :page-sizes="[5, 6, 7]"
+      :page-size="size"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="onshowData.total">
+    </el-pagination>
+    
+<!--
+    <el-pagination
       @size-change=""
       @current-change="handleCurpage"
       :current-page.sync="onshowData.curpage"
@@ -8,6 +19,7 @@
       layout="prev, pager, next, jumper"
       :total="onshowData.total">
     </el-pagination>
+-->
    </div>
    
     
@@ -16,29 +28,42 @@
 
 <script>
     import {mapState} from "vuex";
+    import store from "@/store";
     export default {
+         data:function(){
+            return {
+                size:0
+            }
+        },
         props:['showOnhot'],
         methods:{
             handleCurpage:function(val){
+                
                let type=this.onhotSearchData.searchValue;
                let typevalue = this.onhotSearchData.value; 
-                 this.showOnhot(val,type,typevalue);
-            }
+                 this.showOnhot(val,this.size,type,typevalue);
+            },
+            handleSizeChange:function(val){
+                 store.commit('ONSHOWPAGESIZE',val);
+                 this.size = val;
+                  let type=this.onhotSearchData.searchValue;
+               let typevalue = this.onhotSearchData.value; 
+            this.showOnhot(this.onshowData.curpage,val,type,typevalue);
+         },
         },
         computed:{
-            ...mapState({    onshowData:state=>state.moviesAll.onshowData,
+            ...mapState({    
+                onshowData:state=>state.moviesAll.onshowData,
              onhotSearchData:state=>state.moviesAll.onhotSearchData   
         })
         }
     }
-    
-    
-</script>
+ </script>
 
 
 <style scoped>
     .style{
-        float:right;
+        float:left;
         }
 
 </style>

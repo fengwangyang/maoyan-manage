@@ -1,5 +1,5 @@
 <template>
-    <el-button @click="del" icon='delete' type="warning">删除</el-button>
+    <el-button @click="del" icon='delete' type="warning" >删除</el-button>
 </template>
 <script>
     import {ajax} from "@/components/common/ajax"

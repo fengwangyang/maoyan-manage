@@ -1,8 +1,9 @@
 <template>
    <div class="add">
-    <el-button icon='plus' type="success" @click="dialogFormVisible = true">添加用户</el-button>
+    <el-button icon='plus' type="success"  @click="dialogFormVisible = true">添加</el-button>
 
-    <el-dialog title="添加用户" :visible.sync="dialogFormVisible" :before-close="close">
+
+    <el-dialog title="添加用户" size="tiny" :visible.sync="dialogFormVisible" :before-close="close">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="姓名" prop="name">
           <el-input v-model="ruleForm.name"></el-input>
@@ -24,8 +25,10 @@
           <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="add('ruleForm')">确定添加</el-button>
+
+            <el-button class=btnstyel @click="dialogFormVisible = false">取 消</el-button>
+            <el-button class='btnstyel' type="primary" @click="add('ruleForm')">确定添加</el-button>
+
         </el-form-item>
       </el-form>
       
@@ -50,7 +53,7 @@
                 rules:{
                     name:[
                         {required: true, message: '请输入姓名', trigger: 'blur' },
-                        {pattern:/^[a-zA-Z]{6,}$/,message: '请输入正确格式（26英文字母）', trigger: 'blur'}
+                        {pattern:/^[a-zA-Z]{6,}$/,message: '请输入正确格式（26位英文字母，最少输入6个字符）', trigger: 'blur'}
                     ],
                     phNum:[
                         {required: true, message: '请输入手机号', trigger: 'blur' },
@@ -93,13 +96,15 @@
                                 });
                                 this.show();
                                 this.close();
+                                this.$refs[formName].resetFields();
                             }.bind(this)
                         });
                        }).catch(() => {
                             this.$message({
                                 type: 'info',
                                 message: '已取消'
-                            });          
+                            });
+                            
                         }); 
                     } else {
                         return false;
@@ -107,12 +112,20 @@
                 });
             },
             close(){
-                this.dialogFormVisible = false
+                this.dialogFormVisible = false;
+                this.$refs.ruleForm.resetFields();
             }
                 
         }
     }
 </script>
-<style>
+<style scoped="scoped">
+
+/*
+    .btnstyel{
+        float:left;
+        margin:10px;
+    }
+*/
 
 </style>

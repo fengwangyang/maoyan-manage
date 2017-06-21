@@ -1,8 +1,11 @@
     <template>
     <el-row>
-                     <el-col :span='8'>
-                      <el-input  :style='inputType' v-model='searintVal' placeholder="请输入内容" >
-                          <el-select v-model='searchVal' slot="prepend" class='select' placeholder="请选择">
+              <div class="table">
+                        
+                  
+                      <el-col>
+                      <el-input  :style='inputType' v-model='searintVal' placeholder="请输入内容" style="width:400px;">
+                          <el-select v-model='searchVal' slot="prepend" class='select' placeholder="请选择" >
                           <el-option value='newsTitle' label="资讯标题"></el-option>
                           <el-option value='movies' label="关联影片"></el-option>
                           <el-option value='mainText' label="资讯正文"></el-option>
@@ -14,20 +17,20 @@
                      </el-col>
                      
 <!--                  增加 删除按钮-->
-
-              <el-col :span="2">
-                <template>
-                      <el-button class='elbut' @click='dislogVisble=true' type="success">增加</el-button>
-                </template>
+                
+                
+              <el-col>
+                <el-button class='elbut' @click='shows' type="primary" style="marginLeft:20px">刷新</el-button>
               </el-col>
                
-                <el-col :span="1">
-                <template>
-                      <el-button @click='delFrom' type="danger">删除</el-button>
-                </template>
+              <el-col>
+                <el-button class='elbut' @click='dislogVisble=true' icon="plus" type="success"  style="marginLeft:20px">添加</el-button>
               </el-col>
-              
-              
+               
+              <el-col>
+                    <el-button class='elbut' @click='delFrom' icon="delete" type="warning"  style="marginLeft:20px">删除</el-button>
+              </el-col>
+               </div>
                
     
 <!--                 增加框-->
@@ -35,23 +38,24 @@
                       <el-dialog :visible.sync="dislogVisble" :model='true'>
                       <el-form :model='newValue' class="form">
                            
-                      <el-form-item label='资讯标题' class="flx">
+                      <el-form-item label-width='80px' label='资讯标题' class="flx">
                        <el-input @input='newsjudge' :style='inputType' v-model='newValue.newsTitleValue'></el-input>
                       </el-form-item>
                         
-                     
-                       <el-form-item label='关联影片' class="flx">
-                       <el-select @change='addmovie' :style='inputType' v-model='moviesValue'>
-                           <el-option v-for='addmovies in data.rows' :label='addmovies.movies' :value='addmovies.movies'>
+                       
+                       <el-form-item label-width='80px' label='关联影片' class="flx">
+                       <el-select @visible-change='addmovie' :multiple=true :style='inputType' v-model='moviesValue'>
+                           <el-option :key="index" v-for='(addmovies,index) in movies ' :label='addmovies.movies' :value='addmovies.movies'>
                            </el-option>
                        </el-select>
                       </el-form-item>
                         
-                     <el-form-item label='资讯正文' class="flx">
-                        <el-input :style='inputType' v-model='newValue.newsmainText'></el-input>
+                     <el-form-item label-width='80px' label='资讯正文' class="flx">
+                        <el-input type="textarea"
+  :autosize="{ minRows: 8, maxRows: 6}" :style='inputType' v-model='newValue.newsmainText'></el-input>
                      </el-form-item>
 <!--                             图片上传   -->
-                     <el-upload :multiple='true' :on-success='sucimage' :on-preview="handlePreview" list-type="picture" :on-remove="handleRemove" class="upload" action='/upload'>
+                     <el-upload  :multiple='true' :on-success='sucimage' :on-preview="handlePreview" list-type="picture" :on-remove="handleRemove" class="upload" action='/upload'>
                          <el-button size='small' type='primary'>上传图片</el-button>
                      </el-upload>
                      
@@ -80,7 +84,6 @@ import store from "@/store"
             props:['newAddFrom','show'],
             data(){
                 return {
-                    
                     inputType:"width:400px",
                     moviesValue:"",
                     dislogVisble:this.isclose,
@@ -90,11 +93,14 @@ import store from "@/store"
                         newsmainText:"",
                         newsRelease:[],
                     },
-                    searchVal:"",
+                    searchVal:"newsTitle",
                     searintVal:""
                 }
             },
             methods:{
+                shows(){
+                    this.show()
+                },
                 newsjudge(e){
                    
                     
@@ -104,9 +110,9 @@ import store from "@/store"
                    this.newValue.newsRelease.push(response)
                 },
                 handleRemove(file, fileList){
-                     console.log(this.newValue.newsRelease)
+                     
                      this.newValue.newsRelease.splice(this.newValue.newsRelease.indexOf(file.url),1)
-                     console.log('id',this.uploadimg)
+                   
                      
                     
             
@@ -115,12 +121,12 @@ import store from "@/store"
                 handlePreview(file){
                   
                     
-                    console.log(file)
+                    
             
                 
                 },
                 addmovie(val){
-                    
+                    console.log(val)
                     
                     this.newValue.newsmovies = val;
             
@@ -170,7 +176,7 @@ import store from "@/store"
                         url:'/news/add',
                         data:{
                            newsTitle:this.newValue.newsTitleValue,
-                           movies:this.newValue.newsmovies,
+                           movies:this.moviesValue,
                            mainText:this.newValue.newsmainText,
                            Release:UpLoadRelease,
                         },
@@ -202,7 +208,8 @@ import store from "@/store"
                     data:state => state.news.newdata,
                     search:state => state.news.search,
                     deldata:state => state.news.delData,
-                    uploadimg:state => state.news.uploadimg
+                    uploadimg:state => state.news.uploadimg,
+                    movies:state => state.news.movies    
                 })
             }
         }
@@ -210,11 +217,17 @@ import store from "@/store"
     
     </script>
 <style lang="css">
+    .table{
+        width: 650px;
+        display: flex;
+        justify-content: space-between;
+        margin-top:20px;
+    }
     .elbut{
-        margin-left: 20px;
+        margin-left: 15px;
     }
     .select{
-     width: 140px;   
+     width: 120px;   
     }
     .upload{
         width: 70%;
@@ -227,7 +240,6 @@ import store from "@/store"
     }
     .flx{
         width: 70%;
-        display: flex;
         margin-left: 15%;
         margin-top: 20px;
         align-items: center;

@@ -1,13 +1,14 @@
 <template>
  
      <el-row>
-        <h1>资讯管理</h1>
-        <NewsSearch :show='show'></NewsSearch>
+       <div class="rows">
+        <h2>资讯管理</h2>
+        <NewsSearch :show='show' ></NewsSearch>
         <NewsTable :show='show'></NewsTable>
+       </div>
+       
      </el-row>
    
-
-    
 
 </template>
 <script>
@@ -24,9 +25,10 @@ export default {
             },
               components:{
               NewsSearch,NewsTable
-              }, 
+            }, 
             created:function(){
                 this.show()
+                this.movie()
             },
             methods:{
                show(page=1,rows,type,value){
@@ -44,7 +46,17 @@ export default {
                             store.commit("NEWS_DATA",data)
                     }.bind(this)
                     })
+                },
+                movie(){
+                ajax({
+                type:"post",
+                url:"/movies/find",
+                data:{},
+                success:function(data){
+                    store.commit("MOVIES_DATA",data)
                 }
+              })     
+               }
             },
             computed:{
                 ...mapState({
@@ -53,7 +65,16 @@ export default {
             }
             }        
 </script>
-<style>
+<style scoped>
+    h2{    
+/*        width: 100%;*/
+        text-align: center;
+        color: blue;
+        margin-top: 10px;
+    }
+    .rows{
+        width: 90;
+            }
     .sel{
         width: 100px;
     }

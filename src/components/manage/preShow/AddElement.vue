@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class='btnstyel'>
        <el-button type="success" @click="dialogTableVisible = true" icon='plus'>添加</el-button>
 
         <el-dialog title="添加" :visible.sync="dialogTableVisible" size='large'>
@@ -34,7 +34,7 @@
               prop="staffs"
               label="演职人员" width="120" :show-overflow-tooltip=true>
               <template scope='scope'>
-                 <span v-for='actor in scope.row.staffs'>{{actor.staffName+","}}</span>
+                 <span v-for='actor in scope.row.staffs'>{{actor.staffName+" "}}</span>
                </template>
               </el-table-column>
             <el-table-column
@@ -58,10 +58,12 @@
               prop="duration"
               label="时长(分钟)" width="120" :show-overflow-tooltip=true>
             </el-table-column>
-            <el-table-column
-              prop="releaseDate"
-              label="上映时间" width="120" :show-overflow-tooltip=true>
-            </el-table-column>
+             <el-table-column
+                  label="上映时间" width="120" :show-overflow-tooltip=true align='center'>
+                  <template scope='scope'>
+                     <span>{{new Date(scope.row.releaseDate).toLocaleDateString()}}</span>
+                   </template>
+                </el-table-column>
 
             <el-table-column
               prop="releaseArea"
@@ -95,26 +97,39 @@ import {mapState} from "vuex";
             return {
                  dialogTableVisible: false,
                 checkedData:[],
+                alldata:[],
+                checked:[]
             }
         },
         created:function(){
-            
+            this.findAllData();
         },
         methods:{
             handleSelectionChange(val) {
                  this.checkedData=val;
+                 this.checked=val;
                 },
             handleCurpage:function(val){
                 this.showMoviesData(val);
             },
+            findAllData:function(){
+                ajax({
+                    type:'get',
+                    url:'/preonshow/find',
+                    data:{},
+                    success:(data)=>{
+                       this.alldata = data
+                    }
+                })
+            },
             confirmAdd:function(){
                 let str = '';
                 let num ='';
-                 for(let i=0;i<this.preshowData.length;i++){
+                 for(let i=0;i<this.alldata.length;i++){
                    
                     for(let j=0;j<this.checkedData.length;j++){
                         
-                        if(this.preshowData[i].cName== this.checkedData[j].cName){
+                        if(this.alldata[i].cName== this.checkedData[j].cName){
                             this.checkedData.splice(j--,1);
                         }
                     }
@@ -123,27 +138,15 @@ import {mapState} from "vuex";
                     str += i.cName +' ';
                     num++;
                 }
+                
+                
+//                if(this.checked == 0){
+//                     this.$message('请选择消息！');
+//                }
+                
                 if(this.checkedData == 0){
-                    
-//                     this.$confirm('数据已添加，请重新选择?', '提示', {
-//                          confirmButtonText: '确定',
-//                          cancelButtonText: '取消',
-//                          type: 'warning'
-//                        }).then(() => {
-//                          this.$message({
-//                            type: 'success'
-//                          
-//                          });
-//                        }).catch(() => {
-//                          this.$message({
-//                            type: 'info'
-//                        
-//                          });          
-//                        });
-                    
-                    
-                    
-                }else{
+                     this.$message('数据重复，请重新添加！')
+                 }else{
                  let addmovies = JSON.stringify(this.checkedData);
                  this.$confirm('确认添加'+str+'这'+num+'条数据?', '提示', {
                       confirmButtonText: '确定',
@@ -160,6 +163,7 @@ import {mapState} from "vuex";
                             success:(data)=>{
                                 this.showOnhot(this.curpage);
                                 this.dialogTableVisible= false;
+                                this.$refs.multipleTable.clearSelection();
                                  this.$message({
                                       type: 'success',
                                         message: '添加成功!'
@@ -194,8 +198,10 @@ import {mapState} from "vuex";
 
 <style scoped>
     .btnstyel{
-        float:right;
-        margin:10px;
+       float:left;
+         margin-top:10px;
+        margin-left: 20px;
+       margin-bottom: 10px;
     }
 
 
