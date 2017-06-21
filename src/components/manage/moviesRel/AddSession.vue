@@ -1,7 +1,7 @@
 <template>
    <div>
       <el-button icon="plus" type="info" @click="addSession">添加场次</el-button>
-       <el-dialog :title="house.hName + '影厅添加《' + editMovie.cName + '》场次'" trigger="click" :visible.sync="dialogVisible" size="small" :modal="false" :before-close="handleClose">
+       <el-dialog :title="house.hName + '影厅添加《' + editMovie.cName + '》场次'" trigger="click" :visible.sync="dialogVisible" size="tiny" :modal="false" :before-close="handleClose">
             <el-form>
                 <el-form-item label="开场" label-width="60px">
                     <el-date-picker

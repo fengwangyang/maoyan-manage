@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog width="400" :visible.sync="sessionVisible" :before-close="close" :title="`${house.hName}中《${session.cName}》的场次`" :modal="false">
+        <el-dialog width="400" :visible.sync="sessionVisible" :before-close="close" :title="`${house.hName}中《${session.cName}》的场次`" :modal="false" size="tiny">
           <el-form>
                 <el-form-item label="开场" label-width="60px">
                     <el-date-picker
