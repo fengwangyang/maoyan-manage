@@ -3,7 +3,7 @@
        
        <el-table-column v-if="isShow" type="expand" class="houseTable">
            <template scope="cinemas">
-               <HouseTable :updateSessions="updateSessions" :data="cinemas.row.houses" :addSession="addSession" :cinema="cinema" :show="show"></HouseTable>
+               <HouseTable :updateSessions="updateSessions" :data="cinemas.row.houses" :addSession="addSession" :cinema="cinemas.row" :show="show"></HouseTable>
            </template>
        </el-table-column>
        <el-table-column type="selection" width="40"></el-table-column>
