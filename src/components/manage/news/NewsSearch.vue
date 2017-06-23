@@ -5,7 +5,7 @@
                   
                       <el-col>
                       <el-input  :style='inputType' v-model='searintVal' placeholder="请输入内容" >
-                          <el-select v-model='searchVal' slot="prepend" class='select' placeholder="请选择">
+                          <el-select  v-model='searchVal' slot="prepend" class='select' placeholder="请选择">
                           <el-option value='newsTitle' label="资讯标题"></el-option>
                           <el-option value='movies' label="关联影片"></el-option>
                           <el-option value='mainText' label="资讯正文"></el-option>
@@ -93,7 +93,7 @@ import store from "@/store"
                         newsmainText:"",
                         newsRelease:[],
                     },
-                    searchVal:"",
+                    searchVal:'newsTitle',
                     searintVal:""
                 }
             },
@@ -113,11 +113,7 @@ import store from "@/store"
                      
                      this.newValue.newsRelease.splice(this.newValue.newsRelease.indexOf(file.url),1)
                    
-                     
-                    
-            
-                
-                },
+               },
                 handlePreview(file){
                   
                     
