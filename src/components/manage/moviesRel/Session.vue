@@ -176,6 +176,7 @@
                         success:()=>{
                             this.show();
                             this.updateSessions();
+                            this.close()
                         }
                     })
                 }).catch(()=>{

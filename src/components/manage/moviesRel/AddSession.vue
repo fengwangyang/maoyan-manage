@@ -1,7 +1,7 @@
 <template>
    <div>
       <el-button icon="plus" type="info" @click="addSession">添加场次</el-button>
-       <el-dialog :title="house.hName + '影厅添加《' + editMovie.cName + '》场次'" trigger="click" :visible.sync="dialogVisible" size="tiny" :modal="false" :before-close="handleClose">
+       <el-dialog :title="house.hName + '添加《' + editMovie.cName + '》场次'" :visible.sync="dialogVisible" size="tiny" :modal="false" :before-close="handleClose">
             <el-form>
                 <el-form-item label="开场" label-width="60px">
                     <el-date-picker
@@ -43,12 +43,13 @@
                 start:"",
                 end:"",
                 price:"",
+                dialogVisible:false,
             }
         },
         props:["house","cinema","show"],
         methods:{
             handleClose(){
-                store.commit(SWITCH_VISIBLE_SESSION,false);
+                this.dialogVisible = false;
                 
             },
             handleChang(){
@@ -59,7 +60,7 @@
                     let cinema = this.cinema;
                     let house = this.house;
                     let session = {price:this.price,time:[this.start,this.end],cName:this.editMovie.cName};
-                    if(house.sessions){
+                    if(house.sessions && house.sessions.length > 0){
                         //循环判断当前添加的场次时间在哪个场次之前，并把添加的场次放在比该场次时间大的之前
                         let sessionArry = house.sessions;
                         for(let i = 0;i < sessionArry.length;i++){
@@ -82,7 +83,7 @@
                         house.sessions = [];
                         house.sessions.push(session);
                     }
-                    cinema.houses = cinema.houses.map((val)=>{
+                    cinema.houses = this.cinema.houses.map((val)=>{
                         if(val.hName == house.hName){
                             return house;
                         }else{
@@ -107,6 +108,7 @@
                                 success:()=>{
                                     this.show();
                                     this.handleClose();
+                                    this.handleClose();
                                 }
                             })
                         }
@@ -120,7 +122,7 @@
             addSession(){
                 this.start = "";
                 this.end = "";
-                store.commit(SWITCH_VISIBLE_SESSION,true);
+                this.dialogVisible = true;
             },
             setEndTime(){
                 
@@ -160,7 +162,6 @@
         },
         computed:{
             ...mapState({
-                dialogVisible:state=>state.moviesRel.sessionVisible,
                 editMovie:state=>state.moviesRel.editMovie,
             })
         }
