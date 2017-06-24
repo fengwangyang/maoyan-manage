@@ -16,7 +16,9 @@
 <script>
     import HouseTable from "./HouseTable";
     import {mapState} from "vuex";
-    import {ajax} from "@/components/common/ajax"
+    import {ajax} from "@/components/common/ajax";
+    import {SHOW_MOVIE_CINEMAS} from "@/store/moviesRel/mutations";
+    import store from "@/store"
     
     export default{
         data:function(){
@@ -40,7 +42,10 @@
                                 if(val._id == row._id){
                                     val.houses = data.houses;
                                 }
-                            })
+                            });
+                            let editMovie = this.editMovie;
+                            editMovie.cinemas = cinemas;
+                            store.commit(SHOW_MOVIE_CINEMAS,editMovie);
                             ajax({
                                 url:"/linkedMovies/update",
                                 data:{_id:this.editMovie._id,cinemas:JSON.stringify(cinemas)},

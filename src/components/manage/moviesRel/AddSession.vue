@@ -50,7 +50,9 @@
         methods:{
             handleClose(){
                 this.dialogVisible = false;
-                
+                this.start = "";
+                this.end = "";
+                this.price = "";
             },
             handleChang(){
                 
@@ -59,7 +61,7 @@
                 if(this.start && this.end){
                     let cinema = this.cinema;
                     let house = this.house;
-                    let session = {price:this.price,time:[this.start,this.end],cName:this.editMovie.cName};
+                    let session = {price:this.price,time:[this.start,this.end],cName:this.editMovie.cName,seatStatus:house.sitSetting};
                     if(house.sessions && house.sessions.length > 0){
                         //循环判断当前添加的场次时间在哪个场次之前，并把添加的场次放在比该场次时间大的之前
                         let sessionArry = house.sessions;
@@ -100,14 +102,12 @@
                                     val.houses = cinema.houses;
                                 }
                             });
-                            console.log(this.editMovie.cinemas);
                             ajax({
                                 url:"/linkedMovies/update",
                                 type:"post",
                                 data:{_id:this.editMovie._id,cinemas:JSON.stringify(this.editMovie.cinemas)},
                                 success:()=>{
                                     this.show();
-                                    this.handleClose();
                                     this.handleClose();
                                 }
                             })
@@ -120,8 +120,6 @@
                 }
             },
             addSession(){
-                this.start = "";
-                this.end = "";
                 this.dialogVisible = true;
             },
             setEndTime(){
